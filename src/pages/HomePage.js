@@ -27,43 +27,30 @@ export default function HomePage () {
 return (
         <StyledHomePage>
             <div className="blog">
+                {isLoading === true ? (
+                    <div className="loadingContainer">
+                        <div className="loader">
+                        </div>
+                    </div>
+                ) : (
                 <div className="blogWrapper">
                     {
-                        blogList.map((article, key) =>{
+                        blogList.slice().reverse().map((article, key) =>{
                             return(
                                 <BlogSnip
-                                id={article._id}
-                                title={article.postTitle}
-                                date={article.postDate}
-                                linkTitle={article.postLinkTitle}
-                                thumbnail={article.thumbnail}
-                                intro={article.postIntro}
-                                //
-                                conclusion={article.postConclusion}
-                                conclusionHeader={article.postConclusionHeader}
-                                // 
-                                para1Title={article.postParagraphTitle1}
-                                para1={article.postParagraph1}
-                                para1Image={article.postImage1}
-                                //
-                                para2Title={article.postParagraphTitle2} 
-                                para2={article.postParagraph2}
-                                para2Image={article.postImage2}
-                                //
-                                para3Title={article.postParagraphTitle3} 
-                                para3={article.postParagraph3}
-                                para3Image={article.postImage3}
-                                //
-                                para4Title={article.postParagraphTitle4}
-                                para4={article.postParagraph4}
-                                para4Image={article.postImage4}
-                                //
-                                key={key}
+                                    id={article._id}
+                                    title={article.postTitle}
+                                    date={article.postDate}
+                                    linkTitle={article.linkTitle}
+                                    thumbnail={article.thumbnail}
+                                    brief={article.postBrief}
+                                    key={key}
                                 />
                             )
                         })
                     }
                 </div>
+                )}
             </div>
         </StyledHomePage >
     )
