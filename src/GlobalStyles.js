@@ -17,7 +17,7 @@ html {
     @media (max-width: 1450px){
         font-size: 70%;
     }  
-    @media (max-width: 1000px){
+    @media (max-width: 1220px){
         width: 90%
     } 
 }

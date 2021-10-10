@@ -62,6 +62,9 @@ background: #dadada;
                     font-size: 2em;
                     margin: 6px 0;
                     color: black;
+                        @media (max-width: 500px){
+                            font-size: 1.5em;
+                        }
                     }
                 h5 {
                     font-size: 1em;
