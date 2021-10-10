@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, FETCH_POST } from '../../../src/constants/actionTypes';
+import { FETCH_ALL, CREATE, FETCH_POST } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 

@@ -9,11 +9,12 @@ import HomePage from "./pages/HomePage";
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import BlogMaker from "./pages/BlogMaker";
+import BlogArticle from "./pages/BlogArticle";
 
 // components
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
-import BlogArticle from "./components/BlogArticle";
+
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
           </Route>
 
           <Route path={["/post/:linkTitle/:id", "/"]}>
-            <HomePage />
+            <BlogArticle />
           </Route>
         </Switch>
 
