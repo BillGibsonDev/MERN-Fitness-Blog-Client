@@ -61,6 +61,7 @@ background: #dadada;
                 h4 {
                     font-size: 2em;
                     margin: 6px 0;
+                    color: black;
                     }
                 h5 {
                     font-size: 1em;
@@ -69,9 +70,10 @@ background: #dadada;
                 p {
                     width: 90%;
                     margin: 6px 0;
+                    color: black;
                     a {
                         text-decoration: underline;
-                        color: #fc0000;
+                        color: #1900fc;
                         font-family: 'Oswald', sans-serif;
                         font-size: 1em;
                             &:hover {

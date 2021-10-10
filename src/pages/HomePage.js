@@ -1,5 +1,5 @@
 
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 // styled
 import styled from 'styled-components';
@@ -23,7 +23,9 @@ export default function HomePage () {
 
     const blogList = useSelector((state) => state.posts);
 
+    const [ isLoading, setLoading ] = useState(false);
 
+    console.log(setLoading);
 return (
         <StyledHomePage>
             <div className="blog">

@@ -28,7 +28,7 @@ function openNav() {
                 <Link to="/">Home</Link>
                 <Link to="/AboutPage">About</Link>
                 <Link to="/ContactPage">Contact</Link>
-                <a href="https://www.therealdealfitness.com" target="_blank" rel="noreferrer">Shop</a>
+                <a href="https://www.trdfitshop.com" target="_blank" rel="noreferrer">Shop</a>
             </nav>
             <div id="myNav" className="overlay">
                 <button onClick={closeNav}>&times;</button>
@@ -36,7 +36,7 @@ function openNav() {
                     <Link to="/" onClick={closeNav}>Home</Link>
                     <Link to="/AboutPage" onClick={closeNav}>About</Link>
                     <Link to="/ContactPage" onClick={closeNav}>Contact</Link>
-                    <a href="https://therealdealfitness.com" rel="noreferrer" onClick={closeNav}>Shop</a>
+                    <a href="https://trdfitshop.com" rel="noreferrer" onClick={closeNav}>Shop</a>
                 </div>
             </div>
             <img id='hamburger' src={Hamburger} onClick={openNav} alt="hamburger menu"/>
