@@ -67,6 +67,24 @@ const StyledHomePage = styled.div`
         width: 100%;
         height: 100%;
         margin: 1em auto;
+        .loadingContainer{
+            display: flex;
+            width: 100%;
+            height: 50vh;
+            justify-content: center;
+            align-items: center;
+            .loader {
+                border: 16px solid #f3f3f3;
+                border-top: 16px solid #db3434;
+                border-radius: 50%;
+                width: 250px;
+                height: 250px;
+                animation: spin 2s linear infinite;
+                img {
+                    width: 120px;
+                }
+            }
+        }
         .blogWrapper {
             display: flex;
             flex-direction: column;
