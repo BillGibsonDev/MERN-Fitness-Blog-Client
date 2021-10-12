@@ -30,7 +30,6 @@ export default function BlogArticle() {
                             <div className="overlayWrapper">
                                 <h4>{article.postTitle}</h4>
                                 <h5>{article.postDate}</h5>
-                                <div class="shareaholic-canvas" data-app="follow_buttons" data-app-id="28567059"></div>
                                 <img src={article.thumbnail} alt="" />
                                 <p>{article.postIntro}</p>
                                     <div className="paraWrapper">
