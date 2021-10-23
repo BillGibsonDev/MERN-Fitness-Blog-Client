@@ -46,12 +46,12 @@ function openNav() {
 
 const StyledNav = styled.div`
 display: flex;
-    justify-content: space-between;
-    width: 95%;
-    margin: auto;
-    align-items: center;
-    height: 10vh;
-    border-bottom: 2px white solid;
+justify-content: space-between;
+width: 95%;
+margin: auto;
+align-items: center;
+height: 10vh;
+border-bottom: 2px white solid;
     .logo {
         width: 200px;
     }
@@ -59,17 +59,18 @@ display: flex;
         display: flex;
         width: 40%;
         justify-content: space-between;
+        @media (max-width: 750px){
+            display: none;
+        }
         a {
             text-decoration: none;
             font-size: 1.5em;
-            color: black;
+            color: #b9b9b9;
             &:hover {
                 color: white;
                 transition: 0.3s;
+                transform: scale(1.1);
             }
-        }
-        @media (max-width: 750px){
-            display: none;
         }
     }
 

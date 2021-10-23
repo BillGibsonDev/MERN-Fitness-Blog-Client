@@ -20,7 +20,7 @@ export default function BlogSnip({
             <div className="titleContainer">
                 <h4>{title}</h4>
                 <h5>{date}</h5>
-                <p>{brief}..<Link to={`/post/${linkTitle}/${id}`}>Continue Reading</Link></p>
+                <p>{brief}..<h6>Continue Reading</h6></p>
             </div>
             <img src={thumbnail} alt={thumbnail} />
             </Link>
@@ -74,11 +74,13 @@ background: #dadada;
                     width: 90%;
                     margin: 6px 0;
                     color: black;
-                    a {
+                    h6 {
                         text-decoration: underline;
                         color: #1900fc;
                         font-family: 'Oswald', sans-serif;
                         font-size: 1em;
+                        font-weight: 400;
+                        cursor: pointer;
                             &:hover {
                                 cursor: pointer;
                                 transition: 0.3s;

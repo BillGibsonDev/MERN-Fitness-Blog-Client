@@ -35,22 +35,26 @@ export default function BlogArticle() {
                                     <div className="paraWrapper">
                                         <h6>{article.postParagraphTitle1}</h6>
                                         <img src={article.postImage1} alt='' />
-                                        <p>{article.postParagraph1} <hr /><a href={article.postLink1} target="_blank" rel="noreferrer">{article.postLink1}</a></p>
+                                        <p>{article.postParagraph1}</p>
+                                        <a href={article.postLink1} target="_blank" rel="noreferrer">{article.postLink1}</a>
                                     </div>
                                 <div className="paraWrapper">
                                     <h6>{article.postParagraphTitle2}</h6>
                                     <img src={article.postImage2} alt='' />
-                                    <p>{article.postParagraph2} <hr /><a href={article.postLink2} target="_blank" rel="noreferrer">{article.postLink2}</a></p>
+                                    <p>{article.postParagraph2}</p>
+                                    <a href={article.postLink2} target="_blank" rel="noreferrer">{article.postLink2}</a>
                                 </div>
                                 <div className="paraWrapper">
                                     <h6>{article.postParagraphTitle3}</h6>
                                     <img src={article.postImage3} alt='' />
-                                    <p>{article.postParagraph3} <hr /><a href={article.postLink3} target="_blank" rel="noreferrer">{article.postLink3}</a></p>
+                                    <p>{article.postParagraph3}</p>
+                                    <a href={article.postLink3} target="_blank" rel="noreferrer">{article.postLink3}</a>
                                 </div>
                                 <div className="paraWrapper">
                                     <h6>{article.postParagraphTitle4}</h6>
                                     <img src={article.postImage4} alt='' />
-                                    <p>{article.postParagraph4} <hr /><a href={article.postLink4} target="_blank" rel="noreferrer">{article.postLink4}</a></p>
+                                    <p>{article.postParagraph4}</p>
+                                    <a href={article.postLink4} target="_blank" rel="noreferrer">{article.postLink4}</a>
                                 </div>
                                 <div className="paraWrapper">
                                     <h6>{article.conclusionHeader}</h6>
@@ -92,13 +96,13 @@ background: #ffffff;
             width: 90%;
             height: 100%;
             margin: auto;
-            h4{
-                font-size: 4em;
+            h4 {
+            font-size: 3em;
                 @media (max-width: 750px){
                     font-size: 2.5em;
                 }
             }
-            h5{
+            h5 {
                 font-size: 2em;
                 color: gray;
             }
@@ -113,13 +117,13 @@ background: #ffffff;
             }
             .paraWrapper{
                 margin:5% 0 10% 0;
-                h6{
+                h6 {
                     color: #3b5998;
                     font-size: 3em;
                     margin: 25px 0;
-                    @media (max-width: 750px){
-                        font-size: 2.5em;
-                    }
+                        @media (max-width: 750px){
+                            font-size: 2.5em;
+                        }
                 }
             }
         }

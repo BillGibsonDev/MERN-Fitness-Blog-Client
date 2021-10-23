@@ -15,21 +15,20 @@ import { useSelector } from 'react-redux';
 
 export default function HomePage () {
 
+    const [ isLoading, setLoading ] = useState(true);
     const dispatch = useDispatch();
     
     useEffect(() => {
         dispatch(getPosts());
+        setLoading(false)
     }, [dispatch]);
 
     const blogList = useSelector((state) => state.posts);
 
-    const [ isLoading, setLoading ] = useState(false);
-
-    console.log(setLoading);
 return (
         <StyledHomePage>
             <div className="blog">
-                {isLoading === true ? (
+                { isLoading === true ? (
                     <div className="loadingContainer">
                         <div className="loader">
                         </div>
@@ -75,7 +74,7 @@ const StyledHomePage = styled.div`
             align-items: center;
             .loader {
                 border: 16px solid #f3f3f3;
-                border-top: 16px solid #db3434;
+                border-top: 16px solid #0099ff;
                 border-radius: 50%;
                 width: 250px;
                 height: 250px;
@@ -84,6 +83,11 @@ const StyledHomePage = styled.div`
                     width: 120px;
                 }
             }
+        }
+
+        @keyframes spin {
+            0%  { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         .blogWrapper {
             display: flex;
