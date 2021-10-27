@@ -28,14 +28,14 @@ export default function HomePage () {
 return (
         <StyledHomePage>
             <div className="blog">
-                { isLoading === true ? (
-                    <div className="loadingContainer">
-                        <div className="loader">
-                        </div>
-                    </div>
-                ) : (
                 <div className="blogWrapper">
                     {
+                        isLoading === true ? (
+                            <div className="loadingContainer">
+                                <div className="loader">
+                                </div>
+                            </div>
+                        ) : (
                         blogList.slice().reverse().map((article, key) =>{
                             return(
                                 <BlogSnip
@@ -49,23 +49,29 @@ return (
                                 />
                             )
                         })
-                    }
+                    )}
                 </div>
-                )}
             </div>
         </StyledHomePage >
     )
 }
 
 const StyledHomePage = styled.div`
-    height: 100%;
-    width: 100%;
-    margin: 1em 0;
+height: 100%;
+width: 100%;
+margin: 1em 0;
     .blog {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin: 1em auto;
+    .blogWrapper {
         display: flex;
+        flex-direction: column;
         width: 100%;
-        height: 100%;
-        margin: 1em auto;
+        min-height: 100%;
+        margin: 0 auto;
+        border-radius: 12px;
         .loadingContainer{
             display: flex;
             width: 100%;
@@ -74,7 +80,7 @@ const StyledHomePage = styled.div`
             align-items: center;
             .loader {
                 border: 16px solid #f3f3f3;
-                border-top: 16px solid #0099ff;
+                border-top: 16px solid #000000;
                 border-radius: 50%;
                 width: 250px;
                 height: 250px;
@@ -84,18 +90,10 @@ const StyledHomePage = styled.div`
                 }
             }
         }
-
+    }
         @keyframes spin {
             0%  { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        .blogWrapper {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            min-height: 100%;
-            margin: 0 auto;
-            border-radius: 12px;
-        }
-    }
+}
 `;
