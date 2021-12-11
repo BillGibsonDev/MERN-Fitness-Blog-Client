@@ -8,12 +8,15 @@ import { Route, Switch } from 'react-router-dom';
 import HomePage from "./pages/HomePage";
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
-import BlogMaker from "./pages/BlogMaker";
 import BlogArticle from "./pages/BlogArticle";
+import CreateUser from "./pages/CreateUser.js";
+import EditPostPage from "./pages/EditPostPage";
+import CreatePostPage from "./pages/CreatePostPage";
 
 // components
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
+
 
 
 function App() {
@@ -21,14 +24,14 @@ function App() {
     <div className="App">
       <GlobalStyles />
 
-            <Nav />
+        <Nav />
 
         <Switch>
           <Route path={'/'} exact>
             <HomePage />
           </Route> 
           
-          <Route path="/AboutPage"  exact>
+          <Route path="/AboutPage" exact>
             <AboutPage />
           </Route>
           
@@ -36,8 +39,16 @@ function App() {
             <ContactPage />
           </Route>
 
-          <Route path="/BlogMaker" exact>
-            <BlogMaker />
+          <Route path="/CreatePostPage" exact>
+            <CreatePostPage />
+          </Route>
+
+          <Route path="/EditPostPage/:postId" exact>
+            <EditPostPage />
+          </Route>
+
+          <Route path="/CreateUser" exact>
+            <CreateUser />
           </Route>
 
           <Route path={["/post/:linkTitle/:id", "/"]}>

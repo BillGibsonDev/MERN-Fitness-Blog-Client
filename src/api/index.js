@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'https://therealdealfit.herokuapp.com';
+const baseURL = process.env.REACT_APP_BASE_URL;
 
 export const fetchPosts = () => axios.get(`${baseURL}/read`);
 export const fetchPost = (id) => axios.get(`${baseURL}/post/${id}`);

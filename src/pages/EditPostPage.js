@@ -6,7 +6,7 @@ import axios from 'axios';
 // styled
 import styled from 'styled-components';
 
-export default function BlogMaker() {
+export default function EditPostPage() {
 
     // post heading
     const [postTitle, setPostTitle] = useState("");
