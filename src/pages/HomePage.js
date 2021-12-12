@@ -9,7 +9,7 @@ import BlogSnip from '../components/BlogSnip';
 
 // redux
 import { useDispatch } from 'react-redux';
-import { getPosts } from '../actions/posts';
+import { getPosts } from '../redux/actions/posts';
 import { useSelector } from 'react-redux';
 
 
@@ -21,7 +21,7 @@ export default function HomePage () {
     useEffect(() => {
         dispatch(getPosts());
         setLoading(false)
-    }, [dispatch]);
+    }, [dispatch])
 
     const blogList = useSelector((state) => state.posts);
 

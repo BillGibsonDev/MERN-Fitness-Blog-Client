@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const baseURL = process.env.REACT_APP_BASE_URL;
+const baseURL = 'https://therealdealfit.herokuapp.com';
 
 export const fetchPosts = () => axios.get(`${baseURL}/read`);
-export const fetchPost = (id) => axios.get(`${baseURL}/post/${id}`);
+export const fetchPost = (id) => axios.get(`${baseURL}/Posts/${id}`);
 export const createPost = (newPost) => axios.post(`${baseURL}/insert`, newPost);

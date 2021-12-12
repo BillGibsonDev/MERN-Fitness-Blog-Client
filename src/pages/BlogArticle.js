@@ -6,7 +6,7 @@ import { useParams } from 'react-router';
 
 // redux
 import { useDispatch } from 'react-redux';
-import { getPosts } from '../actions/posts';
+import { getPosts } from '../redux/actions/posts';
 import { useSelector } from 'react-redux';
 
 export default function BlogArticle() {

@@ -12,7 +12,6 @@ export default function CreateUser({role, confirmAdmin}) {
 	const [ userRole, setUserRole ] = useState("");
 
 	useEffect(() => {
-		confirmAdmin(role);
 		setUserRole(process.env.REACT_APP_GUEST_SECRET);
 		// eslint-disable-next-line
 	}, [role, userRole])
@@ -21,10 +20,9 @@ export default function CreateUser({role, confirmAdmin}) {
 			if (password !== confirm ) {
 				alert("Passwords don't match");
 			} else {
-				axios.post(`${process.env.REACT_APP_REGISTER_URL}`, {
+				axios.post(`http://localhost:5000/9756853052543fdsafdsfaA5435435`, {
 					username: username,
 					password: password,
-					role: role,
 					userRole: `${process.env.REACT_APP_GUEST_SECRET}`,
 				})
 				.then(function(response) {
@@ -38,6 +36,7 @@ export default function CreateUser({role, confirmAdmin}) {
 		}
 
 	function unauthorized() {
+		
         alert("You do not have permissions to do that!")
     }
 

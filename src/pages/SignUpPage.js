@@ -1,5 +1,4 @@
-// images
-import BugImage from '../images/bugYaleBlue.png'
+
 
 // styled
 import styled from 'styled-components';
@@ -14,9 +13,6 @@ export default function LoginPage({login, setUsername, setPassword, handleTokens
 			{
 				isLoading === true ? (
 					<div className="loading-container">
-						<div className="loader">
-							<img src={BugImage} alt="" />
-						</div>
 							<h2>Signing In...</h2>
 					</div>
 				) : (
@@ -77,20 +73,6 @@ border-radius: 12px;
 		width: 100%;
 		align-items: center;
 		position: relative;
-		.loader {
-			opacity: 80%;
-			border: 16px dashed #0f4d92;
-			border-radius: 50%;
-			width: 220px;
-			height: 220px;
-			animation: spin 2s linear infinite;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			img {
-				width: 100px;
-			}
-		}
 		h2 {
 			margin-top: 10px;
 			font-size: 1em;
@@ -112,21 +94,6 @@ border-radius: 12px;
 		input {
 			width: 200px;
 			margin-bottom: 20px;
-		}
-	}
-	.guest-container {
-		margin-top: 40px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-direction: column;
-		h4 {
-			font-size: 1.2em;
-			color: #636363;
-		}
-		h5 {
-			color: #636363;
-			font-size: 1em;
 		}
 	}
 `;

@@ -41,7 +41,7 @@ export default function CreatePostPage() {
 
 
 const addToBlog = () => {
-    axios.post('http://localhost:5000/insert', {
+    axios.post(`${process.env.REACT_APP_ADD_POST_URL}`, {
         // post heading
         postTitle: postTitle,
         postLinkTitle: postLinkTitle,

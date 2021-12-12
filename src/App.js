@@ -12,6 +12,8 @@ import BlogArticle from "./pages/BlogArticle";
 import CreateUser from "./pages/CreateUser.js";
 import EditPostPage from "./pages/EditPostPage";
 import CreatePostPage from "./pages/CreatePostPage";
+import LoginPage from "./pages/LoginPage.js";
+import SignUpPage from "./pages/SignUpPage.js";
 
 // components
 import Nav from "./components/Nav";
@@ -49,6 +51,14 @@ function App() {
 
           <Route path="/CreateUser" exact>
             <CreateUser />
+          </Route>
+
+          <Route path="/SignUpPage" exact>
+            <SignUpPage />
+          </Route>
+
+          <Route path="/LoginPage" exact>
+            <LoginPage />
           </Route>
 
           <Route path={["/post/:linkTitle/:id", "/"]}>
