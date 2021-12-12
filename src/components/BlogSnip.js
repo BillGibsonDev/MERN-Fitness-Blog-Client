@@ -20,7 +20,7 @@ export default function BlogSnip({
             <div className="titleContainer">
                 <h4>{title}</h4>
                 <h5>{date}</h5>
-                <p>{brief}..<h6>Continue Reading</h6></p>
+                <p>{brief}<span>..Continue Reading</span></p>
             </div>
             <img src={thumbnail} alt={thumbnail} />
             </Link>
@@ -74,7 +74,7 @@ background: #dadada;
                     width: 90%;
                     margin: 6px 0;
                     color: black;
-                    h6 {
+                    span {
                         text-decoration: underline;
                         color: #1900fc;
                         font-family: 'Oswald', sans-serif;

@@ -1,8 +1,11 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
 // styles
 import GlobalStyles from "./GlobalStyles";
 
 // react router
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 
 // pages
 import HomePage from "./pages/HomePage";
@@ -14,19 +17,168 @@ import EditPostPage from "./pages/EditPostPage";
 import CreatePostPage from "./pages/CreatePostPage";
 import LoginPage from "./pages/LoginPage.js";
 import SignUpPage from "./pages/SignUpPage.js";
+import ProfilePage from "./pages/ProfilePage";
+
 
 // components
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 
 
-
 function App() {
+
+  const [ password, setPassword ] = useState('');
+	const [ user, setUser] = useState('');
+  const [ username, setUsername] = useState('');
+	const [ isLoggedIn, setLoggedIn ] = useState(false);
+	const [ role, setRole ] = useState("");
+	const [ lastLogin, setLastLogin ] = useState("");
+	const [ isLoading, setLoading ] = useState(false);
+
+  const history = useHistory();
+
+	function handleDate(){
+        const current = new Date();
+        const date = `${current.getMonth()+1}/${current.getDate()}/${current.getFullYear()} @ ${current.getHours()}:${current.getMinutes()}`;
+        setLastLogin(date);
+    }
+
+function handleTokens() {
+		let tokenPW = sessionStorage.getItem("tokenPW");
+		let tokenUser = sessionStorage.getItem("tokenUser");
+		if (tokenPW === null) {
+			history.push("/LoginPage");
+		} else {
+			tokenPW = password;
+			tokenUser = username;
+		}
+		// Update session storage
+		sessionStorage.setItem("tokenPW", tokenPW);
+		sessionStorage.setItem("tokenUser", tokenUser);
+	}
+
+  useEffect(() =>{
+		handleDate();
+		reloadLogin();
+		// eslint-disable-next-line
+	},[])
+
+function login () {
+		setLoading(true)
+		axios.post(`${process.env.REACT_APP_LOGIN_URL}`, {
+			username: username,
+			password: password,
+			lastLogin: lastLogin,
+		})
+		.then(function(response){
+			setUser(username)
+			setLoggedIn(true)
+			setLoading(false)
+			handleTokens()
+			history.push("/");
+			if (response.data === "LOGGED IN"){
+				axios.post(`${process.env.REACT_APP_SET_ROLE_URL}`, {
+					username: username, 
+					password: password,
+				})
+				.then((response) => {
+					setRole(response.data)
+				})
+			} else {
+				alert("Wrong Username or Password")
+			}
+		})
+		.catch(function (error) {
+			alert("Wrong Username or Password")
+			setLoading(false);
+		});
+	}
+
+	const logout = () => {
+		localStorage.clear();
+		sessionStorage.clear();
+		window.location.reload();
+		setLoggedIn(false);
+		setUser("");
+		setPassword('');
+		setUsername("");
+		history.push("/LoginPage");
+	}
+
+	function confirmAdmin () {
+		axios.post(`${process.env.REACT_APP_ADMIN_CONFIRM_URL}`, {
+			role: role,
+		})
+		.then(function(response){
+			if (response.data !== "Role Confirmed"){
+				alert("You do not have this permission!");
+				localStorage.clear();
+				sessionStorage.clear();
+				window.location.reload();
+				setLoggedIn(false);
+				history.push("/LoginPage");
+			} 
+		})
+	}
+
+	function confirmRole () {
+		axios.post(`${process.env.REACT_APP_ROLE_CONFIRM_URL}`, {
+			role: role,
+		})
+		.then(function(response){
+			if (response.data !== "Role Confirmed" ){
+				alert("Role was not confirmed");
+				localStorage.clear();
+				sessionStorage.clear();
+				window.location.reload();
+				setLoggedIn(false);
+				history.push("/LoginPage");
+			}
+		})
+	}
+
+	function reloadLogin() {
+		setLoggedIn(true)
+		let tokenPW = sessionStorage.getItem("tokenPW");
+		let tokenUser = sessionStorage.getItem("tokenUser");
+		if (tokenPW === null && tokenUser === null) {
+			history.push("/LoginPage");
+			setLoggedIn(false);
+		} else {
+			axios.post(`${process.env.REACT_APP_LOGIN_URL}`, {
+			username: tokenUser,
+			password: tokenPW,
+		})
+		.then(function(response){
+			let tokenPW = sessionStorage.getItem("tokenPW");
+			let tokenUser = sessionStorage.getItem("tokenUser");
+			setUser(tokenUser)
+			if (response.data === "LOGGED IN"){
+				axios.post(`${process.env.REACT_APP_SET_ROLE_URL}`, {
+					username: tokenUser, 
+					password: tokenPW,
+				})
+				.then((response) => {
+					setRole(response.data)
+				})
+			}
+		})
+		.catch(function (error) {
+		throw error;
+		});
+	}}
+
   return (
     <div className="App">
       <GlobalStyles />
 
-        <Nav />
+        <Nav
+          logout={logout}
+          isLoggedIn={isLoggedIn}
+          user={user}
+					role={role}
+					confirmAdmin={confirmAdmin}
+        />
 
         <Switch>
           <Route path={'/'} exact>
@@ -50,7 +202,9 @@ function App() {
           </Route>
 
           <Route path="/CreateUser" exact>
-            <CreateUser />
+            <CreateUser
+              confirmRole={confirmRole}
+            />
           </Route>
 
           <Route path="/SignUpPage" exact>
@@ -58,7 +212,17 @@ function App() {
           </Route>
 
           <Route path="/LoginPage" exact>
-            <LoginPage />
+            <LoginPage
+              login={login}
+              setUsername={setUsername}
+              setPassword={setPassword}
+              handleTokens={handleTokens}
+              isLoading={isLoading}
+            />
+          </Route>
+
+          <Route path="/ProfilePage" exact>
+            <ProfilePage />
           </Route>
 
           <Route path={["/post/:linkTitle/:id", "/"]}>

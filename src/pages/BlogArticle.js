@@ -9,7 +9,16 @@ import { useDispatch } from 'react-redux';
 import { getPosts } from '../redux/actions/posts';
 import { useSelector } from 'react-redux';
 
-export default function BlogArticle() {
+// components
+import CommentSection from "../components/CommentSection";
+
+// router
+import { Link } from 'react-router-dom';
+
+//images
+import Edit from '../images/editIconBlack.png';
+
+export default function BlogArticle({role, author, username}) {
 
     const { id } = useParams();
 
@@ -23,6 +32,13 @@ export default function BlogArticle() {
 
     return (
         <StyledArticle>
+            {
+                role === process.env.REACT_APP_ADMIN_SECRET || username === author ? (
+                    <Link to={`/EditPostPage/${id}`}><img id="edit" src={Edit} alt="" /></Link>
+                ) : (
+                    <Link to={`/EditPostPage/${id}`}><img id="edit" src={Edit} alt="" /></Link>
+                )
+            }
            { 
                 articles.filter(articles => articles._id === `${id}`).map((article, key) => {
                     return (
@@ -61,6 +77,9 @@ export default function BlogArticle() {
                                     <p>{article.conclusion}</p>
                                 </div>
                             </div>
+                            <CommentSection
+
+                            />
                         </div>
                     )
                 })
@@ -73,16 +92,28 @@ const StyledArticle = styled.div`
 min-height: 20vh;
 display: flex;
 justify-content: space-between;
+flex-direction: column;
 margin: 2em 0;
 align-items: center;
 width: 100%;
 border-radius: 14px;
 box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.219);
 background: #ffffff;
+position: relative;
+a {
+    width: 25px;
+    position: absolute;
+    top: 1%;
+    right: 2%;
+        #edit {
+            width: 100%;
+        }
+    }
     .overlayContent {
     position: relative;
     width: 90%;
     display: flex;
+    flex-direction: column;
     margin:  2em auto;
     border-radius: 20px;
         @media (max-width: 750px){

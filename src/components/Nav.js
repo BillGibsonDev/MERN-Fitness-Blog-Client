@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../images/Logo.png';
 import Hamburger from '../images/hamburgerWhite2.png';
 
-export default function Nav() {
+export default function Nav({role, isLogged}) {
 
  /* Open when someone clicks on the span element */
 function openNav() {
@@ -24,20 +24,50 @@ function openNav() {
     return (
         <StyledNav>
             <img className="logo" src={Logo} alt="" />
-            <nav>
-                <Link to="/">Home</Link>
-                <Link to="/AboutPage">About</Link>
-                <Link to="/ContactPage">Contact</Link>
-                <a href="https://www.trdfitshop.com" target="_blank" rel="noreferrer">Shop</a>
-            </nav>
+            {
+                 isLogged === false ? (
+                    <nav>
+                        <Link to="/">Home</Link>
+                        <Link to="/AboutPage">About</Link>
+                        <Link to="/ContactPage">Contact</Link>
+                        <a href="https://www.trdfitshop.com" target="_blank" rel="noreferrer">Merch</a>
+                        <Link to="/SignUpPage">Sign Up</Link>
+                        <Link to="/LoginPage">Log In</Link>
+                    </nav>
+                 ) : (
+                     <nav>
+                        <Link to="/">Home</Link>
+                        <Link to="/AboutPage">About</Link>
+                        <Link to="/ContactPage">Contact</Link>
+                        <a href="https://www.trdfitshop.com" target="_blank" rel="noreferrer">Merch</a>
+                        <Link to="/ProfilePage">Profile</Link>
+                        <Link to="/">Sign Out</Link>
+                    </nav>
+                    )
+                }
             <div id="myNav" className="overlay">
                 <button onClick={closeNav}>&times;</button>
-                <div className="overlayContent">
-                    <Link to="/" onClick={closeNav}>Home</Link>
-                    <Link to="/AboutPage" onClick={closeNav}>About</Link>
-                    <Link to="/ContactPage" onClick={closeNav}>Contact</Link>
-                    <a href="https://trdfitshop.com" rel="noreferrer" onClick={closeNav}>Shop</a>
-                </div>
+                {
+                        isLogged === false ? (
+                            <div className="overlayContent">
+                                <Link to="/" onClick={closeNav}>Home</Link>
+                                <Link to="/AboutPage" onClick={closeNav}>About</Link>
+                                <Link to="/ContactPage" onClick={closeNav}>Contact</Link>
+                                <a href="https://trdfitshop.com" rel="noreferrer" onClick={closeNav}>Merch</a>
+                                <Link to="/SignUpPage">Sign Up</Link>
+                                <Link to="/LoginPage">Log In</Link>
+                            </div>
+                        ) : (
+                            <div className="overlayContent">
+                                <Link to="/" onClick={closeNav}>Home</Link>
+                                <Link to="/AboutPage" onClick={closeNav}>About</Link>
+                                <Link to="/ContactPage" onClick={closeNav}>Contact</Link>
+                                <a href="https://trdfitshop.com" rel="noreferrer" onClick={closeNav}>Merch</a>
+                                <Link to="/ProfilePage">Profile</Link>
+                                <Link to="/">Sign Out</Link>
+                            </div>
+                        )
+                    }
             </div>
             <img id='hamburger' src={Hamburger} onClick={openNav} alt="hamburger menu"/>
         </StyledNav>
@@ -57,14 +87,14 @@ border-bottom: 2px white solid;
     }
     nav {
         display: flex;
-        width: 40%;
+        width: 60%;
         justify-content: space-between;
         @media (max-width: 750px){
             display: none;
         }
         a {
             text-decoration: none;
-            font-size: 1.5em;
+            font-size: 1.2em;
             color: #b9b9b9;
             &:hover {
                 color: white;

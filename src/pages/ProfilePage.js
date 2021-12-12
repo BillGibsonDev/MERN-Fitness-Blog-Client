@@ -1,92 +1,78 @@
-
-
 // styled
 import styled from 'styled-components';
 
-export default function LoginPage({login, setUsername, setPassword, handleTokens, isLoading }) {
+export default function ProfilePage({user, role}) {
 
-	return (
-		<StyledLoginPage>
-			<h3>Log In</h3>
-			{
-				isLoading === true ? (
-					<div className="loading-container">
-							<h2>Signing In...</h2>
-					</div>
-				) : (
-					<div className="form-wrapper">
-						<label>Username:</label>
-						<input 
-							type="text" 
-							onChange={(event) => {
-								//setUsername(event.target.value);
-							}}
-						/>
-						<label>Password:</label>
-						<input 
-							type="password" 
-							onChange={(event) => {
-								setPassword(event.target.value);
-							}}
-						/>
-						<button id="back-button" type="submit" onClick={() =>{ login(); handleTokens(); }}>Sign In</button>
-					</div>
-				)
-			}
-		</StyledLoginPage>
-	)
+    return (
+        <StyledProfilePage>
+            <h1>Profile</h1>
+            {
+                user === null ? (
+                    <h1>You are signed out</h1>
+                ) : (
+                    <>
+                        <div className="user-container">
+                            <h2><span>Username: </span>{user}</h2>
+                            {
+                                role === process.env.REACT_APP_ADMIN_SECRET ? (
+                                    <h2><span>Role: </span>Admin</h2>
+								) : role === process.env.REACT_APP_AUTHOR_SECRET ? (
+                                    <h2><span>Role: </span>Author</h2>
+                                ) : role === process.env.REACT_APP_USER_SECRET ? (
+                                    <h2><span>Role: </span>User</h2>
+                                ) : role === process.env.REACT_APP_GUEST_SECRET ? (
+                                    <h2><span>Role: </span>Guest</h2>
+                                ) : (
+                                    <span>{role}</span>
+                                )
+                            }
+                        </div>
+                    </>
+                )
+            }
+        </StyledProfilePage>
+    )
 }
 
-const StyledLoginPage = styled.div`
+const StyledProfilePage = styled.div`
+background: #fff;
+min-height: 80vh;
+border-radius: 20px;
+width: 90%;
+margin: auto;
 display: flex;
 align-items: center;
-justify-content: center;
 flex-direction: column;
-background: white;
-height: 80vh;
-width: 90%;
-margin: 5% auto;
-border-radius: 12px;
-	h1 {
-		font-size: 5em;
-		color: #0f4d92;
-	}
-	h2 {
-		font-size: 1em;
-		margin-bottom: 40px;
-		color: #0f4c92bc;
-	}
-	h3 {
-		font-size: 2em;
-		margin-bottom: 50px;
-	}
-	.loading-container {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		align-items: center;
-		position: relative;
-		h2 {
-			margin-top: 10px;
-			font-size: 1em;
-			color: black;
-		}
-	}
- 	@keyframes spin {
-        0%  { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+    @media (max-width: 1050px){
+        width: 98%;
     }
-	.form-wrapper {
-		display: flex;
-		width: 50%;
-		flex-direction: column;
-		align-items: center;
-		label {
-			font-weight: bold;
-		}
-		input {
-			width: 200px;
-			margin-bottom: 20px;
-		}
-	}
+    h1 {
+		font-size: 3em;
+		color: #0f4d92;
+        margin: 20px auto;
+        display: flex;
+        justify-content: center;
+        width: 50%;
+        border-bottom: 2px #0f4d92 solid;
+    }
+    .user-container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        width: 60%;
+        @media (max-width: 1150px){
+            flex-direction: column;
+        }
+        h2 {
+            margin: 20px 0;
+            @media (max-width: 1150px){
+                margin: 10px 0;
+                font-size: 2em;
+            }
+            span {
+                color: #363636;
+            }
+        }
+    }
 `;

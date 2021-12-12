@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-const baseURL = 'https://therealdealfit.herokuapp.com';
-
-export const fetchPosts = () => axios.get(`${baseURL}/read`);
-export const fetchPost = (id) => axios.get(`${baseURL}/Posts/${id}`);
-export const createPost = (newPost) => axios.post(`${baseURL}/insert`, newPost);
+export const fetchPosts = () => axios.get(`http://localhost:5000/649783wqewqewqqqqqq4020/Posts`);
+export const fetchPost = (postId) => axios.get(`${process.env.REACT_APP_GET_POST_URL}/${postId}`);
+export const createPost = (newPost) => axios.post(`${process.env.REACT_APP_GET_POST_URL}`, newPost);
