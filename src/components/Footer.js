@@ -3,7 +3,7 @@
 import styled from 'styled-components';
 
 // components
-import EmailForm from './emailForm';
+import EmailForm from './EmailForm';
 
 // images
 import FB from '../images/FB.png';
@@ -40,20 +40,23 @@ display: flex;
 justify-content: center;
 align-items: center;
 border-top: 2px solid white;
-@media (max-width: 750px){
+@media (max-width: 1050px){
        flex-direction: column;
   }
 .iconContainer {
     display: flex;
-    justify-content: space-around;
-    width: 30%;
+    justify-content: space-between;
+    width: 40%;
     margin: 2% auto; 
-    @media (max-width: 1000px){
-       width: 90%;
+    @media (max-width: 1050px){
+       width: 30%;
+    }
+    @media (max-width: 750px){
+       width: 50%;
     }
     a {
         img {
-            width: 40px;
+            width: 30px;
         }
     }
 }

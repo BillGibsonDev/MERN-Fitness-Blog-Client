@@ -9,7 +9,7 @@ const GlobalStyles = createGlobalStyle`
 html {
 margin: auto;
 scroll-behavior: smooth;
-width: 50%;
+width: 90%;
 background: #3b5998;
 font-family: 'Oswald', sans-serif;
 letter-spacing: .5px;

@@ -12,7 +12,6 @@ import { useDispatch } from 'react-redux';
 import { getPosts } from '../redux/actions/posts';
 import { useSelector } from 'react-redux';
 
-
 export default function HomePage () {
 
     const [ isLoading, setLoading ] = useState(true);
@@ -23,7 +22,7 @@ export default function HomePage () {
         setLoading(false)
     }, [dispatch])
 
-    const blogList = useSelector((state) => state.posts);
+    const articles = useSelector((state) => state.posts);
 
 return (
         <StyledHomePage>
@@ -36,7 +35,7 @@ return (
                                 </div>
                             </div>
                         ) : (
-                        blogList.slice().reverse().map((article, key) =>{
+                        articles.slice().reverse().map((article, key) => {
                             return(
                                 <BlogSnip
                                     id={article._id}

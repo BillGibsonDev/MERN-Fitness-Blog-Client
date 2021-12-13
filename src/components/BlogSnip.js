@@ -41,10 +41,10 @@ background: #dadada;
     @media (max-width: 750px){
         height: 100%;
     }
-    &:hover{
+    &:hover {
         transform: scale(1.02);
         transition: 0.3s;
-        }
+    }
     a {
         display: flex;
         width: 100%;
@@ -62,7 +62,7 @@ background: #dadada;
                     font-size: 2em;
                     margin: 6px 0;
                     color: black;
-                        @media (max-width: 500px){
+                        @media (max-width: 800px){
                             font-size: 1.5em;
                         }
                     }

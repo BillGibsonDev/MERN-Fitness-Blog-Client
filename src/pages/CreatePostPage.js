@@ -286,7 +286,7 @@ h1 {
     display: flex;
     flex-direction: column;
     background: lightgray;
-    width: 50%;
+    width: 90%;
     align-items: center;
     border-radius: 12px;
         input, button, textarea {

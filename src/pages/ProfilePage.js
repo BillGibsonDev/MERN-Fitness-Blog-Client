@@ -1,7 +1,28 @@
+import { useState, useEffect } from 'react';
+
 // styled
 import styled from 'styled-components';
 
-export default function ProfilePage({user, role}) {
+// router
+import { Link } from 'react-router-dom';
+
+// redux
+import { useDispatch } from 'react-redux';
+import { getPosts } from '../redux/actions/posts';
+import { useSelector } from 'react-redux';
+
+
+export default function ProfilePage({ user, role }) {
+
+    const [ isLoading, setLoading ] = useState(true);
+    const dispatch = useDispatch();
+    
+   useEffect(() => {
+        dispatch(getPosts());
+        setLoading(false)
+    }, [dispatch])
+
+    const articles = useSelector((state) => state.posts);
 
     return (
         <StyledProfilePage>
@@ -27,6 +48,38 @@ export default function ProfilePage({user, role}) {
                                 )
                             }
                         </div>
+                            {
+                                role === process.env.REACT_APP_ADMIN_SECRET || role === process.env.REACT_APP_CREATOR_SECRET ? (
+                                    <div className="creator-dashboard">
+                                        <Link to="/CreatePostPage">Create Post</Link>
+                                        <h4>Your Articles</h4>
+                                        {
+                                            isLoading === true ? (
+                                                <div className="loadingContainer">
+                                                    <div className="loader">
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <> 
+                                                    {
+                                                        articles.filter(articles => articles.author === `${user}`).map((article, key) => {
+                                                            return (
+                                                                <div className="article" key={key}>
+                                                                    <Link to={`/post/${article.linkTitle}/${article._id}`}>
+                                                                        <h5>{article.title}</h5>
+                                                                    </Link>
+                                                                </div>
+                                                            )
+                                                        })
+                                                    }
+                                                </> 
+                                            )
+                                        }
+                                    </div>
+                                ) : (
+                                    <></>
+                                )
+                            }
                     </>
                 )
             }

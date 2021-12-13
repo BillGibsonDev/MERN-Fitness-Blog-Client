@@ -12,26 +12,23 @@ export default function EmailForm() {
         return <p>Thanks for joining!</p>;
     }
     return (
-        <StyledForm>
-            <h4>Sign up for our Email News Letter!</h4>
-            <form onSubmit={handleSubmit}>
-        <label htmlFor="email">
-          Your Email:
-        </label>
-        <input
-          id="email"
-          type="email" 
-          name="email"
-        />
-        <ValidationError 
-          prefix="Email" 
-          field="email"
-          errors={state.errors}
-        />
-        <button type="submit" disabled={state.submitting}>
-          Join
-        </button>
-      </form>
+      <StyledForm>
+          <form onSubmit={handleSubmit}>
+            <input
+              id="email"
+              type="email" 
+              name="email"
+              placeholder="Subscribe to our Email Newsletter"
+            />
+            <ValidationError 
+              prefix="Email" 
+              field="email"
+              errors={state.errors}
+            />
+            <button type="submit" disabled={state.submitting}>
+              Join
+            </button>
+          </form>
       </StyledForm>
     );
 }
@@ -51,18 +48,20 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
-    label{
+    label {
         margin-right: 10px;
         color: #bebebe;
     }
-    input{
+    input {
         height: 30px;
-        width: 200px;
+        width: 250px;
+        display: flex;
         border-radius: 6px;
         border: none;
         font-size: 1em;
+        padding: 3px 0;
     }
-    button{
+    button {
         height: 30px;
         width: 60px;
         font-size: 16px;
