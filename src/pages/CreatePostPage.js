@@ -6,273 +6,229 @@ import axios from 'axios';
 // styled
 import styled from 'styled-components';
 
-export default function CreatePostPage() {
+export default function CreatePostPage({user}) {
 
-    // post heading
-    const [postTitle, setPostTitle] = useState("");
-    const [postLinkTitle, setPostLinkTitle] = useState("");
-    const [postDate, setPostDate] = useState(0);
-    const [thumbnail, setThumbnail] = useState('');
-    const [postIntro, setPostIntro] = useState('');
+//post heading
+    const [ postTitle, setPostTitle ] = useState("");
+    const [ linkTitle, setLinkTitle ] = useState("");
+    const [ postDate, setPostDate ] = useState(0);
+    const [ thumbnail, setThumbnail ] = useState('');
+    const [ postIntro, setPostIntro ] = useState('');
+    const [ author, setAuthor ] = useState(user);
+
+    const [inputFields, setInputFields] = useState([
+        { 
+            paragraph: '', 
+            title: '', 
+            image: '', 
+            link: '' ,
+        }
+    ]);
 
     // conclusion
-    const [postConclusion, setPostConclusion] = useState('');
-    const [postConclusionHeader, setPostConclusionHeader] = useState('');
-
-    // para 1
-    const [postParagraphTitle1, setPostParagraphTitle1] = useState('');
-    const [postParagraph1, setPostParagraph1] = useState('');
-    const [postImage1, setPostImage1] = useState('');
-
-    // para 2
-    const [postParagraphTitle2, setPostParagraphTitle2] = useState('');
-    const [postParagraph2, setPostParagraph2] = useState('');
-    const [postImage2, setPostImage2] = useState('');
-
-    // para 3
-    const [postParagraphTitle3, setPostParagraphTitle3] = useState('');
-    const [postParagraph3, setPostParagraph3] = useState('');
-    const [postImage3, setPostImage3] = useState('');
-
-    // para 4
-    const [postParagraphTitle4, setPostParagraphTitle4] = useState('');
-    const [postParagraph4, setPostParagraph4] = useState('');
-    const [postImage4, setPostImage4] = useState('');
+    const [conclusion, setConclusion] = useState('');
+    const [conclusionTitle, setConclusionTitle] = useState('');
 
 
-const addToBlog = () => {
+
+const handleSubmit = () => {
     axios.post(`${process.env.REACT_APP_ADD_POST_URL}`, {
         // post heading
+        author: author,
         postTitle: postTitle,
-        postLinkTitle: postLinkTitle,
+        linkTitle: linkTitle,
         postDate: postDate,
         thumbnail: thumbnail,
         postIntro: postIntro,
 
+        // sections
+        sections: inputFields,
+  
         // conclusion 
-        postConclusion: postConclusion,
-        postConclusionHeader: postConclusionHeader,
+        conclusion: conclusion,
+        conclusionTitle: conclusionTitle,
 
-        // para 1
-        postImage1: postImage1,
-        postParagraph1: postParagraph1,
-        postParagraphTitle1: postParagraphTitle1,
-
-        // para 2
-        postImage2: postImage2,
-        postParagraph2: postParagraph2,
-        postParagraphTitle2: postParagraphTitle2,
-
-        // para 3
-        postImage3: postImage3,
-        postParagraph3: postParagraph3,
-        postParagraphTitle3: postParagraphTitle3,
-
-        // para 4
-        postImage4: postImage4,
-        postParagraph4: postParagraph4,
-        postParagraphTitle4: postParagraphTitle4,
-    });
-    alert('Blog Post Added')
+    })
+    .then(function(response){
+        if(response === "Post Created"){
+            alert('Blog Post Added')
+        }
+        console.log(response)
+    })
+    .catch(function (error) {
+		console.log(error);
+	});
 };
 
+const handleAddFields = () => {
+    const values = [...inputFields];
+    values.push({ paragraph: '', title: '', image: '', link: '' });
+    setInputFields(values);
+  };
+
+  const handleRemoveFields = index => {
+    const values = [...inputFields];
+    values.splice(index, 1);
+    setInputFields(values);
+  };
+
+  const handleInputChange = (index, event) => {
+    const values = [...inputFields];
+    if (event.target.name === "paragraph") {
+      values[index].paragraph = event.target.value;
+    } else if(event.target.name === "title") {
+      values[index].title = event.target.value;
+    } else if (event.target.name === "image"){
+        values[index].image = event.target.value;
+    } else {
+        values[index].link = event.target.value;
+        }
+
+    setInputFields(values);
+  };
+
 const clearForm = () =>{
-    document.getElementById('title').value = '';
-    document.getElementById('linkTitle').value = '';
-    document.getElementById('date').value = '';
-    document.getElementById('image1').value = '';
-    document.getElementById('image2').value = '';
-    document.getElementById('image3').value = '';
-    document.getElementById('image4').value = '';
-    document.getElementById('para1Title').value = '';
-    document.getElementById('para2Title').value = '';
-    document.getElementById('para3Title').value = '';
-    document.getElementById('para4Title').value = '';
-    document.getElementById('thumbnail').value = '';
-    document.getElementById('intro').value = '';
-    document.getElementById('conclusion').value = '';
-    document.getElementById('conclusionHeader').value = '';
+    window.location.reload();
     alert('Form Cleared')
 }
 
     return (
-        <StyledBlogMaker>
+        <StyledCreatePage>
             <h1>Hey my guy, looking swell today.</h1>
             <div className="formWrapper">
-            <label htmlFor="">Post Title:
-            <input
-            type="text"
-            id="title"
-            onChange={(event) => {
-                setPostTitle(event.target.value);
-            }}
-            /></label>
-            <label htmlFor="">Post Title(Add '-' to Title):
-            <input
-            type="text"
-            id="linkTitle"
-            onChange={(event) => {
-                setPostLinkTitle(event.target.value);
-            }}
-            /></label>
+                <section id="intro">
+                    <div className="info-container">
+                        <div className="input-container">
+                            <label>Post Title:
+                            <input
+                                type="text"
+                                id="title"
+                                onChange={(event) => {
+                                    setPostTitle(event.target.value);
+                                }}
+                            /></label>
+                            <label>Post Title(Add '-' to Title):
+                            <input
+                                type="text"
+                                id="linkTitle"
+                                onChange={(event) => {
+                                    setLinkTitle(event.target.value);
+                                }}
+                            /></label>
 
-            <label htmlFor="">Post Date:
-                <input 
-                type="date" 
-                id="date"
-                onChange={(event) =>{
-                setPostDate(event.target.value);
-                }}
-            /></label>
+                            <label>Post Date:
+                                <input 
+                                type="date" 
+                                id="date"
+                                onChange={(event) =>{
+                                    setPostDate(event.target.value);
+                                }}
+                            /></label>
 
-            <label htmlFor="">Post Thumbnail:
-                <input 
-                type="file" 
-                id="thumbnail"
-                onChange={(event) =>{
-                setThumbnail(event.target.value);
-            }}
-            /></label>
-
-            <label htmlFor="">Intro Paragraph:</label>
-                <textarea
-                id='intro'
-                onChange={(event) =>{
-                setPostIntro(event.target.value);
-                }}
-            />
-
-            <label htmlFor="">Paragraph 1 Title:
-                <input
-                id='para1Title'
-                onChange={(event) =>{
-                setPostParagraphTitle1(event.target.value);
-                }}
-                />
-            </label>
-
-            <label htmlFor="">Paragraph 1 Image:
-                <input 
-                type="file" 
-                id="image1"
-                onChange={(event) =>{
-                setPostImage1(event.target.value);
-                }}
-            /></label>
-
-            <label htmlFor="">Paragraph 1:</label>
-                <textarea
-                id='para1'
-                onChange={(event) =>{
-                setPostParagraph1(event.target.value);
-                }}
-            />
-
-<label htmlFor="">Paragraph 2 Title:
-                <input
-                id='para2Title'
-                onChange={(event) =>{
-                setPostParagraphTitle2(event.target.value);
-                }}
-                />
-            </label>
-
-            <label htmlFor="">Paragraph 2 Image:
-                <input 
-                type="file" 
-                id="image2"
-                onChange={(event) =>{
-                setPostImage2(event.target.value);
-                }}
-            /></label>
-
-            <label htmlFor="">Paragraph 2:</label>
-                <textarea
-                id='para2'
-                onChange={(event) =>{
-                setPostParagraph2(event.target.value);
-                }}
-            />
-
-<label htmlFor="">Paragraph 3 Title:
-                <input
-                id='para3Title'
-                onChange={(event) =>{
-                setPostParagraphTitle3(event.target.value);
-                }}
-                />
-            </label>
-
-            <label htmlFor="">Paragraph 3 Image:
-                <input 
-                type="file" 
-                id="image3"
-                onChange={(event) =>{
-                setPostImage3(event.target.value);
-                }}
-            /></label>
-
-            <label htmlFor="">Paragraph 3:</label>
-                <textarea
-                id='para3'
-                onChange={(event) =>{
-                setPostParagraph3(event.target.value);
-                }}
-            />
-
-<label htmlFor="">Paragraph 4 Title:
-                <input
-                id='para4Title'
-                onChange={(event) =>{
-                setPostParagraphTitle4(event.target.value);
-                }}
-                />
-            </label>
-
-            <label htmlFor="">Paragraph 4 Image:
-                <input 
-                type="file" 
-                id="image4"
-                onChange={(event) =>{
-                setPostImage4(event.target.value);
-                }}
-            /></label>
-
-            <label htmlFor="">Paragraph 4:</label>
-                <textarea
-                id='para4'
-                onChange={(event) =>{
-                setPostParagraph4(event.target.value);
-                }}
-            />
-
-<label htmlFor="">Conclusion Header:
-                <input
-                id='conclusionHeader'
-                onChange={(event) =>{
-                setPostConclusionHeader(event.target.value);
-                }}
-                />
-            </label>
-
-            <label htmlFor="">Conclusion:</label>
-                <textarea
-                id='conclusion'
-                onChange={(event) =>{
-                setPostConclusion(event.target.value);
-                }}
-            />
-
-            <div className="buttonWrapper">
-                <button onClick={addToBlog}>Submit</button>
-                <button id= "clear" onClick={clearForm}>Clear</button>
+                            <label>Post Thumbnail:
+                                <input 
+                                type="text" 
+                                id="thumbnail"
+                                onChange={(event) =>{
+                                    setThumbnail(event.target.value);
+                                }}
+                            /></label>
+                        </div>
+                    </div>
+                    <label className="paragraph-textarea">Intro Paragraph:
+                        <textarea
+                        id='intro'
+                        onChange={(event) =>{
+                            setPostIntro(event.target.value);
+                        }}
+                    /></label>
+                </section>
+                {
+                    inputFields.map((inputField, index) => {
+                        return (
+                            <section id="paragraph-section" key={index}>
+                                <div className="info-container">
+                                    <div className="input-container">
+                                        <label>Title
+                                            <input
+                                                type="text"
+                                                id="title"
+                                                name="title"
+                                                value={inputField.title}
+                                                onChange={event => handleInputChange(index, event)}
+                                        /></label>
+                                        <label>Link
+                                            <input
+                                                type="text"
+                                                id="link"
+                                                name="link"
+                                                value={inputField.link}
+                                                onChange={event => handleInputChange(index, event)}
+                                        /></label>
+                                        <label>Image
+                                            <input
+                                                type="text"
+                                                id="image"
+                                                name="image"
+                                                value={inputField.image}
+                                                onChange={event => handleInputChange(index, event)}
+                                        /></label>
+                                    </div>
+                                    <label>Paragraph
+                                        <textarea
+                                            type="text"
+                                            className="form-control"
+                                            id="paragraph"
+                                            name="paragraph"
+                                            value={inputField.paragraph}
+                                            onChange={event => handleInputChange(index, event)}
+                                    /></label>
+                                </div>
+                                <div className="button-container">
+                                    <button onClick={handleAddFields}>Add Paragraph</button>
+                                    {
+                                        inputFields.length === 1 ? (
+                                            <button>Remove</button>
+                                        ):(
+                                            <button onClick={handleRemoveFields}>Remove</button>
+                                        )
+                                    }
+                                </div>
+                            </section>
+                        )
+                    })
+                }
+                <section id="conclusion">
+                    <div className="info-container">
+                        <div className="input-container">
+                            <label htmlFor="">Conclusion Title:
+                                <input
+                                    id='conclusionTitle'
+                                    onChange={(event) =>{
+                                        setConclusionTitle(event.target.value);
+                                    }}
+                                />
+                            </label>
+                        </div>
+                    </div>
+                    <label className="paragraph-textarea" >Conclusion:
+                        <textarea
+                            id='conclusion'
+                            onChange={(event) =>{
+                                setConclusion(event.target.value);
+                            }}
+                    /></label>
+                </section>
+                <div className="buttonWrapper">
+                    <button onClick={handleSubmit}>Submit</button>
+                    <button id= "clear" onClick={clearForm}>Clear</button>
+                </div>
             </div>
-        </div>
-        </StyledBlogMaker>
+        </StyledCreatePage>
     )
 }
 
-const StyledBlogMaker = styled.div`
+const StyledCreatePage = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -286,24 +242,71 @@ h1 {
     display: flex;
     flex-direction: column;
     background: lightgray;
-    width: 90%;
+    width: 100%;
     align-items: center;
     border-radius: 12px;
-        input, button, textarea {
-        width: 200px;
-        height: 30px;
-    }
-    label {
-        font-size: 1.5em;
-        margin: 10px;
-    }
-    input {
-        margin: 6px;
-    }
-    textarea {
-        width: 400px;
-        height: 200px;
-    }
+        #paragraph-section, #intro, #conclusion {
+            border-bottom: 2px white solid;
+            width: 95%;
+            justify-content: space-between;
+            flex-direction: column;
+            display: flex;
+            margin-bottom: 30px;
+            .info-container {
+                display: flex;
+                position: relative;
+                width: 100%;
+                .input-container {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    input, button, textarea {
+                        width: 300px;
+                        height: 30px;
+                        }
+                        label {
+                            display: flex;
+                            flex-direction: column;
+                            font-size: 1.5em;
+                            margin: 10px;
+                            textarea {
+                                width: 400px;
+                                height: 200px;
+                            }
+                        }
+                    }
+                }
+                label {
+                    display: flex;
+                    flex-direction: column;
+                    font-size: 1.5em;
+                    margin: 10px;
+                    height: 100%;
+                    width: 50%;
+                    textarea {
+                        width: 400px;
+                        height: 200px;
+                    }
+                }
+            .button-container {
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                button {
+                    padding: 0 6px;
+                    border-radius: 6px;
+                    border: none;
+                    background: lightblue;
+                    color: white;
+                }
+            }
+        }
+        #intro, #conclusion {
+            flex-direction: row;
+            .info-container {
+                flex-direction: column;
+            }
+        }
     button{
         margin: 12px;
         font-size: 1.5em;
@@ -324,7 +327,6 @@ h1 {
             opacity: 1;
         }
     }
-
 }
 
 `;

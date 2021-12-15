@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../images/Logo.png';
 import Hamburger from '../images/hamburgerWhite2.png';
 
-export default function Nav({role, isLogged}) {
+export default function Nav({role, isLoggedIn, logout}) {
 
  /* Open when someone clicks on the span element */
 function openNav() {
@@ -25,7 +25,7 @@ function openNav() {
         <StyledNav>
             <img className="logo" src={Logo} alt="" />
             {
-                 isLogged === false ? (
+                 isLoggedIn === false ? (
                     <nav>
                         <Link to="/">Home</Link>
                         <Link to="/AboutPage">About</Link>
@@ -41,14 +41,14 @@ function openNav() {
                         <Link to="/ContactPage">Contact</Link>
                         <a href="https://www.trdfitshop.com" target="_blank" rel="noreferrer">Merch</a>
                         <Link to="/ProfilePage">Profile</Link>
-                        <Link to="/">Sign Out</Link>
+                        <Link to="/" onClick={logout}>Sign Out</Link>
                     </nav>
                     )
                 }
             <div id="myNav" className="overlay">
                 <button onClick={closeNav}>&times;</button>
                 {
-                        isLogged === false ? (
+                        isLoggedIn === false ? (
                             <div className="overlayContent">
                                 <Link to="/" onClick={closeNav}>Home</Link>
                                 <Link to="/AboutPage" onClick={closeNav}>About</Link>

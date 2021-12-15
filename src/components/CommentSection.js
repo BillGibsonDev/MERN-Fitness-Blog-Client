@@ -8,12 +8,9 @@ import styled from 'styled-components';
 import Comment from '../components/Comment';
 
 // router
-import { useParams } from 'react-router-dom';
 import Loader from '../loaders/Loader';
 
-export default function PostPage({user, role}) {
-
-    const { postId } = useParams();
+export default function PostPage({ user, role, isLoggedIn, postId }) {
 
     const [ comments, setComments ] = useState([]);
     const [ addComment, setAddComment] = useState('');
@@ -22,7 +19,7 @@ export default function PostPage({user, role}) {
     const [ isLoading, setLoading ] = useState(false);
 
     function getPosts(){
-        axios.get(`${process.env.REACT_APP_GET_POSTS_URL}`)
+        axios.get(`${process.env.REACT_APP_GET_POST_URL}/${postId}`)
         .then(function (response){
             setComments(response.data.comments)
         })
@@ -37,8 +34,8 @@ export default function PostPage({user, role}) {
         setAddDate(date);
     }
     
-    useEffect(() =>{
-        //getPosts();
+    useEffect(() => {
+        getPosts();
         handleDate();
         setAuthor(user);
         // eslint-disable-next-line
@@ -63,7 +60,7 @@ export default function PostPage({user, role}) {
     }
 
     function unauthorized(){
-        alert("You do not have permissions to do that!")
+        alert("You need account to comment! Please sign up or log in.")
     }
 
     return (
@@ -83,10 +80,10 @@ export default function PostPage({user, role}) {
                             }}  
                         />
                         {
-                            role === process.env.REACT_APP_GUEST_SECRET ? (
-                                <button onClick={()=> { unauthorized();}}>Send</button>
+                            isLoggedIn === false ? (
+                                <button onClick={()=> { unauthorized();}}>Reply</button>
                             ) : (
-                                <button onClick={()=> { handleDate(); sendComment();}}>Send</button>
+                                <button onClick={()=> { handleDate(); sendComment();}}>Reply</button>
                             )
                         }
                     </div>
@@ -94,9 +91,8 @@ export default function PostPage({user, role}) {
             }
             { 
                 comments === undefined ? (
-                    <div className="undefined">
-                        <h1>You've havent entered any comments</h1>
-                    </div>
+                    <>
+                    </>
                 ) : (
                     <>
                         {

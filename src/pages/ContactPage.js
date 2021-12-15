@@ -16,19 +16,19 @@ export default function ContactPage () {
 }
 
 const StyledContactPage = styled.div`
-background: white;
-border-radius: 12px;
-margin: 5% auto;
-.contactWrapper {
-    width: 95%;
-    margin: auto;
-    h1 {
-        font-size: 2.5em;
-        color: #3a3a3a;
+    background: white;
+    border-radius: 12px;
+    margin: 5% auto;
+    .contactWrapper {
+        width: 95%;
+        margin: auto;
+        h1 {
+            font-size: 2.5em;
+            color: #3a3a3a;
+        }
+        h2 {
+            font-size: 2.2em;
+            color: #3a3a3a;
+        }
     }
-    h2 {
-        font-size: 2.2em;
-        color: #3a3a3a;
-    }
-}
 `;

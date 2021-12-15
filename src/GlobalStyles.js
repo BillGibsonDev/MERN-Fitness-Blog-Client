@@ -7,13 +7,13 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
 }
 html {
-margin: auto;
-scroll-behavior: smooth;
-width: 90%;
-background: #3b5998;
-font-family: 'Oswald', sans-serif;
-letter-spacing: .5px;
-line-height: 1.5;
+    margin: auto;
+    scroll-behavior: smooth;
+    width: 90%;
+    background: #3b5998;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: .5px;
+    line-height: 1.5;
     @media (max-width: 1450px){
         font-size: 90%;
         width: 70%;

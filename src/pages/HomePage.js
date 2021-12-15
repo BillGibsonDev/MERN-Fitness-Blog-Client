@@ -12,9 +12,10 @@ import { useDispatch } from 'react-redux';
 import { getPosts } from '../redux/actions/posts';
 import { useSelector } from 'react-redux';
 
-export default function HomePage () {
+export default function HomePage ({ user, role, handleRefresh }) {
 
     const [ isLoading, setLoading ] = useState(true);
+
     const dispatch = useDispatch();
     
     useEffect(() => {
@@ -23,7 +24,7 @@ export default function HomePage () {
     }, [dispatch])
 
     const articles = useSelector((state) => state.posts);
-
+    
 return (
         <StyledHomePage>
             <div className="blog">
@@ -38,12 +39,15 @@ return (
                         articles.slice().reverse().map((article, key) => {
                             return(
                                 <BlogSnip
+                                    user={user}
                                     id={article._id}
                                     title={article.postTitle}
                                     date={article.postDate}
                                     linkTitle={article.linkTitle}
                                     thumbnail={article.thumbnail}
-                                    brief={article.postBrief}
+                                    intro={article.postIntro.slice(0,120)}
+                                    comments={article.comments.length}
+                                    likes={article.likes.length}
                                     key={key}
                                 />
                             )
@@ -57,8 +61,8 @@ return (
 
 const StyledHomePage = styled.div`
 height: 100%;
-width: 100%;
-margin: 1em 0;
+width: 70%;
+margin: 1em auto;
     .blog {
     display: flex;
     width: 100%;

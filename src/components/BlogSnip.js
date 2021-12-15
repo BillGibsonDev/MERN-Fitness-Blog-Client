@@ -1,18 +1,54 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
 // styled
 import styled from 'styled-components';
 
 // router
 import { Link } from 'react-router-dom';
 
+// images
+import Heart from '../images/heartTrans.png';
+import HeartBlue from '../images/heartBlue.png';
+import CommentImage from '../images/comment.png';
 
 export default function BlogSnip({
     id, 
     title, 
     thumbnail, 
-    brief,
+    intro,
     linkTitle,
-    date
+    date,
+    comments,
+    likes,
+    user
 }) {
+
+    const [ hasLiked, setHasLiked ] = useState(false);
+    const [ username, setUsername ] = useState(user);
+
+    useEffect(() => {
+        setUsername(user);
+        handleHasLiked()
+        // eslint-disable-next-line
+    }, [user])
+
+    function handleHasLiked(){
+        if ( user === ""){
+            console.log("Not Signed In")
+        } else {
+       axios.post(`${process.env.REACT_APP_FIND_LIKE_URL}/${id}`, {
+			username: username,
+            postId: id,
+		})
+        .then(function(response){
+            if(response.data === "Liked!"){
+                setHasLiked(true);
+        }})
+        .catch(function (error) {
+		    console.log(error)
+		});
+    }}
 
     return (
         <StyledSnip id={id}>
@@ -20,9 +56,19 @@ export default function BlogSnip({
             <div className="titleContainer">
                 <h4>{title}</h4>
                 <h5>{date}</h5>
-                <p>{brief}<span>..Continue Reading</span></p>
+                <p>{intro}<span>..Continue Reading</span></p>
+                <div className="interaction-container">
+                    {
+                        hasLiked === false ? (
+                            <span><img src={Heart} alt="" /> {likes}</span>
+                        ) : (
+                            <span><img src={HeartBlue} alt="" /> {likes}</span>
+                        )
+                    }
+                    <span><img src={CommentImage} alt="" /> {comments}</span>
+                </div>
             </div>
-            <img src={thumbnail} alt={thumbnail} />
+            <img id="thumbnail" src={thumbnail} alt={thumbnail} />
             </Link>
         </StyledSnip>
     )
@@ -88,8 +134,23 @@ background: #dadada;
                             }
                         }
                     }
+                    .interaction-container {
+                        display: flex;
+                        width: 80px;
+                        justify-content: space-between;
+                        margin-top: 10px;
+                        span {
+                            display: flex;
+                            align-items: center;
+                            height: 100%;
+                            img {
+                                margin-right: 3px;
+                                width: 20px;
+                            }
+                        }
+                    }
                 }
-                img {
+                #thumbnail {
                     width: 50%;
                     height: 100%;
                     border-top-right-radius: 12px;

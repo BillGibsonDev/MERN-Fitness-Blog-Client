@@ -19,7 +19,7 @@ export default function LoginPage({login, setUsername, setPassword, handleTokens
 						<input 
 							type="text" 
 							onChange={(event) => {
-								//setUsername(event.target.value);
+								setUsername(event.target.value);
 							}}
 						/>
 						<label>Password:</label>

@@ -11,7 +11,7 @@ import { Route, Switch, useHistory } from 'react-router-dom';
 import HomePage from "./pages/HomePage";
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
-import BlogArticle from "./pages/BlogArticle";
+import ArticlePage from "./pages/ArticlePage.js";
 import CreateUser from "./pages/CreateUser.js";
 import EditPostPage from "./pages/EditPostPage";
 import CreatePostPage from "./pages/CreatePostPage";
@@ -43,11 +43,11 @@ function App() {
         setLastLogin(date);
     }
 
-function handleTokens() {
+	function handleTokens() {
 		let tokenPW = sessionStorage.getItem("tokenPW");
 		let tokenUser = sessionStorage.getItem("tokenUser");
 		if (tokenPW === null) {
-			history.push("/LoginPage");
+			history.push("/");
 		} else {
 			tokenPW = password;
 			tokenUser = username;
@@ -59,7 +59,7 @@ function handleTokens() {
 
   useEffect(() =>{
 		handleDate();
-		reloadLogin();
+		handleRefresh();
 		// eslint-disable-next-line
 	},[])
 
@@ -71,18 +71,17 @@ function login () {
 			lastLogin: lastLogin,
 		})
 		.then(function(response){
-			setUser(username)
-			setLoggedIn(true)
-			setLoading(false)
-			handleTokens()
-			history.push("/");
+			setUser(username);
+			setLoggedIn(true);
+			setLoading(false);
+			handleTokens();
 			if (response.data === "LOGGED IN"){
 				axios.post(`${process.env.REACT_APP_SET_ROLE_URL}`, {
 					username: username, 
 					password: password,
 				})
 				.then((response) => {
-					setRole(response.data)
+					setRole(response.data.role);
 				})
 			} else {
 				alert("Wrong Username or Password")
@@ -94,6 +93,8 @@ function login () {
 		});
 	}
 
+	
+
 	const logout = () => {
 		localStorage.clear();
 		sessionStorage.clear();
@@ -102,7 +103,6 @@ function login () {
 		setUser("");
 		setPassword('');
 		setUsername("");
-		history.push("/LoginPage");
 	}
 
 	function confirmAdmin () {
@@ -132,17 +132,17 @@ function login () {
 				sessionStorage.clear();
 				window.location.reload();
 				setLoggedIn(false);
-				history.push("/LoginPage");
+				history.push("/");
 			}
 		})
 	}
 
-	function reloadLogin() {
+	function handleRefresh() {
 		setLoggedIn(true)
 		let tokenPW = sessionStorage.getItem("tokenPW");
 		let tokenUser = sessionStorage.getItem("tokenUser");
 		if (tokenPW === null && tokenUser === null) {
-			history.push("/LoginPage");
+			history.push("/");
 			setLoggedIn(false);
 		} else {
 			axios.post(`${process.env.REACT_APP_LOGIN_URL}`, {
@@ -160,6 +160,7 @@ function login () {
 				})
 				.then((response) => {
 					setRole(response.data)
+					setLoggedIn(true);
 				})
 			}
 		})
@@ -173,16 +174,18 @@ function login () {
       <GlobalStyles />
 
         <Nav
-          logout={logout}
-          isLoggedIn={isLoggedIn}
-          user={user}
-					role={role}
-					confirmAdmin={confirmAdmin}
+			logout={logout}
+			isLoggedIn={isLoggedIn}
+			user={user}
+			role={role}
+			confirmAdmin={confirmAdmin}
         />
 
         <Switch>
           <Route path={'/'} exact>
-            <HomePage />
+            <HomePage
+				user={user}
+			/>
           </Route> 
           
           <Route path="/AboutPage" exact>
@@ -194,7 +197,10 @@ function login () {
           </Route>
 
           <Route path="/CreatePostPage" exact>
-            <CreatePostPage />
+            <CreatePostPage
+				user={user}
+				role={role}
+			/>
           </Route>
 
           <Route path="/EditPostPage/:postId" exact>
@@ -222,11 +228,18 @@ function login () {
           </Route>
 
           <Route path="/ProfilePage" exact>
-            <ProfilePage />
+            <ProfilePage
+				user={user}
+				role={role}
+			/>
           </Route>
 
           <Route path={["/post/:linkTitle/:id", "/"]}>
-            <BlogArticle />
+            <ArticlePage
+				user={user}
+				role={role}
+				isLoggedIn={isLoggedIn}
+			/>
           </Route>
         </Switch>
 

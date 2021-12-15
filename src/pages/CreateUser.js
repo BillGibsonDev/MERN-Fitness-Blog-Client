@@ -10,20 +10,36 @@ export default function CreateUser({role, confirmAdmin}) {
 	const [ password, setPassword ] = useState("");
 	const [ confirm, setConfirm ] = useState("");
 	const [ userRole, setUserRole ] = useState("");
+	const [ email, setEmail ] = useState("");
+	const [ confirmEmail, setConfirmEmail ] = useState("");
+	const [joinDate, setJoinDate ] = useState("");
 
-	useEffect(() => {
+
+ 	useEffect(() => {
 		setUserRole(process.env.REACT_APP_GUEST_SECRET);
+		handleDate();
 		// eslint-disable-next-line
 	}, [role, userRole])
+
+	function handleDate(){
+		const current = new Date();
+		const date = `${current.getMonth()+1}/${current.getDate()}/${current.getFullYear()} @ ${current.getHours()}:${current.getMinutes()}`;
+		setJoinDate(date);
+	}
 
     function registerUser() {
 			if (password !== confirm ) {
 				alert("Passwords don't match");
+			} else if (email !== confirmEmail ) {
+				alert("Emails don't match")
 			} else {
-				axios.post(`http://localhost:5000/9756853052543fdsafdsfaA5435435`, {
+				
+				axios.post(`${process.env.REACT_APP_REGISER_URL}`, {
 					username: username,
 					password: password,
+					email: email,
 					userRole: `${process.env.REACT_APP_GUEST_SECRET}`,
+					joinDate: joinDate,
 				})
 				.then(function(response) {
 					if(response.data !== "USER REGISTERED"){
@@ -51,6 +67,20 @@ export default function CreateUser({role, confirmAdmin}) {
 							setUsername(event.target.value);
 						}}
 					/>
+					<label>Email:</label>
+					<input 
+						type="email" 
+						onChange={(event) => {
+							setEmail(event.target.value);
+						}}
+					/>
+					<label>Retype Email:</label>
+					<input 
+						type="email" 
+						onChange={(event) => {
+							setConfirmEmail(event.target.value);
+						}}
+					/>
 					<label>Password:</label>
 					<input 
 						type="text" 
@@ -69,7 +99,7 @@ export default function CreateUser({role, confirmAdmin}) {
                         role === process.env.REACT_APP_ADMIN_SECRET ? (
                             <button type="submit" onClick={()=>{registerUser();}}>Create User</button>
                         ) : (    
-                            <button onClick={unauthorized}>Create User</button>
+                            <button type="submit" onClick={()=>{unauthorized();}}>Create User</button>
                         )
                     }
 				</div>
