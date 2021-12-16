@@ -13,22 +13,17 @@ export default function EditPostPage({user, role}) {
 
     const { postId } = useParams();
 
-    const [ article, setArticle ] = useState("");
-    const [ postTitle, setPostTitle ] = useState("");
-    const [ linkTitle, setLinkTitle ] = useState("");
-    const [ postDate, setPostDate ] = useState(0);
-    const [ thumbnail, setThumbnail ] = useState('');
-    const [ postIntro, setPostIntro ] = useState('');
-    const [ author, setAuthor ] = useState(user);
-    const [conclusion, setConclusion] = useState('');
-    const [conclusionTitle, setConclusionTitle] = useState('');
-    const [ sectionHelper, setSectionHelper ] = useState([]);
+    const [ isLoading, setLoading ] = useState(true);
+    const [ article, setArticle ] = useState({});
+
     const handlePost = () => {
     axios.get(`${process.env.REACT_APP_GET_POST_URL}/${postId}`, {
         postId: postId,
     })
     .then(function(response){
+        setLoading(false);
         setArticle(response.data)
+        setInputFields(response.data.sections)
     })
     .catch(function (error) {
 		console.log(error);
@@ -37,21 +32,18 @@ export default function EditPostPage({user, role}) {
 
 
 useEffect(() => {
-    handlePost(postId)
-    setSectionHelper(article.sections)
+    handlePost(postId);
 }, [postId])
 
-console.log(sectionHelper)
-
- const [inputFields, setInputFields] = useState([
-        { 
-            paragraph: "", 
-            title: '', 
-            image: '', 
-            link: '' ,
-        }
-    ]);
-
+    const [ postTitle, setPostTitle ] = useState(article.postTitle);
+    const [ linkTitle, setLinkTitle ] = useState(article.postTitle);
+    const [ postDate, setPostDate ] = useState(article.postTitle);
+    const [ thumbnail, setThumbnail ] = useState(article.postTitle);
+    const [ postIntro, setPostIntro ] = useState(article.postTitle);
+    const [conclusion, setConclusion] = useState(article.postTitle);
+    const [conclusionTitle, setConclusionTitle] = useState(article.postTitle);
+    const [ author, setAuthor ] = useState(article.author);
+    const [inputFields, setInputFields] = useState([]);
 
 const handleUpdate = () => {
     axios.post(`${process.env.REACT_APP_UPDATE_POST_URL}/${postId}`, {
@@ -73,10 +65,13 @@ const handleUpdate = () => {
 
     })
     .then(function(response){
-        if(response === "Post Updated"){
-            alert('Blog Post Added')
+        if(response.data === "Post Updated"){
+            alert('Post Updated')
+            setLoading(false);
+        } else {
+            alert("Server Error - Post Not Updated")
+            setLoading(false);
         }
-        console.log(response)
     })
     .catch(function (error) {
 		console.log(error);
@@ -96,7 +91,7 @@ const handleAddFields = () => {
   };
 
   const handleInputChange = (index, event) => {
-    const values = [article.sections];
+    const values = [...inputFields];
     if (event.target.name === "paragraph") {
       values[index].paragraph = event.target.value;
     } else if(event.target.name === "title") {
@@ -105,24 +100,38 @@ const handleAddFields = () => {
         values[index].image = event.target.value;
     } else {
         values[index].link = event.target.value;
-        }
+    }
 
     setInputFields(values);
   };
 
-const clearForm = () =>{
-    window.location.reload();
-    alert('Form Cleared')
-}
+
+function deletePost(){
+        const result = window.confirm("Are you sure you want to delete?");
+        if(result === true){
+            setLoading(true);
+            axios.delete(`${process.env.REACT_APP_DELETE_POST_URL}/${postId}`)
+            .then(function(response){
+                if(response.data !== "Post Deleted"){
+                    setLoading(false);
+                    alert("Server Error - Post not updated")
+                } else {
+                    setLoading(false);
+                    alert('Post Deleted!');
+                }
+            })
+        }
+    }
+
 
     return (
         <StyledEditPage>
             {
-                article === "" ? (
-                    <h3>No article found</h3>
-                ):(
+                isLoading === true ? (
+                    <h1>Loading</h1>
+                ): (
             <div className="formWrapper">
-                <section id="intro">
+                <div id="intro">
                     <div className="info-container">
                         <div className="input-container">
                             <label>Post Title:
@@ -173,11 +182,11 @@ const clearForm = () =>{
                                 setPostIntro(event.target.value);
                             }}
                     /></label>
-                </section>
+                </div>
                 { 
-                   article.sections.map((section, index) => {
+                   inputFields.map((section, index) => {
                         return (
-                            <section id="paragraph-section" key={index}>
+                            <div id="paragraph-section" key={index}>
                                 <div className="info-container">
                                     <div className="input-container">
                                         <label>Title
@@ -225,11 +234,11 @@ const clearForm = () =>{
                                         )
                                     }
                                 </div>
-                            </section>
+                            </div>
                         )
                     })
                 }
-                <section id="conclusion">
+                <div id="conclusion">
                     <div className="info-container">
                         <div className="input-container">
                             <label htmlFor="">Conclusion Title:
@@ -251,10 +260,10 @@ const clearForm = () =>{
                                 setConclusion(event.target.value);
                             }}
                     /></label>
-                </section>
-                <div className="buttonWrapper">
+                </div>
+                <div className="button-container">
                     <button onClick={handleUpdate}>Update</button>
-                    <button id= "clear" onClick={clearForm}>Clear</button>
+                    <button onClick={deletePost}>Delete</button>
                 </div>
             </div>
              )
@@ -323,18 +332,6 @@ h1 {
                         height: 200px;
                     }
                 }
-            .button-container {
-                display: flex;
-                width: 100%;
-                justify-content: space-between;
-                button {
-                    padding: 0 6px;
-                    border-radius: 6px;
-                    border: none;
-                    background: lightblue;
-                    color: white;
-                }
-            }
         }
         #intro, #conclusion {
             flex-direction: row;
@@ -342,26 +339,18 @@ h1 {
                 flex-direction: column;
             }
         }
-    button{
-        margin: 12px;
-        font-size: 1.5em;
-        height: 40px;
-        background: lightgreen;
-        cursor: pointer;
-        &:hover{
-            transition: 0.3s;
-            transform: scale(1.1);
-            background: white;
+        .button-container {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            button {
+                padding: 0 6px;
+                border-radius: 6px;
+                border: none;
+                background: lightblue;
+                color: white;
+            }
         }
     }
-    #clear {
-        opacity: .6;
-        background: lightgoldenrodyellow;
-        &:hover{
-            background: white;
-            opacity: 1;
-        }
-    }
-}
 
 `;
