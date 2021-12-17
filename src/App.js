@@ -18,7 +18,7 @@ import CreatePostPage from "./pages/CreatePostPage";
 import LoginPage from "./pages/LoginPage.js";
 import SignUpPage from "./pages/SignUpPage.js";
 import ProfilePage from "./pages/ProfilePage";
-
+import FilteredSearchPage from './pages/FilteredSearchPage';
 
 // components
 import Nav from "./components/Nav";
@@ -234,6 +234,14 @@ function login () {
 			/>
           </Route>
 
+		  <Route path={["/posts/tags/:tag", "/"]}>
+            <FilteredSearchPage
+				user={user}
+				role={role}
+				isLoggedIn={isLoggedIn}
+			/>
+          </Route>
+
           <Route path={["/post/:linkTitle/:id", "/"]}>
             <ArticlePage
 				user={user}
@@ -241,6 +249,7 @@ function login () {
 				isLoggedIn={isLoggedIn}
 			/>
           </Route>
+		  
         </Switch>
 
       <Footer />

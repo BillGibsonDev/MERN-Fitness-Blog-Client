@@ -1,5 +1,6 @@
 // styled
 import styled from 'styled-components';
+import ContactSection from '../components/ContactSection';
 
 
 export default function AboutPage () {
@@ -17,6 +18,7 @@ export default function AboutPage () {
                 bring a better and more engaging user experience!  Periodically you will find more and more features being added to the site. 
                 </p><p>Thanks - The Real Deal Fitness Team</p>
             </div>
+            <ContactSection />
         </StyledAboutPage >
     )
 }

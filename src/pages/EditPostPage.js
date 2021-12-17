@@ -33,6 +33,8 @@ export default function EditPostPage({user, role}) {
 
 useEffect(() => {
     handlePost(postId);
+    setAuthor(user)
+    // eslint-disable-next-line
 }, [postId])
 
     const [ postTitle, setPostTitle ] = useState(article.postTitle);

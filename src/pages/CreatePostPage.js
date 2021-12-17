@@ -14,6 +14,7 @@ export default function CreatePostPage({user}) {
     const [ postDate, setPostDate ] = useState(0);
     const [ thumbnail, setThumbnail ] = useState('');
     const [ postIntro, setPostIntro ] = useState('');
+    // eslint-disable-next-line
     const [ author, setAuthor ] = useState(user);
 
     const [inputFields, setInputFields] = useState([

@@ -126,8 +126,8 @@ export default function BlogArticle({ role, user, isLoggedIn }) {
            { 
                 articles.filter(articles => articles._id === `${id}`).map((article, key) => {
                     return (
-                        <div className="overlayContent" key={key}>
-                            <div className="overlayWrapper">
+                        <div className="overlay-content" key={key}>
+                            <div className="overlay-wrapper">
                                 <h4>{article.postTitle}</h4>
                                 <h5>{article.postDate}</h5>
                                 <img src={article.thumbnail} alt="" />
@@ -135,7 +135,7 @@ export default function BlogArticle({ role, user, isLoggedIn }) {
                                     {
                                         article.sections.map((section, key) =>{
                                             return (
-                                                <div className="paraWrapper" key={key}>
+                                                <div className="para-wrapper" key={key}>
                                                     <h6>{section.title}</h6>
                                                     <img src={section.image} alt='' />
                                                     <p>{section.paragraph}</p>
@@ -144,7 +144,7 @@ export default function BlogArticle({ role, user, isLoggedIn }) {
                                             )
                                         })
                                     }
-                                <div className="paraWrapper">
+                                <div className="para-wrapper">
                                     <h6>{article.conclusionTitle}</h6>
                                     <p>{article.conclusion}</p>
                                 </div>
@@ -169,16 +169,16 @@ min-height: 20vh;
 display: flex;
 justify-content: space-between;
 flex-direction: column;
-margin: 2em 0;
+margin: 2em auto;
 align-items: center;
-width: 80%;
+width: 70%;
 border-radius: 14px;
 box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.219);
 background: #ffffff;
 position: relative;
     .icon-container {
         display: flex;
-        width: 80%;
+        width: 95%;
         justify-content: space-between;
         margin-top: 10px;
         span {
@@ -204,9 +204,9 @@ position: relative;
             }
         }
     }
-    .overlayContent {
+    .overlay-content {
     position: relative;
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     margin:  2em auto;
@@ -218,8 +218,8 @@ position: relative;
             width: 50%;
             border-radius: 10px;
         }
-        .overlayWrapper{
-            width: 90%;
+        .overlay-wrapper{
+            width: 95%;
             height: 100%;
             margin: auto;
             h4 {
@@ -231,6 +231,7 @@ position: relative;
             h5 {
                 font-size: 2em;
                 color: gray;
+                margin-bottom: 10px;
             }
             p {
                 font-size: 2em;
@@ -241,7 +242,7 @@ position: relative;
                     font-size: 1em;
                 }
             }
-            .paraWrapper{
+            .para-wrapper{
                 margin:5% 0 10% 0;
                 h6 {
                     color: #3b5998;

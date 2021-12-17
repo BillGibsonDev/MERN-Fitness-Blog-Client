@@ -103,15 +103,18 @@ function handleJoinDate() {
                                             ) : isLoading === false && articles.filter(articles => articles.author === `${user}`).length === 0 ? (
                                                 <p>No Articles Found</p>
                                             ) : (
-                                                <> 
+                                                <div className="article-wrapper" > 
                                                     {
                                                         articles.filter(articles => articles.author === `${user}`).map((article, key) => {
                                                             return (
-                                                                <Link id="article" to={`/post/${article.linkTitle}/${article._id}`} key={key}>{article.postTitle}</Link>
+                                                                    <div className="article-container" key={key}>
+                                                                        <h5>{article.postDate}</h5>
+                                                                        <Link to={`/post/${article.linkTitle}/${article._id}`} key={key}>{article.postTitle}</Link>
+                                                                    </div>
                                                             )
                                                         })
                                                     }
-                                                </> 
+                                                </div> 
                                             )
                                         }
                                     </div>
@@ -198,24 +201,34 @@ flex-direction: column;
             margin: 6px 0;
             font-size: 1em;
         }
-    
-        #article {
-            display: flex;
-            align-items: center;
-            background: #ffffff;
-            border: 2px white solid;
-            border-radius: 8px;
-            padding: 0 10px;
-            width: 300px;
-            min-height: 40px;
-            margin: 10px 0;
-            color: black;
-            transition: 0.2s;
-            font-size: 20px;
-            &:hover {
-                transform: scale(1.05);
-                background: #fff;
-                border: 2px black solid;
+        .article-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
+            .article-container {
+                display: flex;
+                align-items: center;
+                background: #ffffff;
+                border: 2px white solid;
+                border-radius: 8px;
+                padding: 0 10px;
+                width: 95%;
+                min-height: 40px;
+                margin: 10px 0;
+                transition: 0.2s;
+                &:hover {
+                    transform: scale(1.05);
+                    background: #fff;
+                    border: 2px black solid;
+                }
+                h5 {
+                    font-size: 16px;
+                    margin-right: 6px;
+                }
+                a {
+                    font-size: 18px;
+                    color: black;
+                }
             }
         }
     }
