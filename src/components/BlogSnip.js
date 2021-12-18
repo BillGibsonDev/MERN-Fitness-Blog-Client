@@ -16,12 +16,13 @@ export default function BlogSnip({
     id, 
     title, 
     thumbnail, 
-    intro,
     linkTitle,
     date,
     comments,
     likes,
-    user
+    user,
+    author,
+    tag
 }) {
 
     const [ hasLiked, setHasLiked ] = useState(false);
@@ -53,10 +54,14 @@ export default function BlogSnip({
     return (
         <StyledSnip id={id}>
             <Link to={`/post/${linkTitle}/${id}`}>
+                <img id="thumbnail" src={thumbnail} alt={thumbnail} />
             <div className="titleContainer">
+                <h5>{tag}</h5>
                 <h4>{title}</h4>
-                <h5>{date}</h5>
-                <p>{intro}<span>..Continue Reading</span></p>
+                <div className="info-container">
+                    <h5>{author}</h5>
+                    <h5>{date}</h5>
+                </div>
                 <div className="interaction-container">
                     {
                         hasLiked === false ? (
@@ -68,7 +73,6 @@ export default function BlogSnip({
                     <span><img src={CommentImage} alt="" /> {comments}</span>
                 </div>
             </div>
-            <img id="thumbnail" src={thumbnail} alt={thumbnail} />
             </Link>
         </StyledSnip>
     )
@@ -78,12 +82,9 @@ const StyledSnip = styled.div`
 height: 40vh;
 display: flex;
 justify-content: space-between;
-margin: 1em 0;
+margin: 1em 0 5em 0;
 align-items: center;
 width: 100%;
-border-radius: 14px;
-box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.219);
-background: #dadada;
     @media (max-width: 750px){
         height: 100%;
     }
@@ -107,31 +108,21 @@ background: #dadada;
                 h4 {
                     font-size: 2em;
                     margin: 6px 0;
-                    color: black;
+                    color: white;
                         @media (max-width: 800px){
                             font-size: 1.5em;
                         }
                     }
-                h5 {
-                    font-size: 1em;
-                    color: gray;
-                    }
-                p {
-                    width: 90%;
-                    margin: 6px 0;
-                    color: black;
-                    span {
-                        text-decoration: underline;
-                        color: #1900fc;
-                        font-family: 'Oswald', sans-serif;
-                        font-size: 1em;
-                        font-weight: 400;
-                        cursor: pointer;
-                            &:hover {
-                                cursor: pointer;
-                                transition: 0.3s;
-                                color: black;
-                            }
+                    h5 {
+                            font-size: 1em;
+                            color: #cccccc;
+                        }
+                    .info-container {
+                        display: flex;
+                        justify-content: space-between;
+                        h5 {
+                            font-size: 1em;
+                            color: #cccccc;
                         }
                     }
                     .interaction-container {
@@ -153,8 +144,6 @@ background: #dadada;
                 #thumbnail {
                     width: 50%;
                     height: 100%;
-                    border-top-right-radius: 12px;
-                    border-bottom-right-radius: 12px;
                 }
             }
 `;

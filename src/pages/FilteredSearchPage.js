@@ -11,7 +11,12 @@ import { useDispatch } from 'react-redux';
 import { getPosts } from '../redux/actions/posts';
 import { useSelector } from 'react-redux';
 
+// router
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+
 export default function FilteredSearchPage ({ user, role, handleRefresh }) {
+
+const { tag } = useParams();
 
     const [ isLoading, setLoading ] = useState(true);
 
@@ -35,9 +40,10 @@ return (
                                 </div>
                             </div>
                         ) : (
-                        articles.slice().reverse().map((article, key) => {
+                        articles.filter(articles => articles._id === `${tag}`).map((article, key) =>  {
                             return(
                                 <BlogSnip
+                                    tag={article.tag}
                                     user={user}
                                     id={article._id}
                                     title={article.postTitle}

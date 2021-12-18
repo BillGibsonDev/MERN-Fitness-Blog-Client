@@ -76,7 +76,7 @@ justify-content: space-between;
 width: 95%;
 margin: auto;
 align-items: center;
-height: 10vh;
+height: 7vh;
 border-bottom: 2px white solid;
     .logo {
         width: 200px;

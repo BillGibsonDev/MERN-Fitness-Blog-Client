@@ -39,15 +39,16 @@ return (
                         articles.slice().reverse().map((article, key) => {
                             return(
                                 <BlogSnip
+                                    author={article.author}
                                     user={user}
                                     id={article._id}
                                     title={article.postTitle}
                                     date={article.postDate}
                                     linkTitle={article.linkTitle}
                                     thumbnail={article.thumbnail}
-                                    intro={article.postIntro.slice(0,120)}
                                     comments={article.comments.length}
                                     likes={article.likes.length}
+                                    tag={article.tag}
                                     key={key}
                                 />
                             )
@@ -67,7 +68,7 @@ margin: 1em auto;
     display: flex;
     width: 100%;
     height: 100%;
-    margin: 1em auto;
+    margin: 3em auto;
     .blogWrapper {
         display: flex;
         flex-direction: column;
