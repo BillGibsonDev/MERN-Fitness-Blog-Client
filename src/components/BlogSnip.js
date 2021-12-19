@@ -120,7 +120,6 @@ max-width: 875px;
                 width: 100%;
             }
             a {
-                width: 100%;
                 margin: 6px 0;
                 @media (max-width: 750px){
                     margin: 3px 0;
