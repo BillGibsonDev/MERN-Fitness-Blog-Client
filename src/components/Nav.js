@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 // images
-import Logo from '../images/Logo.png';
+import Logo from '../images/rdfLogoWhite.png';
 import Hamburger from '../images/hamburgerWhite2.png';
 
 export default function Nav({role, isLoggedIn, logout}) {
@@ -71,15 +71,19 @@ function openNav() {
 }
 
 const StyledNav = styled.div`
-display: flex;
-justify-content: space-between;
-width: 95%;
-margin: auto;
-align-items: center;
-height: 7vh;
-border-bottom: 2px white solid;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 875px;
+    margin: auto;
+    align-items: center;
+    height: 7vh;
+    border-bottom: 2px white solid;
+    @media (max-width: 750px){
+        width: 95%;
+    }
     .logo {
-        width: 200px;
+        width: 100px;
     }
     nav {
         display: flex;
@@ -91,11 +95,10 @@ border-bottom: 2px white solid;
         a {
             text-decoration: none;
             font-size: 1.2em;
-            color: #b9b9b9;
+            color: #d8d8d8;
             &:hover {
                 color: white;
-                transition: 0.3s;
-                transform: scale(1.1);
+                text-decoration: underline;
             }
         }
     }

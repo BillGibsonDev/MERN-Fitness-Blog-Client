@@ -1,6 +1,6 @@
 // styled
 import styled from 'styled-components';
-import ContactSection from '../components/ContactSection';
+import ContactSection from '../../components/ContactSection';
 
 
 export default function AboutPage () {

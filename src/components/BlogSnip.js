@@ -22,7 +22,8 @@ export default function BlogSnip({
     likes,
     user,
     author,
-    tag
+    tag,
+    authorUsername
 }) {
 
     const [ hasLiked, setHasLiked ] = useState(false);
@@ -30,120 +31,153 @@ export default function BlogSnip({
 
     useEffect(() => {
         setUsername(user);
+        function handleHasLiked(){
+            if ( user === ""){
+            } else {
+            axios.post(`${process.env.REACT_APP_FIND_LIKE_URL}/${id}`, {
+                username: username,
+                postId: id,
+            })
+            .then(function(response){
+                if(response.data === "Liked!"){
+                    setHasLiked(true);
+                }})
+            .catch(function (error) {
+                console.log(error)
+            });
+        }}
         handleHasLiked()
         // eslint-disable-next-line
     }, [user])
 
-    function handleHasLiked(){
-        if ( user === ""){
-            console.log("Not Signed In")
-        } else {
-       axios.post(`${process.env.REACT_APP_FIND_LIKE_URL}/${id}`, {
-			username: username,
-            postId: id,
-		})
-        .then(function(response){
-            if(response.data === "Liked!"){
-                setHasLiked(true);
-        }})
-        .catch(function (error) {
-		    console.log(error)
-		});
-    }}
 
     return (
         <StyledSnip id={id}>
-            <Link to={`/post/${linkTitle}/${id}`}>
-                <img id="thumbnail" src={thumbnail} alt={thumbnail} />
-            <div className="titleContainer">
-                <h5>{tag}</h5>
-                <h4>{title}</h4>
-                <div className="info-container">
-                    <h5>{author}</h5>
-                    <h5>{date}</h5>
-                </div>
-                <div className="interaction-container">
-                    {
-                        hasLiked === false ? (
-                            <span><img src={Heart} alt="" /> {likes}</span>
-                        ) : (
-                            <span><img src={HeartBlue} alt="" /> {likes}</span>
-                        )
-                    }
-                    <span><img src={CommentImage} alt="" /> {comments}</span>
+            <div className="article-wrapper">
+                <Link id="thumbnail" to={`/post/${linkTitle}/${id}`}>
+                    <img src={thumbnail} alt={thumbnail} />
+                </Link>
+                <div className="info-wrapper">
+                    <Link id="tag" to={`/posts/${tag}`}>{tag}</Link>
+                    <Link id="title" to={`/post/${linkTitle}/${id}`}>{title}</Link>
+                    <div className="info-container">
+                        <Link id="author" to={`/creators/${authorUsername}`}>{author}</Link>
+                        <h5>{date}</h5>
+                    </div>
+                    <div className="interaction-container">
+                        {
+                            hasLiked === false ? (
+                                <span><img src={Heart} alt="" /> {likes}</span>
+                            ) : (
+                                <span id="blue"><img src={HeartBlue} alt="" /> {likes}</span>
+                            )
+                        }
+                        <span><img src={CommentImage} alt="" /> {comments}</span>
+                    </div>
                 </div>
             </div>
-            </Link>
         </StyledSnip>
     )
 }
 
 const StyledSnip = styled.div`
-height: 40vh;
+height: 30vh;
 display: flex;
 justify-content: space-between;
-margin: 1em 0 5em 0;
+margin: 1em auto 5em auto;
 align-items: center;
 width: 100%;
+max-width: 875px;
     @media (max-width: 750px){
         height: 100%;
     }
-    &:hover {
-        transform: scale(1.02);
-        transition: 0.3s;
-    }
-    a {
+    .article-wrapper {
         display: flex;
-        width: 100%;
+        width: 90%;
         height: 100%;
-            .titleContainer {
-            display: flex;
-            width: 50%;
+        margin: auto;
+        @media (max-width: 750px){
             flex-direction: column;
+        }
+        #thumbnail {
+            width: 50%;
+            height: 100%;
+            @media (max-width: 750px){
+                width: 100%;
+            }
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .info-wrapper {
+            display: flex;
+            flex-direction: column;
+            width: 46%;
+            height: 70%;
             margin: auto;
-            padding-left: 2em;
+            @media (max-width: 750px){
+                width: 100%;
+            }
+            a {
+                width: 100%;
+                margin: 6px 0;
                 @media (max-width: 750px){
-                        width: 70%;
-                    }
-                h4 {
-                    font-size: 2em;
-                    margin: 6px 0;
-                    color: white;
-                        @media (max-width: 800px){
-                            font-size: 1.5em;
-                        }
-                    }
-                    h5 {
-                            font-size: 1em;
-                            color: #cccccc;
-                        }
-                    .info-container {
-                        display: flex;
-                        justify-content: space-between;
-                        h5 {
-                            font-size: 1em;
-                            color: #cccccc;
-                        }
-                    }
-                    .interaction-container {
-                        display: flex;
-                        width: 80px;
-                        justify-content: space-between;
-                        margin-top: 10px;
-                        span {
-                            display: flex;
-                            align-items: center;
-                            height: 100%;
-                            img {
-                                margin-right: 3px;
-                                width: 20px;
-                            }
-                        }
-                    }
+                    margin: 3px 0;
                 }
-                #thumbnail {
-                    width: 50%;
-                    height: 100%;
+                &:hover {
+                    text-decoration: underline;
                 }
             }
+            #tag { 
+                font-size: 18px;
+                color: #cacaca;
+            }
+            #title {
+                color: white;
+                font-size: 20px;
+                margin: 6px 0;
+                 @media (max-width: 750px){
+                    margin: 3px 0;
+                }
+            }
+            .info-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 98%;
+                margin: 6px auto;
+                @media (max-width: 750px){
+                    width: 100%;
+                    margin: 3px auto;
+                }
+                #author, h5 {
+                    font-weight: 400;
+                    color: #cacaca;
+                    font-size: 16px;
+                }
+            }
+            .interaction-container {
+                display: flex;
+                align-items: center;
+                width: 98%;
+                margin: auto;
+                @media (max-width: 750px){
+                    width: 100%;
+                }
+                span {
+                    display: flex;
+                    align-items: center;
+                    margin-right: 16px;
+                    img {
+                        width: 20px;
+                        margin-right: 6px;
+                    }
+                }
+                #blue {
+                    color: blue;
+                }
+            }
+        }
+    }
 `;

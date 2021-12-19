@@ -1,58 +1,65 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 // styled
 import styled from 'styled-components';
 
 // components
-import BlogSnip from '../components/BlogSnip';
+import BlogSnip from '../../components/BlogSnip';
+
+// router
+import { Link } from 'react-router-dom';
 
 // redux
 import { useDispatch } from 'react-redux';
-import { getPosts } from '../redux/actions/posts';
+import { getPosts } from '../../redux/actions/posts';
 import { useSelector } from 'react-redux';
 
 // router
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useParams } from 'react-router-dom';
 
-export default function FilteredSearchPage ({ user, role, handleRefresh }) {
+export default function FilteredSearchPage ({ user, role }) {
 
-const { tag } = useParams();
-
-    const [ isLoading, setLoading ] = useState(true);
+    const { tag } = useParams();
 
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
         dispatch(getPosts());
-        setLoading(false)
     }, [dispatch])
 
     const articles = useSelector((state) => state.posts);
-    
-return (
+
+    return (
         <StyledFilterPage>
+            <h1>{tag} Articles</h1>
+            <div className="tag-container">
+                <Link id="tag" to="/posts/@Motivation">@Motivation</Link>
+                <Link id="tag" to="/posts/@Tips">@Tips</Link>
+                <Link id="tag" to="/posts/@Advice">@Advice</Link>
+            </div>
             <div className="blog">
                 <div className="blogWrapper">
                     {
-                        isLoading === true ? (
+                       articles.length === 0 ? (
                             <div className="loadingContainer">
                                 <div className="loader">
                                 </div>
                             </div>
                         ) : (
-                        articles.filter(articles => articles._id === `${tag}`).map((article, key) =>  {
+                        articles.filter(articles => articles.tag === `${tag}`).map((article, key) =>  {
                             return(
                                 <BlogSnip
-                                    tag={article.tag}
+                                    author={article.author}
                                     user={user}
                                     id={article._id}
                                     title={article.postTitle}
                                     date={article.postDate}
                                     linkTitle={article.linkTitle}
                                     thumbnail={article.thumbnail}
-                                    intro={article.postIntro.slice(0,120)}
                                     comments={article.comments.length}
                                     likes={article.likes.length}
+                                    tag={article.tag}
+                                    authorUsername={article.authorUsername}
                                     key={key}
                                 />
                             )
@@ -61,13 +68,37 @@ return (
                 </div>
             </div>
         </StyledFilterPage >
-    )
-}
+        )
+    }
 
 const StyledFilterPage = styled.div`
 height: 100%;
 width: 70%;
 margin: 1em auto;
+display: flex;
+justify-content: center;
+flex-direction: column;
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    color: #f3f3f3;
+    span {
+        margin-left: 3px;
+    }
+}
+    .tag-container {
+        display: flex;
+        width: 60%;
+        margin: 20px auto 50px auto;
+        justify-content: center;
+        #tag {
+            color: #c9c9c9;
+            font-size: 2em;
+            margin: 0 20px;
+        }
+    }
     .blog {
     display: flex;
     width: 100%;

@@ -16,13 +16,14 @@ html {
     line-height: 1.5;
     @media (max-width: 1450px){
         font-size: 90%;
-        width: 70%;
+        width: 90%;
     } 
     @media (max-width: 1220px){
         width: 90%
     }
     @media (max-width: 750px){
         font-size: 70%;
+        width: 100%;
     } 
 }
 ul {

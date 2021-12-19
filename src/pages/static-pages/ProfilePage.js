@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 // redux
 import { useDispatch } from 'react-redux';
-import { getPosts } from '../redux/actions/posts';
+import { getPosts } from '../../redux/actions/posts';
 import { useSelector } from 'react-redux';
 
 
@@ -17,18 +17,19 @@ export default function ProfilePage({ user, role }) {
 
     const [ isLoading, setLoading ] = useState(true);
     const [ joinDate, setJoinDate ] = useState("");
+    const [ activeRole, setActiveRole ] = useState(role);
 
     const dispatch = useDispatch();
     
    useEffect(() => {
+       setActiveRole(role);
         dispatch(getPosts());
-        handleJoinDate();
-        setLoading(false)
-    }, [dispatch])
-
-function handleJoinDate() {
+        function handleJoinDate() {
 		let tokenPW = sessionStorage.getItem("tokenPW");
 		let tokenUser = sessionStorage.getItem("tokenUser");
+        if (user === null) {
+
+        } else {
 		axios.post(`${process.env.REACT_APP_LOGIN_URL}`, {
 			username: tokenUser,
 			password: tokenPW,
@@ -49,8 +50,10 @@ function handleJoinDate() {
 		.catch(function (error) {
 		throw error;
 		});
-	}
-
+	}}
+        handleJoinDate();
+        setLoading(false)
+    }, [dispatch, role, user])
 
     const articles = useSelector((state) => state.posts);
 
@@ -65,29 +68,32 @@ function handleJoinDate() {
                         <div className="user-container">
                             <h2><span>Username: </span>{user}</h2>
                             {
-                                role === process.env.REACT_APP_ADMIN_SECRET ? (
+                                activeRole === process.env.REACT_APP_ADMIN_SECRET ? (
                                     <h2><span>Role: </span>Admin</h2>
-								) : role === process.env.REACT_APP_CREATOR_SECRET ? (
+								) : activeRole === process.env.REACT_APP_CREATOR_SECRET ? (
                                     <h2><span>Role: </span>Creator</h2>
-                                ) : role === process.env.REACT_APP_USER_SECRET ? (
+                                ) : activeRole === process.env.REACT_APP_USER_SECRET ? (
                                     <h2><span>Role: </span>User</h2>
-                                ) : role === process.env.REACT_APP_GUEST_SECRET ? (
+                                ) : activeRole === process.env.REACT_APP_GUEST_SECRET ? (
                                     <h2><span>Role: </span>Guest</h2>
                                 ) : (
-                                    <span>{role}</span>
+                                    <span>{activeRole}</span>
                                 )
                             }
                             <h2><span>Joined: </span>{joinDate}</h2>
                         </div>
                             {
-                                role === process.env.REACT_APP_ADMIN_SECRET || role === process.env.REACT_APP_CREATOR_SECRET ? (
+                                activeRole === process.env.REACT_APP_ADMIN_SECRET || activeRole === process.env.REACT_APP_CREATOR_SECRET ? (
                                     <div className="creator-dashboard">
                                         <h3>Creator Dashboard</h3>
                                         <div className="link-container">
-                                        <Link to="/CreatePostPage">Create Post</Link>
+                                            <Link to="/CreatePostPage">Create Post</Link>
                                             {
-                                                role === process.env.REACT_APP_ADMIN_SECRET ? (
-                                                    <Link to="/CreateUser">Create User</Link>
+                                                activeRole === process.env.REACT_APP_ADMIN_SECRET ? (
+                                                    <>
+                                                        <Link to="/CreateUser">Create User</Link>
+                                                        <Link to="/CreateCreator">Create Creator</Link>
+                                                    </>
                                                 ) : (
                                                     <></>
                                                 )
@@ -100,12 +106,12 @@ function handleJoinDate() {
                                                     <div className="loader">
                                                     </div>
                                                 </div>
-                                            ) : isLoading === false && articles.filter(articles => articles.author === `${user}`).length === 0 ? (
+                                            ) : isLoading === false && articles.filter(articles => articles.authorUsername === `${user}`).length === 0 ? (
                                                 <p>No Articles Found</p>
                                             ) : (
                                                 <div className="article-wrapper" > 
                                                     {
-                                                        articles.filter(articles => articles.author === `${user}`).map((article, key) => {
+                                                        articles.filter(articles => articles.authorUsername === `${user}`).map((article, key) => {
                                                             return (
                                                                     <div className="article-container" key={key}>
                                                                         <h5>{article.postDate}</h5>
@@ -182,13 +188,13 @@ flex-direction: column;
         .link-container {
             display: flex;
             justify-content: space-between;
-            width: 60%;
+            width: 100%;
             margin: 6px 0 10px 0;
             a {
                 font-size: 2em;
                 color: white;
                 &:hover {
-                    color: blue;
+                    color: #5151fd;
                 }
             }
         }
