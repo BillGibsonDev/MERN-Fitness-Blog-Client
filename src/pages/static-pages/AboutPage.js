@@ -1,12 +1,10 @@
 // styled
 import styled from 'styled-components';
-import ContactSection from '../../components/ContactSection';
-
 
 export default function AboutPage () {
     return (
         <StyledAboutPage >
-            <div className="aboutWrapper">
+            <div className="about-wrapper">
                 <h1>About Us</h1>
                 <p><span id="bold">The Real Deal Fitness</span> was founded in 2021. Our goal is to bring real health and fitness tips, 
                 clothing and accessories from mulitple diverse sources and opinions. The Real Deal Fitness is comprised of individuals 
@@ -18,34 +16,39 @@ export default function AboutPage () {
                 bring a better and more engaging user experience!  Periodically you will find more and more features being added to the site. 
                 </p><p>Thanks - The Real Deal Fitness Team</p>
             </div>
-            <ContactSection />
         </StyledAboutPage >
     )
 }
 
 const StyledAboutPage = styled.div`
-background: white;
+    background: white;
     border-radius: 12px;
-.aboutWrapper {
-    width: 95%;
-    margin: 5% auto;
-    padding: 1em 0;
-    h1{
-        margin: 10px 0;
-        font-size: 2.5em;
-        color: #3b3b3b;
+    width: 100%;
+    max-width: 875px;
+    margin: auto;
+    @media (max-width: 750px){
+        width: 95%;
     }
-    #bottomHeader{
-        margin-top: 1em;
-    }
-    p {
-        font-size: 2em;
-        span {
-            font-weight: 700;
+    .about-wrapper {
+        width: 95%;
+        margin: 20px auto;
+        padding: 1em 0;
+        h1{
+            margin: 10px 0;
+            font-size: 2.5em;
+            color: #3b3b3b;
         }
-    hr {
-        border: none;
+        #bottomHeader{
+            margin-top: 1em;
+        }
+        p {
+            font-size: 2em;
+            span {
+                font-weight: 700;
+            }
+        hr {
+            border: none;
+            }
         }
     }
-}
 `;

@@ -6,7 +6,7 @@ import ContactForm from '../../components/ContactForm';
 export default function ContactPage () {
     return (
         <StyledContactPage>
-            <div className="contactWrapper">
+            <div className="contact-wrapper">
                 <h1>Contact us</h1>
                 <h2>Directly send us a message or tell us how we're doing!</h2>
                 <ContactForm />
@@ -19,7 +19,7 @@ const StyledContactPage = styled.div`
     background: white;
     border-radius: 12px;
     margin: 5% auto;
-    .contactWrapper {
+    .contact-wrapper {
         width: 95%;
         margin: auto;
         h1 {

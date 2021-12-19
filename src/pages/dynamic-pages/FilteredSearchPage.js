@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 // styled
 import styled from 'styled-components';
 
 // components
 import BlogSnip from '../../components/BlogSnip';
+import Loader from '../../loaders/Loader';
 
 // router
 import { Link } from 'react-router-dom';
@@ -17,7 +18,8 @@ import { useSelector } from 'react-redux';
 // router
 import { useParams } from 'react-router-dom';
 
-export default function FilteredSearchPage ({ user, role }) {
+
+export default function FilteredSearchPage ({ user }) {
 
     const { tag } = useParams();
 
@@ -28,6 +30,12 @@ export default function FilteredSearchPage ({ user, role }) {
     }, [dispatch])
 
     const articles = useSelector((state) => state.posts);
+    const [ value, setValue ] = useState(10);
+
+    function handleShowMore(){
+      let i = 10;
+      setValue(value + i)
+    }
 
     return (
         <StyledFilterPage>
@@ -41,12 +49,9 @@ export default function FilteredSearchPage ({ user, role }) {
                 <div className="blogWrapper">
                     {
                        articles.length === 0 ? (
-                            <div className="loadingContainer">
-                                <div className="loader">
-                                </div>
-                            </div>
+                            <Loader />
                         ) : (
-                        articles.filter(articles => articles.tag === `${tag}`).map((article, key) =>  {
+                        articles.filter(articles => articles.tag === `${tag}`).slice(0,value).reverse().map((article, key) =>  {
                             return(
                                 <BlogSnip
                                     author={article.author}
@@ -67,27 +72,42 @@ export default function FilteredSearchPage ({ user, role }) {
                     )}
                 </div>
             </div>
+            {
+                articles.filter(articles => articles.tag === `${tag}`).length >= 10 ? (
+                    <button id="showmore" onClick={handleShowMore}>Show More</button>
+                ) : (
+                    <></>
+                )
+            }
         </StyledFilterPage >
         )
     }
 
 const StyledFilterPage = styled.div`
-height: 100%;
-width: 70%;
-margin: 1em auto;
-display: flex;
-justify-content: center;
-flex-direction: column;
-h1 {
+    height: 100%;
+    width: 70%;
+    margin: 1em auto;
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
-    margin: auto;
-    color: #f3f3f3;
-    span {
-        margin-left: 3px;
+    #showmore {
+        height: 35px;
+        width: 200px;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 1px;
     }
-}
+    h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        color: #f3f3f3;
+        span {
+            margin-left: 3px;
+        }
+    }
     .tag-container {
         display: flex;
         width: 60%;

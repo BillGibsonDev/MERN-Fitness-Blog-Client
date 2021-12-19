@@ -7,25 +7,24 @@ export default function Loader() {
     return (
         <StyledLoader>
             <div className="loader"></div>
-            <h2>Standby...</h2>
+            <h2>Loading...</h2>
         </StyledLoader>
     )
 }
 
 const StyledLoader = styled.div`
-width: 100%;
-max-height: 70vh;
-margin: 1% auto;
-display: flex;
-justify-content: center;
-align-items: center;
-position: relative;
-flex-direction: column;
-z-index: 99;
-background: white;
+    width: 100%;
+    max-height: 70vh;
+    margin: 1% auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-direction: column;
+    z-index: 99;
     .loader {
         opacity: 80%;
-        border: 16px dashed #0f4d92;
+        border: 16px dashed #ffffff;
         border-radius: 50%;
         width: 250px;
         height: 250px;
@@ -38,6 +37,7 @@ background: white;
     h2 {
         position: relative;
         margin-top: 50px;
+        color: white;
     }
 
     @keyframes spin {

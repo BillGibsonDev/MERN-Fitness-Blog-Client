@@ -25,7 +25,13 @@ export default function HomePage ({ user }) {
     }, [dispatch])
 
     const articles = useSelector((state) => state.posts);
-    
+    const [ value, setValue ] = useState(10);
+
+    function handleShowMore(){
+      let i = 10;
+      setValue(value + i)
+    }
+
     return (
         <StyledHomePage>
             <div className="blog">
@@ -55,6 +61,13 @@ export default function HomePage ({ user }) {
                     )}
                 </div>
             </div>
+            {
+                articles.length >= 10 ? (
+                    <button id="showmore" onClick={handleShowMore}>Show More</button>
+                ) : (
+                    <></>
+                )
+            }
         </StyledHomePage >
     )
 }
@@ -66,6 +79,13 @@ const StyledHomePage = styled.div`
     @media (max-width: 1250px){
         width: 90%;
     } 
+     #showmore {
+        height: 35px;
+        width: 200px;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
     .blog {
         display: flex;
         width: 100%;

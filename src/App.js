@@ -7,20 +7,28 @@ import GlobalStyles from "./GlobalStyles";
 // react router
 import { Route, Switch, useHistory } from 'react-router-dom';
 
-// pages
+// static pages
 import HomePage from "./pages/static-pages/HomePage";
 import AboutPage from './pages/static-pages/AboutPage';
 import ContactPage from './pages/static-pages/ContactPage';
-import ArticlePage from "./pages/dynamic-pages/ArticlePage.js";
 import CreateUser from "./pages/static-pages/CreateUser.js";
-import EditPostPage from "./pages/dynamic-pages/EditPostPage";
 import CreatePostPage from "./pages/static-pages/CreatePostPage";
 import LoginPage from "./pages/static-pages/LoginPage.js";
 import SignUpPage from "./pages/static-pages/SignUpPage.js";
 import ProfilePage from "./pages/static-pages/ProfilePage";
-import FilteredSearchPage from './pages/dynamic-pages/FilteredSearchPage';
-import CreatorPage from './pages/dynamic-pages/CreatorPage';
 import CreateCreator from './pages/static-pages/CreateCreator.js';
+
+// dynamic pages
+import CreatorPage from './pages/dynamic-pages/CreatorPage';
+import ArticlePage from "./pages/dynamic-pages/ArticlePage.js";
+import EditPostPage from "./pages/dynamic-pages/EditPostPage";
+import FilteredSearchPage from './pages/dynamic-pages/FilteredSearchPage';
+
+// legal pages
+import ConductPage from './pages/legal-pages/ConductPage.js';
+import PolicyPage from './pages/legal-pages/PolicyPage.js';
+import TermsPage from './pages/legal-pages/TermsPage.js';
+
 
 // components
 import Nav from "./components/Nav";
@@ -194,6 +202,18 @@ function login () {
           
           <Route path="/ContactPage" exact>
             <ContactPage />
+          </Route>
+
+		<Route path="/Codeofconduct" exact>
+            <ConductPage />
+          </Route>
+
+		  <Route path="/Policies" exact>
+            <PolicyPage />
+          </Route>
+
+		<Route path="/Termsofservice" exact>
+            <TermsPage />
           </Route>
 
           <Route path="/CreatePostPage" exact>

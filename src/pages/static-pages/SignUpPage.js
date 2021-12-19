@@ -21,12 +21,10 @@ export default function SignUpPage() {
 	const [ registered, setRegistered ] = useState(false);
 
  	useEffect(() => {
-		setUserRole(process.env.REACT_APP_GUEST_SECRET);
+		setUserRole(process.env.REACT_APP_USER_SECRET);
 		handleDate();
 		// eslint-disable-next-line
 	}, [userRole])
-
-	console.log(robot)
 
 	function handleDate(){
 		const current = new Date();
@@ -60,63 +58,66 @@ export default function SignUpPage() {
 		}
 	}
 
+	console.log(robot)
+
 	return (
 		<StyledSignUpPage>
-
 			{
-			 registered === false ? (
-			 <>
-			 <h1>Sign Up</h1>
-				<div className="form-wrapper">
-					<label>Username:</label>
-					<input 
-						type="text" 
-						onChange={(event) => {
-							setUsername(event.target.value);
-						}}
-					/>
-					<label>Email:</label>
-					<input 
-						type="email" 
-						onChange={(event) => {
-							setEmail(event.target.value);
-						}}
-					/>
-					<label>Retype Email:</label>
-					<input 
-						type="email" 
-						onChange={(event) => {
-							setConfirmEmail(event.target.value);
-						}}
-					/>
-					<label>Password:</label>
-					<input 
-						type="text" 
-						onChange={(event) => {
-							setPassword(event.target.value);
-						}}
-					/>
-                    <label>Retype Password:</label>
-					<input 
-						type="text" 
-						onChange={(event) => {
-							setConfirm(event.target.value);
-						}}
-					/>
-					<label> Are you a robot?</label>
-					<label>No
-						<input 
-							id="checkbox" 
-							type="checkbox" 
-							name="robot"
-							onChange={(event) => {
-								setRobot(event.target.value);
-						}}
-						 />
-					</label>
-					<button type="submit" onClick={()=>{registerUser();}}>Sign Up</button>
-				</div>
-				</>
+				registered === false ? (
+					<>
+						<h1>Join the</h1>
+						<h1>Real Deal Fitness</h1>
+						<h1>Commmunity!</h1>
+						<div className="form-wrapper">
+							<label>Username:</label>
+							<input 
+								type="text" 
+								onChange={(event) => {
+									setUsername(event.target.value);
+								}}
+							/>
+							<label>Email:</label>
+							<input 
+								type="email" 
+								onChange={(event) => {
+									setEmail(event.target.value);
+								}}
+							/>
+							<label>Retype Email:</label>
+							<input 
+								type="email" 
+								onChange={(event) => {
+									setConfirmEmail(event.target.value);
+								}}
+							/>
+							<label>Password:</label>
+							<input 
+								type="text" 
+								onChange={(event) => {
+									setPassword(event.target.value);
+								}}
+							/>
+							<label>Retype Password:</label>
+							<input 
+								type="text" 
+								onChange={(event) => {
+									setConfirm(event.target.value);
+								}}
+							/>
+							<label> Are you a robot?</label>
+							<label>No
+								<input 
+									id="checkbox" 
+									type="checkbox" 
+									name="robot"
+									onChange={(event) => {
+										setRobot(event.target.value);
+									}}
+								/>
+							</label>
+							<button type="submit" onClick={()=>{registerUser();}}>Sign Up</button>
+						</div>
+					</>
 				) : (
 					<>
 						<h4>You are all signed up!</h4>
@@ -145,9 +146,9 @@ const StyledSignUpPage = styled.div`
 		h1 {
 			font-size: 3em;
 			color: #0f4d92;
-			margin-bottom: 40px;
 		}
 		.form-wrapper {
+			margin-top: 40px;
 			display: flex;
 			width: 90%;
 			flex-direction: column;
@@ -180,19 +181,21 @@ const StyledSignUpPage = styled.div`
 			}
 			button {
 				width: 200px;
+				height: 30px;
 				cursor: pointer;
 				margin: 0 20px;
-				background: #d1d1d1;
+				color: #ffffff;
+				cursor: pointer;
+				background: #3b5998;
 				border: none;
 				border-radius: 4px;
 				font-weight: 700;
 				@media (max-width: 1150px){
 					font-size: 1.2em;
 				}
-				&:hover{
-					color: #ffffff;
+				&:hover {
 					cursor: pointer;
-					background: #0f4d92;
+					background: #808080;
 					transition: 0.2s;
 					transform: scale(1.01);
 				}

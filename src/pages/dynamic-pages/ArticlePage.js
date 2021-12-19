@@ -77,10 +77,6 @@ export default function BlogArticle({ role, user, isLoggedIn }) {
         // eslint-disable-next-line
     }, [ authorUsername ]);
 
-
-    console.log(article)
-    console.log(authorUsername)
-
     function handleAddLike() {
 		axios.post(`${process.env.REACT_APP_LIKE_POST_URL}/${postId}`, {
 			username: username,
@@ -211,7 +207,6 @@ export default function BlogArticle({ role, user, isLoggedIn }) {
                             postId={id}
                         />
                     </div>
-                    )
                 </>
             )
         }

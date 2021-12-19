@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 // components
 import BlogSnip from '../../components/BlogSnip';
+import Loader from '../../loaders/Loader';
 
 // redux
 import { useDispatch } from 'react-redux';
@@ -25,7 +26,7 @@ import Dot from "../../images/dot.png";
 
 export default function CreatorPage ({user}) {
 
-const { authorUsername } = useParams();
+    const { authorUsername } = useParams();
 
     const dispatch = useDispatch();
     
@@ -35,7 +36,7 @@ const { authorUsername } = useParams();
     useEffect(() => {
         getPosts();
         function getCreator(){
-        setLoading(false)
+        setLoading(true)
         axios.get(`${process.env.REACT_APP_GET_CREATOR_URL}/${authorUsername}`)
         .then(function(response){
             setLoading(false);
@@ -51,11 +52,18 @@ const { authorUsername } = useParams();
 
     const articles = useSelector((state) => state.posts);
 
+    const [ value, setValue ] = useState(10);
+
+    function handleShowMore(){
+      let i = 10;
+      setValue(value + i)
+    }
+
 return (
         <StyledCreatorPage>
             {
                 loading === true ? (
-                    <h1>Loading..</h1>
+                    <Loader />
                 ) : (
                     <section>
                         {
@@ -139,8 +147,15 @@ return (
                     }
                 </div>
             </div>
+            {
+                 articles.filter(articles => articles.authorUsername === `${authorUsername}`).length >= 10 ? (
+                    <button id="showmore" onClick={handleShowMore}>Show More</button>
+                ) : (
+                    <></>
+                )
+            }
             </section>
-                )}
+            )}
     </StyledCreatorPage >
     )
 }
@@ -224,14 +239,21 @@ const StyledCreatorPage = styled.div`
     width: 100%;
     height: 100%;
     margin: 1em auto;
-    .blogWrapper {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        min-height: 100%;
-        margin: 0 auto;
-        border-radius: 12px;
+        .blogWrapper {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            min-height: 100%;
+            margin: 0 auto;
+            border-radius: 12px;
+        }
     }
-}
+    #showmore {
+        height: 35px;
+        width: 200px;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
 
 `;
