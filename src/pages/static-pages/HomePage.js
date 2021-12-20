@@ -1,0 +1,102 @@
+
+import { useState, useEffect } from 'react';
+
+// styled
+import styled from 'styled-components';
+
+// components
+import BlogSnip from '../../components/BlogSnip';
+import Loader from '../../loaders/Loader';
+
+// redux
+import { useDispatch } from 'react-redux';
+import { getPosts } from '../../redux/actions/posts';
+import { useSelector } from 'react-redux';
+
+export default function HomePage ({ user }) {
+
+    const [ isLoading, setLoading ] = useState(true);
+
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        dispatch(getPosts());
+        setLoading(false)
+    }, [dispatch])
+
+    const articles = useSelector((state) => state.posts);
+    const [ value, setValue ] = useState(10);
+
+    function handleShowMore(){
+      let i = 10;
+      setValue(value + i)
+    }
+
+    return (
+        <StyledHomePage>
+            <div className="blog">
+                <div className="blogWrapper">
+                    {
+                        isLoading === true ? (
+                            <Loader />
+                        ) : (
+                        articles.slice().reverse().map((article, key) => {
+                            return(
+                                <BlogSnip
+                                    author={article.author}
+                                    user={user}
+                                    id={article._id}
+                                    title={article.postTitle}
+                                    date={article.postDate}
+                                    linkTitle={article.linkTitle}
+                                    thumbnail={article.thumbnail}
+                                    comments={article.comments.length}
+                                    likes={article.likes.length}
+                                    tag={article.tag}
+                                    authorUsername={article.authorUsername}
+                                    key={key}
+                                />
+                            )
+                        })
+                    )}
+                </div>
+            </div>
+            {
+                articles.length >= 10 ? (
+                    <button id="showmore" onClick={handleShowMore}>Show More</button>
+                ) : (
+                    <></>
+                )
+            }
+        </StyledHomePage >
+    )
+}
+
+const StyledHomePage = styled.div`
+    height: 100%;
+    width: 100%;
+    margin: 1em auto;
+    max-width: 875px;
+     #showmore {
+        height: 35px;
+        width: 200px;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+    .blog {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        margin: 3em auto;
+        .blogWrapper {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            min-height: 100%;
+            margin: 0 auto;
+            border-radius: 12px;
+        }
+    }
+`;

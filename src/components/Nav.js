@@ -5,10 +5,10 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 // images
-import Logo from '../images/Logo.png';
+import Logo from '../images/rdfLogoWhite.png';
 import Hamburger from '../images/hamburgerWhite2.png';
 
-export default function Nav() {
+export default function Nav({role, isLoggedIn, logout}) {
 
  /* Open when someone clicks on the span element */
 function openNav() {
@@ -24,20 +24,46 @@ function openNav() {
     return (
         <StyledNav>
             <img className="logo" src={Logo} alt="" />
-            <nav>
-                <Link to="/">Home</Link>
-                <Link to="/AboutPage">About</Link>
-                <Link to="/ContactPage">Contact</Link>
-                <a href="https://www.trdfitshop.com" target="_blank" rel="noreferrer">Shop</a>
-            </nav>
+            {
+                 isLoggedIn === false ? (
+                    <nav>
+                        <Link to="/">Home</Link>
+                        <Link to="/AboutPage">About</Link>
+                        <a href="https://www.trdfitshop.com" target="_blank" rel="noreferrer">Merch</a>
+                        <Link to="/SignUpPage">Sign Up</Link>
+                        <Link to="/LoginPage">Log In</Link>
+                    </nav>
+                 ) : (
+                     <nav>
+                        <Link to="/">Home</Link>
+                        <Link to="/AboutPage">About</Link>
+                        <a href="https://www.trdfitshop.com" target="_blank" rel="noreferrer">Merch</a>
+                        <Link to="/ProfilePage">Profile</Link>
+                        <Link to="/" onClick={logout}>Sign Out</Link>
+                    </nav>
+                    )
+                }
             <div id="myNav" className="overlay">
                 <button onClick={closeNav}>&times;</button>
-                <div className="overlayContent">
-                    <Link to="/" onClick={closeNav}>Home</Link>
-                    <Link to="/AboutPage" onClick={closeNav}>About</Link>
-                    <Link to="/ContactPage" onClick={closeNav}>Contact</Link>
-                    <a href="https://trdfitshop.com" rel="noreferrer" onClick={closeNav}>Shop</a>
-                </div>
+                {
+                        isLoggedIn === false ? (
+                            <div className="overlayContent">
+                                <Link to="/" onClick={closeNav}>Home</Link>
+                                <Link to="/AboutPage" onClick={closeNav}>About</Link>
+                                <a href="https://trdfitshop.com" rel="noreferrer" onClick={closeNav}>Merch</a>
+                                <Link to="/SignUpPage">Sign Up</Link>
+                                <Link to="/LoginPage">Log In</Link>
+                            </div>
+                        ) : (
+                            <div className="overlayContent">
+                                <Link to="/" onClick={closeNav}>Home</Link>
+                                <Link to="/AboutPage" onClick={closeNav}>About</Link>
+                                <a href="https://trdfitshop.com" rel="noreferrer" onClick={closeNav}>Merch</a>
+                                <Link to="/ProfilePage">Profile</Link>
+                                <Link to="/">Sign Out</Link>
+                            </div>
+                        )
+                    }
             </div>
             <img id='hamburger' src={Hamburger} onClick={openNav} alt="hamburger menu"/>
         </StyledNav>
@@ -45,31 +71,35 @@ function openNav() {
 }
 
 const StyledNav = styled.div`
-display: flex;
-justify-content: space-between;
-width: 95%;
-margin: auto;
-align-items: center;
-height: 10vh;
-border-bottom: 2px white solid;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 875px;
+    margin: auto;
+    align-items: center;
+    height: 8vh;
+    padding: 3px 0;
+    border-bottom: 2px white solid;
+    @media (max-width: 750px){
+        width: 95%;
+    }
     .logo {
-        width: 200px;
+        width: 100px;
     }
     nav {
         display: flex;
-        width: 40%;
+        width: 50%;
         justify-content: space-between;
         @media (max-width: 750px){
             display: none;
         }
         a {
             text-decoration: none;
-            font-size: 1.5em;
-            color: #b9b9b9;
+            font-size: 1.2em;
+            color: #d8d8d8;
             &:hover {
                 color: white;
-                transition: 0.3s;
-                transform: scale(1.1);
+                text-decoration: underline;
             }
         }
     }

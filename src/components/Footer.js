@@ -2,8 +2,8 @@
 // styled
 import styled from 'styled-components';
 
-// components
-import EmailForm from './emailForm';
+//router
+import { Link } from 'react-router-dom';
 
 // images
 import FB from '../images/FB.png';
@@ -14,7 +14,7 @@ import Twitter from '../images/twitterBlack.png';
 export default function Footer() {
     return (
         <StyledFooter>
-            <div className="iconContainer">
+            <div className="icon-container">
                 <a href="https://facebook.com/therealdealfitness" target="_blank" rel="noreferrer">
                     <img src={FB} alt="" />
                 </a>
@@ -28,34 +28,75 @@ export default function Footer() {
                     <img src={Twitter} alt="" />
                 </a>
             </div>
-            <EmailForm />
+            <div className="link-container">
+                <Link to="/AboutPage">About</Link>
+                <Link to="/ContactPage">Contact</Link>
+                <a href="https://www.trdfitshop.com" target="_blank" rel="noreferrer">Merch</a>
+                <Link to="/Termsofservice">Terms of Service</Link>
+                <Link to="/Policies">Policies</Link>
+                <Link to="/Codeofconduct">Code of Conduct</Link>
+            </div>
         </StyledFooter>
     )
 }
 
 const StyledFooter = styled.div`
-width: 95%;
-margin: 2% auto;
-display: flex;
-justify-content: center;
-align-items: center;
-border-top: 2px solid white;
-@media (max-width: 750px){
-       flex-direction: column;
-  }
-.iconContainer {
+    margin: 20px auto 50px auto;
     display: flex;
-    justify-content: space-around;
-    width: 30%;
-    margin: 2% auto; 
-    @media (max-width: 1000px){
-       width: 90%;
+    justify-content: center;
+    align-items: center;
+    border-top: 2px solid white;
+    flex-direction: column;
+    max-width: 875px;
+    width: 100%;
+    margin: auto;
+    height: 15vh;
+    @media (max-width: 750px){
+        width: 95%;
     }
-    a {
-        img {
-            width: 40px;
+    .icon-container {
+        display: flex;
+        justify-content: space-between;
+        width: 20%;
+        margin: 2% auto; 
+        @media (max-width: 1050px){
+        width: 30%;
+        }
+        @media (max-width: 750px){
+        width: 50%;
+        }
+        a {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            &:hover {
+                background: white;
+            }
+            img {
+                width: 100%;
+                height: 100%;
+            }
         }
     }
-}
+    .link-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        width: 80%;
+        @media (max-width: 1050px){
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-row-gap: 20px;
+            width: 100%;
+        }
+        a {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            font-size: 12px;
+            color: white;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
 
 `;

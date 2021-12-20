@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 // formspree
 import { useForm, ValidationError } from '@formspree/react';
+import { StyledButton } from '../Styled/Styled';
 
 
 function ContactForm() {
@@ -39,67 +40,58 @@ function ContactForm() {
         field="message"
         errors={state.errors}
       />
-      <button type="submit" disabled={state.submitting}>
+      <StyledButton type="submit" disabled={state.submitting}>
         Submit
-      </button>
+      </StyledButton>
     </form>
     </StyledForm>
   );
 }
 
 const StyledForm = styled.div`
-width: 70%;
-margin: 5% auto;
-height: 100%;
-background: lightgray;
-border-radius: 12px;
-@media (max-width: 1000px){
-       width: 90%;
-  }
-form {
-  display: flex;
-  flex-direction: column;
   width: 70%;
   margin: 5% auto;
   height: 100%;
+  background: lightgray;
+  border-radius: 12px;
   @media (max-width: 1000px){
-       width: 90%;
-  }
-  button, input, textarea, label {
-    margin: 6px auto;
-  }
-  input {
-    width: 90%;
-    height: 30px;
-  }
-  textarea, input {
-    font-size: 1.5em;
-    font-weight: normal;
-  }
-  textarea{
-    height: 200px;
-    width: 90%;
-  }
-  button {
-    width: 200px;
-    height: 30px;
-    font-size: 1em;
-    font-weight: bold;
-    letter-spacing: 1px;
-    cursor: pointer;
-    border: none;
-    border-radius: 8px;
-    margin: 10px auto;
-    &:hover{
-      color: white;
-      background: black;
+        width: 90%;
+    }
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 5% auto;
+    height: 100%;
+    @media (max-width: 1000px){
+        width: 90%;
+    }
+    button, input, textarea, label {
+      margin: 6px auto;
+    }
+    input {
+      width: 90%;
+      height: 30px;
+    }
+    textarea, input {
+      font-size: 1.5em;
+      font-weight: normal;
+    }
+    textarea{
+      height: 200px;
+      width: 90%;
+    }
+    button {
+      &:hover{
+        color: white;
+        background: black;
+      }
+    }
+    label {
+      font-size: 1.5em;
+      text-decoration: underline;
     }
   }
-  label {
-    font-size: 1.5em;
-    text-decoration: underline;
-  }
-}
 `;
 
 
