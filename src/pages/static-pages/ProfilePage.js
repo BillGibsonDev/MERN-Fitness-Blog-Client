@@ -137,10 +137,12 @@ export default function ProfilePage({ user, role }) {
 
 const StyledProfilePage = styled.div`
 background: #132d66;
-min-height: 80vh;
 border-radius: 20px;
-width: 90%;
+width: 100%;
+min-height: 80vh;
+max-width: 875px;
 margin: 2em auto;
+padding-bottom: 20px;
 display: flex;
 align-items: center;
 flex-direction: column;

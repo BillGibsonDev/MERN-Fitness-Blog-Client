@@ -136,15 +136,16 @@ const StyledSignUpPage = styled.div`
 	justify-content: center;
 	flex-direction: column;
 	background: white;
-	height: 80vh;
-	width: 90%;
+	width: 100%;
+    min-height: 80vh;
+    max-width: 875px;
 	margin: 20px auto;
 	border-radius: 12px;
 		@media (max-width: 1050px){
 			width: 98%;
 		}
 		h1 {
-			font-size: 3em;
+			font-size: 2em;
 			color: #0f4d92;
 		}
 		.form-wrapper {
@@ -183,7 +184,7 @@ const StyledSignUpPage = styled.div`
 				width: 200px;
 				height: 30px;
 				cursor: pointer;
-				margin: 0 20px;
+				margin: 0 auto 20px auto;
 				color: #ffffff;
 				cursor: pointer;
 				background: #3b5998;

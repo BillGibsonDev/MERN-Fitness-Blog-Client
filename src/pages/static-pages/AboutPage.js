@@ -24,8 +24,11 @@ const StyledAboutPage = styled.div`
     background: white;
     border-radius: 12px;
     width: 100%;
+    min-height: 80vh;
     max-width: 875px;
-    margin: auto;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
     @media (max-width: 750px){
         width: 95%;
     }
@@ -33,7 +36,7 @@ const StyledAboutPage = styled.div`
         width: 95%;
         margin: 20px auto;
         padding: 1em 0;
-        h1{
+        h1 {
             margin: 10px 0;
             font-size: 2.5em;
             color: #3b3b3b;
@@ -42,12 +45,9 @@ const StyledAboutPage = styled.div`
             margin-top: 1em;
         }
         p {
-            font-size: 2em;
+            font-size: 1.5em;
             span {
                 font-weight: 700;
-            }
-        hr {
-            border: none;
             }
         }
     }

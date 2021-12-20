@@ -77,7 +77,8 @@ const StyledNav = styled.div`
     max-width: 875px;
     margin: auto;
     align-items: center;
-    height: 7vh;
+    height: 8vh;
+    padding: 3px 0;
     border-bottom: 2px white solid;
     @media (max-width: 750px){
         width: 95%;
