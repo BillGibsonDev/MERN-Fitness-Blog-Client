@@ -159,7 +159,7 @@ export default function BlogArticle({ role, user, isLoggedIn }) {
                             <div className="author-header">
                                 {
                                     creator[0] === undefined ? (
-                                        <h2>No Creator found</h2>
+                                        <img src="" alt="" />
                                     ) : (
                                         <img src={creator[0].avatar}alt="" />
                                     )
@@ -189,7 +189,12 @@ export default function BlogArticle({ role, user, isLoggedIn }) {
                         </div>
                         {
                             creator[0] === undefined ? (
-                                <h2>No Creator found</h2>
+                                <footer>
+                                    <img src="" alt="" />
+                                    <div className="author-info-wrapper">
+                                        <Link to={`/creators/${article.authorUsername}`}>{article.author}</Link>
+                                    </div>
+                                </footer>
                             ) : (
                                 <footer>
                                     <img src={creator[0].avatar} alt="" />
