@@ -174,8 +174,9 @@ const StyledCreatorPage = styled.div`
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 100%;
-        margin-bottom: 20px;
+        margin: 20px auto;
+        width: 95%;
+        max-width: 875px;
         .header-wrapper {
             width: 70%;
             display: flex;

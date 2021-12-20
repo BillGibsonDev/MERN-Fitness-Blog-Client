@@ -24,7 +24,7 @@ const StyledAboutPage = styled.div`
     background: white;
     border-radius: 12px;
     width: 100%;
-    min-height: 80vh;
+    min-height: 50vh;
     max-width: 875px;
     margin: 20px auto;
     display: flex;

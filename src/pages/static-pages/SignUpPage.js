@@ -137,14 +137,11 @@ const StyledSignUpPage = styled.div`
 	justify-content: center;
 	flex-direction: column;
 	background: white;
-	width: 100%;
     min-height: 80vh;
-    max-width: 875px;
 	margin: 20px auto;
+    width: 95%;
+    max-width: 875px;
 	border-radius: 12px;
-		@media (max-width: 1050px){
-			width: 98%;
-		}
 		h1 {
 			font-size: 2em;
 			color: #0f4d92;

@@ -52,7 +52,7 @@ const StyledLoginPage = styled.div`
 	justify-content: center;
 	flex-direction: column;
 	background: white;
-	width: 100%;
+	width: 95%;
     min-height: 80vh;
     max-width: 875px;
 	margin: 20px auto;

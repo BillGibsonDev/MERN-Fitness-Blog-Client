@@ -18,8 +18,8 @@ export default function ContactPage () {
 const StyledContactPage = styled.div`
     background: white;
     border-radius: 12px;
-    margin: 5% auto;
-    width: 100%;
+    margin: 20px auto;
+    width: 95%;
     max-width: 875px;
     .contact-wrapper {
         display: flex;

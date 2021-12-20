@@ -12,12 +12,13 @@ export default function AboutPage () {
 const StyledAboutPage = styled.div`
     background: white;
     border-radius: 12px;
-    width: 100%;
     height: 70vh;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 20px auto;
+    width: 95%;
+    max-width: 875px;
     h1 {
         color: black;
         font-size: 3em;

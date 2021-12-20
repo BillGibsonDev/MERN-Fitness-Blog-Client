@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom';
 import Edit from '../../images/editIconBlack.png';
 import Heart from '../../images/heartTrans.png';
 import HeartBlue from '../../images/heartBlue.png';
-
+import HeartBlack from "../../images/heartTransBlack.png";
 
 export default function BlogArticle({ role, user, isLoggedIn }) {
 
@@ -131,9 +131,9 @@ export default function BlogArticle({ role, user, isLoggedIn }) {
                                         <Link to={`/EditPostPage/${postId}`}><img id="edit" src={Edit} alt="" /></Link>
                                         {
                                             isLoggedIn === false ? (
-                                                <img id="edit" onClick={handleLoggedIn} src={Heart} alt=''/>
+                                                <img id="edit" onClick={handleLoggedIn} src={HeartBlack} alt=''/>
                                             ):isLoggedIn === true && hasLiked === false ? (
-                                                <img id="edit" onClick={handleAddLike} src={Heart} alt='' />
+                                                <img id="edit" onClick={handleAddLike} src={HeartBlack} alt='' />
                                             ): (
                                                 <img id="edit" onClick={handleRemoveLike} src={HeartBlue} alt=''/>
                                             )
@@ -143,7 +143,7 @@ export default function BlogArticle({ role, user, isLoggedIn }) {
                                     <div className="icon">
                                         {
                                             isLoggedIn === false ? (
-                                                <img id="edit" onClick={handleLoggedIn} src={Heart} alt='' />
+                                                <img id="edit" onClick={handleLoggedIn} src={HeartBlack} alt='' />
                                             ):isLoggedIn === true && hasLiked === false ? (
                                                 <img id="edit" onClick={handleAddLike} src={Heart} alt='' />
                                             ): (
@@ -227,7 +227,7 @@ const StyledArticle = styled.div`
     flex-direction: column;
     margin: 2em auto;
     align-items: center;
-    width: 100%;
+    width: 95%;
     max-width: 875px;
     border-radius: 14px;
     box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.219);
@@ -256,7 +256,6 @@ const StyledArticle = styled.div`
                 align-items: center;
                 @media (max-width: 1000px){
                     width: 30%;
-                    margin: auto;
                 }
                 @media (max-width: 750px){
                     width: 100%;
@@ -279,13 +278,17 @@ const StyledArticle = styled.div`
                 }
             }
             .icon {
-                    margin: 6px 0;
-                    width: 100%;
+                    margin: 10px 0 6px 0;
+                    width: 200px;
                     display: flex;
                     justify-content: flex-end;
+                    @media (max-width: 750px){
+                        width: 100%;
+                        margin: auto;
+                    }
                     img {
                         width: 25px;
-                        margin-left: 4px;
+                        margin: 10px 0 6px 4px;
                     }
                 }
             a {
