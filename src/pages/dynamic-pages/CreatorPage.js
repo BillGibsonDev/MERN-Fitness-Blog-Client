@@ -34,6 +34,7 @@ export default function CreatorPage ({user}) {
     const [ loading, setLoading ] = useState(false);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         getPosts();
         function getCreator(){
         setLoading(true)

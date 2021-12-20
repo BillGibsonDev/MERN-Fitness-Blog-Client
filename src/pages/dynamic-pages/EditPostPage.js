@@ -8,8 +8,9 @@ import styled from 'styled-components';
 
 // router
 import  { useParams } from 'react-router-dom';
+import { StyledButton } from '../../Styled/Styled';
 
-export default function EditPostPage({user, role}) {
+export default function EditPostPage({user, role, confirmRole}) {
 
     const { postId } = useParams();
 
@@ -34,8 +35,9 @@ export default function EditPostPage({user, role}) {
 useEffect(() => {
     handlePost(postId);
     setAuthor(user)
+    confirmRole();
     // eslint-disable-next-line
-}, [postId])
+}, [ confirmRole(), postId])
 
     const [ postTitle, setPostTitle ] = useState(article.postTitle);
     const [ linkTitle, setLinkTitle ] = useState(article.postTitle);
@@ -47,50 +49,52 @@ useEffect(() => {
     const [ author, setAuthor ] = useState(article.author);
     const [inputFields, setInputFields] = useState([]);
 
-const handleUpdate = () => {
-    axios.post(`${process.env.REACT_APP_UPDATE_POST_URL}/${postId}`, {
-        // post heading
-        postId: postId,
-        author: author,
-        postTitle: postTitle,
-        linkTitle: linkTitle,
-        postDate: postDate,
-        thumbnail: thumbnail,
-        postIntro: postIntro,
+    const handleUpdate = () => {
+        axios.post(`${process.env.REACT_APP_UPDATE_POST_URL}/${postId}`, {
+            // post heading
+            postId: postId,
+            author: author,
+            postTitle: postTitle,
+            linkTitle: linkTitle,
+            postDate: postDate,
+            thumbnail: thumbnail,
+            postIntro: postIntro,
 
-        // sections
-        sections: inputFields,
-  
-        // conclusion 
-        conclusion: conclusion,
-        conclusionTitle: conclusionTitle,
+            // sections
+            sections: inputFields,
+    
+            // conclusion 
+            conclusion: conclusion,
+            conclusionTitle: conclusionTitle,
 
-    })
-    .then(function(response){
-        if(response.data === "Post Updated"){
-            alert('Post Updated')
-            setLoading(false);
-        } else {
-            alert("Server Error - Post Not Updated")
-            setLoading(false);
-        }
-    })
-    .catch(function (error) {
-		console.log(error);
-	});
-};
+        })
+        .then(function(response){
+            if(response.data === "Post Updated"){
+                alert('Post Updated')
+                setLoading(false);
+            } else {
+                alert("Server Error - Post Not Updated")
+                setLoading(false);
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    };
 
-const handleAddFields = () => {
-    const values = [...inputFields];
-    values.push({ paragraph: '', title: '', image: '', link: '' });
-    setInputFields(values);
-  };
+    const handleAddFields = () => {
+        const values = [...inputFields];
+        values.push({ paragraph: '', title: '', image: '', link: '' });
+        setInputFields(values);
+    };
 
-  const handleRemoveFields = index => {
-    const values = [...inputFields];
-    values.splice(index, 1);
-    setInputFields(values);
-  };
+    const handleRemoveFields = index => {
+        const result = window.confirm("Are you sure you want to delete?");
+        if(result === true){
+        const values = [...inputFields];
+        values.splice(index, 1);
+        setInputFields(values);
+    }};
 
   const handleInputChange = (index, event) => {
     const values = [...inputFields];
@@ -108,7 +112,7 @@ const handleAddFields = () => {
   };
 
 
-function deletePost(){
+    function deletePost(){
         const result = window.confirm("Are you sure you want to delete?");
         if(result === true){
             setLoading(true);
@@ -227,12 +231,12 @@ function deletePost(){
                                     /></label>
                                 </div>
                                 <div className="button-container">
-                                    <button onClick={handleAddFields}>Add Paragraph</button>
+                                    <StyledButton onClick={handleAddFields}>Add Paragraph</StyledButton >
                                     {
                                         inputFields.length === 1 ? (
-                                            <button>Remove</button>
+                                            <StyledButton  id="delete">Remove</StyledButton >
                                         ):(
-                                            <button onClick={handleRemoveFields}>Remove</button>
+                                            <StyledButton  id="delete" onClick={handleRemoveFields}>Remove</StyledButton >
                                         )
                                     }
                                 </div>
@@ -263,9 +267,9 @@ function deletePost(){
                             }}
                     /></label>
                 </div>
-                <div className="button-container">
-                    <button onClick={handleUpdate}>Update</button>
-                    <button onClick={deletePost}>Delete</button>
+                <div className="bottom-button-container">
+                    <StyledButton onClick={handleUpdate}>Update</StyledButton>
+                    <StyledButton id="delete" onClick={deletePost}>Delete</StyledButton>
                 </div>
             </div>
              )
@@ -275,22 +279,24 @@ function deletePost(){
 }
 
 const StyledEditPage = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-width: 100%;
-min-height: 100vh;
-h1 {
-    font-size: 3em;
-    margin: 1em 0;
-}
-.formWrapper {
     display: flex;
     flex-direction: column;
-    background: lightgray;
-    width: 100%;
     align-items: center;
-    border-radius: 12px;
+    width: 100%;
+    max-width: 875px;
+    min-height: 100vh;
+    margin: 20px auto;
+    h1 {
+        font-size: 3em;
+        margin: 1em 0;
+    }
+    .formWrapper {
+        display: flex;
+        flex-direction: column;
+        background: lightgray;
+        width: 100%;
+        align-items: center;
+        border-radius: 12px;
         #paragraph-section, #intro, #conclusion {
             border-bottom: 2px white solid;
             width: 95%;
@@ -334,25 +340,36 @@ h1 {
                         height: 200px;
                     }
                 }
-        }
-        #intro, #conclusion {
-            flex-direction: row;
-            .info-container {
-                flex-direction: column;
+            }
+            #intro, #conclusion {
+                flex-direction: row;
+                .info-container {
+                    flex-direction: column;
+                }
+            }
+            .button-container {
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                #delete {
+                background: #da4040;
+                    &:hover {
+                    background: red;
+                }
             }
         }
-        .button-container {
+        .bottom-button-container {
             display: flex;
             width: 100%;
             justify-content: space-between;
-            button {
-                padding: 0 6px;
-                border-radius: 6px;
-                border: none;
-                background: lightblue;
-                color: white;
+            margin-bottom: 10px;
+            #delete {
+                background: #da4040;
+                &:hover {
+                    background: red;
+                }
             }
         }
     }
-
 `;

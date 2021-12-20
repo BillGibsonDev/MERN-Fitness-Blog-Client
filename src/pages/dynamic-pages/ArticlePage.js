@@ -32,6 +32,7 @@ export default function BlogArticle({ role, user, isLoggedIn }) {
     const [ authorUsername, setAuthorUsername ] = useState('');
      
     useEffect(() => {
+        window.scrollTo(0, 0);
         setPostId(id);
         setUsername(user);
         function getPosts(){
@@ -221,14 +222,12 @@ const StyledArticle = styled.div`
     flex-direction: column;
     margin: 2em auto;
     align-items: center;
-    width: 70%;
+    width: 100%;
+    max-width: 875px;
     border-radius: 14px;
     box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.219);
     background: #ffffff;
     position: relative;
-    @media (max-width: 1250px){
-        width: 100%;
-    }
     .article-content {
         position: relative;
         width: 90%;

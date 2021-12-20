@@ -3,6 +3,7 @@ import axios from 'axios';
 
 // styled
 import styled from 'styled-components';
+import { StyledButton } from '../../Styled/Styled';
 
 export default function CreateUser({role, confirmAdmin}) {
 
@@ -97,9 +98,9 @@ export default function CreateUser({role, confirmAdmin}) {
 					/>
 					{
                         role === process.env.REACT_APP_ADMIN_SECRET ? (
-                            <button type="submit" onClick={()=>{registerUser();}}>Create User</button>
+                            <StyledButton type="submit" onClick={()=>{registerUser();}}>Create User</StyledButton>
                         ) : (    
-                            <button type="submit" onClick={()=>{unauthorized();}}>Create User</button>
+                            <StyledButton type="submit" onClick={()=>{unauthorized();}}>Create User</StyledButton>
                         )
                     }
 				</div>
@@ -114,8 +115,9 @@ justify-content: center;
 flex-direction: column;
 background: white;
 height: 80vh;
-width: 90%;
-margin: auto;
+width: 100%;
+max-width: 875px;
+margin: 20px auto;
 border-radius: 12px;
 	@media (max-width: 1050px){
 		width: 98%;
@@ -151,25 +153,6 @@ border-radius: 12px;
                 }
 				@media (max-width: 550px){
                     width: 90%;
-                }
-            }
-            button {
-                width: 200px;
-                cursor: pointer;
-                margin: 0 20px;
-                background: #d1d1d1;
-                border: none;
-                border-radius: 4px;
-                font-weight: 700;
-                @media (max-width: 1150px){
-                    font-size: 1.2em;
-                }
-                &:hover{
-                    color: #ffffff;
-                    cursor: pointer;
-                    background: #0f4d92;
-                    transition: 0.2s;
-                    transform: scale(1.01);
                 }
             }
         }

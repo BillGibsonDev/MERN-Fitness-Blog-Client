@@ -1,12 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // axios
 import axios from 'axios';
 
 // styled
 import styled from 'styled-components';
+import { StyledButton } from '../../Styled/Styled';
 
-export default function CreatePostPage({user}) {
+export default function CreatePostPage({user, confirmRole}) {
+
+
+useEffect(() => {
+    confirmRole()
+}, [confirmRole])
 
 //post heading
     const [ postTitle, setPostTitle ] = useState("");
@@ -32,70 +38,69 @@ export default function CreatePostPage({user}) {
 
 
 
-const handleSubmit = () => {
-    axios.post(`${process.env.REACT_APP_ADD_POST_URL}`, {
-        // post heading
-        author: author,
-        postTitle: postTitle,
-        linkTitle: linkTitle,
-        postDate: postDate,
-        thumbnail: thumbnail,
-        postIntro: postIntro,
+    const handleSubmit = () => {
+        axios.post(`${process.env.REACT_APP_ADD_POST_URL}`, {
+            // post heading
+            author: author,
+            postTitle: postTitle,
+            linkTitle: linkTitle,
+            postDate: postDate,
+            thumbnail: thumbnail,
+            postIntro: postIntro,
 
-        // sections
-        sections: inputFields,
-  
-        // conclusion 
-        conclusion: conclusion,
-        conclusionTitle: conclusionTitle,
+            // sections
+            sections: inputFields,
+    
+            // conclusion 
+            conclusion: conclusion,
+            conclusionTitle: conclusionTitle,
 
-    })
-    .then(function(response){
-        if(response === "Post Created"){
-            alert('Blog Post Added')
-        }
-        console.log(response)
-    })
-    .catch(function (error) {
-		console.log(error);
-	});
-};
+        })
+        .then(function(response){
+            if(response === "Post Created"){
+                alert('Blog Post Added')
+            }
+            console.log(response)
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    };
 
-const handleAddFields = () => {
-    const values = [...inputFields];
-    values.push({ paragraph: '', title: '', image: '', link: '' });
-    setInputFields(values);
-  };
+    const handleAddFields = () => {
+        const values = [...inputFields];
+        values.push({ paragraph: '', title: '', image: '', link: '' });
+        setInputFields(values);
+    };
 
-  const handleRemoveFields = index => {
-    const values = [...inputFields];
-    values.splice(index, 1);
-    setInputFields(values);
-  };
+    const handleRemoveFields = index => {
+        const values = [...inputFields];
+        values.splice(index, 1);
+        setInputFields(values);
+    };
 
-  const handleInputChange = (index, event) => {
-    const values = [...inputFields];
-    if (event.target.name === "paragraph") {
-      values[index].paragraph = event.target.value;
-    } else if(event.target.name === "title") {
-      values[index].title = event.target.value;
-    } else if (event.target.name === "image"){
-        values[index].image = event.target.value;
-    } else {
-        values[index].link = event.target.value;
-        }
+    const handleInputChange = (index, event) => {
+        const values = [...inputFields];
+        if (event.target.name === "paragraph") {
+        values[index].paragraph = event.target.value;
+        } else if(event.target.name === "title") {
+        values[index].title = event.target.value;
+        } else if (event.target.name === "image"){
+            values[index].image = event.target.value;
+        } else {
+            values[index].link = event.target.value;
+            }
 
-    setInputFields(values);
-  };
+        setInputFields(values);
+    };
 
-const clearForm = () =>{
-    window.location.reload();
-    alert('Form Cleared')
-}
+    const clearForm = () =>{
+        window.location.reload();
+        alert('Form Cleared')
+    }
 
     return (
         <StyledCreatePage>
-            <h1>Hey my guy, looking swell today.</h1>
             <div className="formWrapper">
                 <section id="intro">
                     <div className="info-container">
@@ -220,9 +225,9 @@ const clearForm = () =>{
                             }}
                     /></label>
                 </section>
-                <div className="buttonWrapper">
-                    <button onClick={handleSubmit}>Submit</button>
-                    <button id= "clear" onClick={clearForm}>Clear</button>
+                <div className="button-wrapper">
+                    <StyledButton onClick={handleSubmit}>Submit</StyledButton>
+                    <StyledButton id= "clear" onClick={clearForm}>Clear</StyledButton>
                 </div>
             </div>
         </StyledCreatePage>
@@ -234,7 +239,9 @@ display: flex;
 flex-direction: column;
 align-items: center;
 width: 100%;
+max-width: 875px;
 min-height: 100vh;
+margin: 20px auto;
 h1 {
     font-size: 3em;
     margin: 1em 0;
@@ -308,26 +315,20 @@ h1 {
                 flex-direction: column;
             }
         }
-    button{
-        margin: 12px;
-        font-size: 1.5em;
-        height: 40px;
-        background: lightgreen;
-        cursor: pointer;
-        &:hover{
-            transition: 0.3s;
-            transform: scale(1.1);
-            background: white;
+        .button-wrapper {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 10px;
+            #clear {
+                opacity: .6;
+                background: #ff0800;
+                &:hover{
+                    background: #fa0000;
+                    opacity: 1;
+                }
+            }
         }
-    }
-    #clear {
-        opacity: .6;
-        background: lightgoldenrodyellow;
-        &:hover{
-            background: white;
-            opacity: 1;
-        }
-    }
 }
 
 `;

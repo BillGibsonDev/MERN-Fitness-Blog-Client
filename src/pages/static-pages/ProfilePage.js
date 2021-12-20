@@ -136,22 +136,22 @@ export default function ProfilePage({ user, role }) {
 }
 
 const StyledProfilePage = styled.div`
-background: #132d66;
-border-radius: 20px;
-width: 100%;
-min-height: 80vh;
-max-width: 875px;
-margin: 2em auto;
-padding-bottom: 20px;
-display: flex;
-align-items: center;
-flex-direction: column;
+    background: #132d66;
+    border-radius: 20px;
+    width: 100%;
+    min-height: 80vh;
+    max-width: 875px;
+    margin: 2em auto;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     @media (max-width: 1050px){
         width: 98%;
     }
     h1 {
-		font-size: 3em;
-		color: #ffffff;
+        font-size: 3em;
+        color: #ffffff;
         margin: 20px auto;
         display: flex;
         justify-content: center;

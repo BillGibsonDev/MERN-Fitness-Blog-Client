@@ -6,15 +6,15 @@ export default function AboutPage () {
         <StyledAboutPage >
             <div className="about-wrapper">
                 <h1>About Us</h1>
-                <p><span id="bold">The Real Deal Fitness</span> was founded in 2021. Our goal is to bring real health and fitness tips, 
+                <p><span id="bold">The Real Deal Fitness</span> was created in 2021. Our goal is to bring real health and fitness tips, 
                 clothing and accessories from mulitple diverse sources and opinions. The Real Deal Fitness is comprised of individuals 
                 who are passionate about fitness and live the lifestyle.  We hope the information and products we provide server you and your healthy lifestyles!
                 </p>
-                <p>Thank you for visiting!- The Real Deal Fitness Team</p>
                 <h1 id="bottomHeader">The Future..</h1>
                 <p>The goal of this website is to bring a community feeling to the health and fitness world. Our websites are undergoing major development to
                 bring a better and more engaging user experience!  Periodically you will find more and more features being added to the site. 
-                </p><p>Thanks - The Real Deal Fitness Team</p>
+                </p>
+                <p id="thanks"><span>Thanks,</span>The Real Deal Fitness</p>
             </div>
         </StyledAboutPage >
     )
@@ -37,17 +37,28 @@ const StyledAboutPage = styled.div`
         margin: 20px auto;
         padding: 1em 0;
         h1 {
-            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            width: 50%;
+            margin: 10px auto;
             font-size: 2.5em;
             color: #3b3b3b;
+            border-bottom: 2px #3b3b3b solid;
         }
-        #bottomHeader{
-            margin-top: 1em;
+        #bottomHeader {
+            margin-top: 50px;
         }
         p {
             font-size: 1.5em;
-            span {
+            #bold {
                 font-weight: 700;
+            }
+        }
+        #thanks {
+            display: flex;
+            flex-direction: column;
+            span {
+                margin-top: 6px;
             }
         }
     }

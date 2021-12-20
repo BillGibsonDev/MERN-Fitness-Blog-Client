@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 // styled
 import styled from 'styled-components';
+import { StyledButton } from '../../Styled/Styled';
 
 export default function CreateUser({role, confirmAdmin}) {
 
@@ -16,6 +17,10 @@ export default function CreateUser({role, confirmAdmin}) {
     const [ avatar, setAvatar ] = useState("");
     const [ authorUsername, setAuthorUsername ] = useState("");
     const [ location, setLocation ] = useState("");
+
+    useEffect(() => {
+        confirmAdmin()
+    }, [confirmAdmin])
 
     function registerCreator() {
         axios.post(`${process.env.REACT_APP_ADD_CREATOR_URL}`, {
@@ -125,9 +130,9 @@ export default function CreateUser({role, confirmAdmin}) {
             </div>
             {
                 role === process.env.REACT_APP_ADMIN_SECRET ? (
-                    <button type="submit" onClick={()=>{registerCreator();}}>Register Creator</button>
+                    <StyledButton type="submit" onClick={()=>{registerCreator();}}>Register Creator</StyledButton>
                 ) : (    
-                    <button type="submit" onClick={()=>{unauthorized();}}>Register Creator</button>
+                    <StyledButton type="submit" onClick={()=>{unauthorized();}}>Register Creator</StyledButton>
                 )
             }
 		</StyledRegister>
@@ -141,8 +146,9 @@ justify-content: center;
 flex-direction: column;
 background: white;
 height: 80vh;
-width: 90%;
-margin: auto;
+width: 100%;
+max-width: 875px;
+margin: 20px auto;
 border-radius: 12px;
 	@media (max-width: 1050px){
 		width: 98%;
@@ -185,24 +191,5 @@ border-radius: 12px;
                 flex-direction: column;
             } 
         }
-            button {
-                width: 200px;
-                cursor: pointer;
-                margin: 0 20px;
-                background: #d1d1d1;
-                border: none;
-                border-radius: 4px;
-                font-weight: 700;
-                @media (max-width: 1150px){
-                    font-size: 1.2em;
-                }
-                &:hover{
-                    color: #ffffff;
-                    cursor: pointer;
-                    background: #0f4d92;
-                    transition: 0.2s;
-                    transform: scale(1.01);
-                }
-            }
 
 `;

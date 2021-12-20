@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 // styled
 import styled from 'styled-components';
+import { StyledButton } from '../../Styled/Styled';
 
 export default function SignUpPage() {
 
@@ -115,7 +116,7 @@ export default function SignUpPage() {
 									}}
 								/>
 							</label>
-							<button type="submit" onClick={()=>{registerUser();}}>Sign Up</button>
+							<StyledButton type="submit" onClick={()=>{registerUser();}}>Sign Up</StyledButton>
 						</div>
 					</>
 				) : (
@@ -179,27 +180,6 @@ const StyledSignUpPage = styled.div`
 			}
 			#checkbox {
 				width: 30px;
-			}
-			button {
-				width: 200px;
-				height: 30px;
-				cursor: pointer;
-				margin: 0 auto 20px auto;
-				color: #ffffff;
-				cursor: pointer;
-				background: #3b5998;
-				border: none;
-				border-radius: 4px;
-				font-weight: 700;
-				@media (max-width: 1150px){
-					font-size: 1.2em;
-				}
-				&:hover {
-					cursor: pointer;
-					background: #808080;
-					transition: 0.2s;
-					transform: scale(1.01);
-				}
 			}
 		}
 		h4 {

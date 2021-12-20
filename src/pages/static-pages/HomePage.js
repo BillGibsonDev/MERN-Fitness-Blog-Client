@@ -20,6 +20,7 @@ export default function HomePage ({ user }) {
     const dispatch = useDispatch();
     
     useEffect(() => {
+        window.scrollTo(0, 0);
         dispatch(getPosts());
         setLoading(false)
     }, [dispatch])
@@ -74,11 +75,9 @@ export default function HomePage ({ user }) {
 
 const StyledHomePage = styled.div`
     height: 100%;
-    width: 70%;
+    width: 100%;
     margin: 1em auto;
-    @media (max-width: 1250px){
-        width: 90%;
-    } 
+    max-width: 875px;
      #showmore {
         height: 35px;
         width: 200px;

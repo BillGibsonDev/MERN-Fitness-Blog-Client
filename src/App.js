@@ -220,11 +220,16 @@ function login () {
             <CreatePostPage
 				user={user}
 				role={role}
+				confirmRole={confirmRole}
 			/>
           </Route>
 
           <Route path="/EditPostPage/:postId" exact>
-            <EditPostPage />
+            <EditPostPage
+				user={user}
+				role={role}
+				confirmRole={confirmRole}
+			/>
           </Route>
 
           <Route path="/CreateUser" exact>
@@ -237,6 +242,7 @@ function login () {
             <CreateCreator
 				role={role}
               	confirmRole={confirmRole}
+				confirmAdmin={confirmAdmin}
             />
           </Route>
 
