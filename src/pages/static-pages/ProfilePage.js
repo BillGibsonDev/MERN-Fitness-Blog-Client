@@ -21,39 +21,35 @@ export default function ProfilePage({ user, role }) {
 
     const dispatch = useDispatch();
     
+    let tokenPW = sessionStorage.getItem("tokenPW");
+	let tokenUser = sessionStorage.getItem("tokenUser");
+
    useEffect(() => {
        setActiveRole(role);
         dispatch(getPosts());
         function handleJoinDate() {
-		let tokenPW = sessionStorage.getItem("tokenPW");
-		let tokenUser = sessionStorage.getItem("tokenUser");
-        if (user === null) {
-
-        } else {
-		axios.post(`${process.env.REACT_APP_LOGIN_URL}`, {
-			username: tokenUser,
-			password: tokenPW,
-		})
-		.then(function(response){
-			let tokenPW = sessionStorage.getItem("tokenPW");
-			let tokenUser = sessionStorage.getItem("tokenUser");
-			if (response.data === "LOGGED IN"){
-				axios.post(`${process.env.REACT_APP_GET_DATE_URL}`, {
-					username: tokenUser, 
-					password: tokenPW,
-				})
-				.then((response) => {
-					setJoinDate(response.data)
-				})
-			}
-		})
-		.catch(function (error) {
-		throw error;
-		});
-	}}
+            axios.post(`${process.env.REACT_APP_LOGIN_URL}`, {
+                username: tokenUser,
+                password: tokenPW,
+            })
+            .then(function(response){
+                if (response.data === "LOGGED IN"){
+                    axios.post(`${process.env.REACT_APP_GET_DATE_URL}`, {
+                        username: tokenUser, 
+                        password: tokenPW,
+                    })
+                    .then((response) => {
+                        setJoinDate(response.data)
+                    })
+                }
+            })
+            .catch(function (error) {
+            throw error;
+            });
+        }
         handleJoinDate();
         setLoading(false)
-    }, [dispatch, role, user])
+    }, [dispatch, role, user, tokenPW, tokenUser])
 
     const articles = useSelector((state) => state.posts);
 
@@ -61,7 +57,7 @@ export default function ProfilePage({ user, role }) {
         <StyledProfilePage>
             <h1>Profile</h1>
             {
-                user === null ? (
+                user === "" ? (
                     <h1>You are signed out</h1>
                 ) : (
                     <>
@@ -82,53 +78,53 @@ export default function ProfilePage({ user, role }) {
                             }
                             <h2><span>Joined: </span>{joinDate}</h2>
                         </div>
+                    </>
+                )
+            }
+            {
+                activeRole === process.env.REACT_APP_ADMIN_SECRET || activeRole === process.env.REACT_APP_CREATOR_SECRET ? (
+                    <div className="creator-dashboard">
+                        <h3>Creator Dashboard</h3>
+                        <div className="link-container">
+                            <Link to="/CreatePostPage">Create Post</Link>
                             {
-                                activeRole === process.env.REACT_APP_ADMIN_SECRET || activeRole === process.env.REACT_APP_CREATOR_SECRET ? (
-                                    <div className="creator-dashboard">
-                                        <h3>Creator Dashboard</h3>
-                                        <div className="link-container">
-                                            <Link to="/CreatePostPage">Create Post</Link>
-                                            {
-                                                activeRole === process.env.REACT_APP_ADMIN_SECRET ? (
-                                                    <>
-                                                        <Link to="/CreateUser">Create User</Link>
-                                                        <Link to="/CreateCreator">Create Creator</Link>
-                                                    </>
-                                                ) : (
-                                                    <></>
-                                                )
-                                            }
-                                        </div>
-                                        <h4>Your Articles</h4>
-                                        {
-                                            isLoading === true ? (
-                                                <div className="loadingContainer">
-                                                    <div className="loader">
-                                                    </div>
-                                                </div>
-                                            ) : isLoading === false && articles.filter(articles => articles.authorUsername === `${user}`).length === 0 ? (
-                                                <p>No Articles Found</p>
-                                            ) : (
-                                                <div className="article-wrapper" > 
-                                                    {
-                                                        articles.filter(articles => articles.authorUsername === `${user}`).map((article, key) => {
-                                                            return (
-                                                                    <div className="article-container" key={key}>
-                                                                        <h5>{article.postDate}</h5>
-                                                                        <Link to={`/post/${article.linkTitle}/${article._id}`} key={key}>{article.postTitle}</Link>
-                                                                    </div>
-                                                            )
-                                                        })
-                                                    }
-                                                </div> 
-                                            )
-                                        }
-                                    </div>
+                                activeRole === process.env.REACT_APP_ADMIN_SECRET ? (
+                                    <>
+                                        <Link to="/CreateUser">Create User</Link>
+                                        <Link to="/CreateCreator">Create Creator</Link>
+                                    </>
                                 ) : (
                                     <></>
                                 )
                             }
-                    </>
+                        </div>
+                        <h4>Your Articles</h4>
+                        {
+                            isLoading === true ? (
+                                <div className="loadingContainer">
+                                    <div className="loader">
+                                    </div>
+                                </div>
+                            ) : isLoading === false && articles.filter(articles => articles.authorUsername === `${user}`).length === 0 ? (
+                                <p>No Articles Found</p>
+                            ) : (
+                                <div className="article-wrapper" > 
+                                    {
+                                        articles.filter(articles => articles.authorUsername === `${user}`).map((article, key) => {
+                                            return (
+                                                    <div className="article-container" key={key}>
+                                                        <h5>{article.postDate}</h5>
+                                                        <Link to={`/post/${article.linkTitle}/${article._id}`} key={key}>{article.postTitle}</Link>
+                                                    </div>
+                                            )
+                                        })
+                                    }
+                                </div> 
+                            )
+                        }
+                    </div>
+                ) : (
+                    <></>
                 )
             }
         </StyledProfilePage>
