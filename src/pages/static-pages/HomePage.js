@@ -16,13 +16,14 @@ import { useSelector } from 'react-redux';
 export default function HomePage ({ user }) {
 
     const dispatch = useDispatch();
-    
+    const articles = useSelector((state) => state.posts);
+     const [ number, setNumber ] = useState(0)
     useEffect(() => {
         window.scrollTo(0, 0);
         dispatch(getPosts());
-    }, [dispatch])
+        setNumber(articles.length)
+    }, [dispatch, articles.length])
 
-    const articles = useSelector((state) => state.posts);
     const [ value, setValue ] = useState(10);
 
     function handleShowMore(){
@@ -30,14 +31,14 @@ export default function HomePage ({ user }) {
       setValue(value + i)
     }
 
-    console.log(articles)
+    console.log(number)
 
     return (
         <StyledHomePage>
             <div className="blog">
                 <div className="blogWrapper">
                     {
-                       articles === undefined ? (
+                       number === 0 ? (
                             <Loader />
                         ) : (
                         articles.slice().reverse().map((article, key) => {
