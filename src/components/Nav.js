@@ -51,16 +51,16 @@ function openNav() {
                                 <Link to="/" onClick={closeNav}>Home</Link>
                                 <Link to="/AboutPage" onClick={closeNav}>About</Link>
                                 <a href="https://trdfitshop.com" rel="noreferrer" onClick={closeNav}>Merch</a>
-                                <Link to="/SignUpPage">Sign Up</Link>
-                                <Link to="/LoginPage">Log In</Link>
+                                <Link to="/SignUpPage" onClick={closeNav}>Sign Up</Link>
+                                <Link to="/LoginPage" onClick={closeNav}>Log In</Link>
                             </div>
                         ) : (
                             <div className="overlayContent">
                                 <Link to="/" onClick={closeNav}>Home</Link>
                                 <Link to="/AboutPage" onClick={closeNav}>About</Link>
                                 <a href="https://trdfitshop.com" rel="noreferrer" onClick={closeNav}>Merch</a>
-                                <Link to="/ProfilePage">Profile</Link>
-                                <Link to="/">Sign Out</Link>
+                                <Link to="/ProfilePage" onClick={closeNav}>Profile</Link>
+                                <Link to="/" onClick={()=>{ closeNav(); logout(); }}>Sign Out</Link>
                             </div>
                         )
                     }

@@ -81,13 +81,13 @@ export default function BlogSnip({
 }
 
 const StyledSnip = styled.div`
-height: 30vh;
-display: flex;
-justify-content: space-between;
-margin: 1em auto 5em auto;
-align-items: center;
-width: 100%;
-max-width: 875px;
+    height: 30vh;
+    display: flex;
+    justify-content: space-between;
+    margin: 1em auto 5em auto;
+    align-items: center;
+    width: 100%;
+    max-width: 875px;
     @media (max-width: 750px){
         height: 100%;
     }
@@ -174,7 +174,7 @@ max-width: 875px;
                     }
                 }
                 #blue {
-                    color: blue;
+                    color: #4242fa;
                 }
             }
         }
