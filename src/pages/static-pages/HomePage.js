@@ -15,14 +15,11 @@ import { useSelector } from 'react-redux';
 
 export default function HomePage ({ user }) {
 
-    const [ isLoading, setLoading ] = useState(true);
-
     const dispatch = useDispatch();
     
     useEffect(() => {
         window.scrollTo(0, 0);
         dispatch(getPosts());
-        setLoading(false)
     }, [dispatch])
 
     const articles = useSelector((state) => state.posts);
@@ -33,12 +30,14 @@ export default function HomePage ({ user }) {
       setValue(value + i)
     }
 
+    console.log(articles)
+
     return (
         <StyledHomePage>
             <div className="blog">
                 <div className="blogWrapper">
                     {
-                        isLoading === true ? (
+                       articles === undefined ? (
                             <Loader />
                         ) : (
                         articles.slice().reverse().map((article, key) => {

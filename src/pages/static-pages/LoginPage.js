@@ -51,16 +51,14 @@ const StyledLoginPage = styled.div`
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	background: white;
 	width: 95%;
-    min-height: 80vh;
+    min-height: 40vh;
     max-width: 875px;
 	margin: 20px auto;
-	border-radius: 12px;
 	h3 {
 		font-size: 2em;
 		margin-bottom: 20px;
-		color: #0f4d92;
+		color: #ffffff;
 	}
 	.form-wrapper {
 		display: flex;
@@ -68,11 +66,21 @@ const StyledLoginPage = styled.div`
 		flex-direction: column;
 		align-items: center;
 		label {
-			font-weight: bold;
+			color: white;
 		}
 		input {
 			width: 200px;
+			background: #bdbdbd;
 			margin-bottom: 20px;
 		}
+	button {
+		background: white;
+		color: black;
+		&:hover {
+			color: white;
+			background: black;
+		}
 	}
+}
+
 `;

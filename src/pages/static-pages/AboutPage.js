@@ -21,8 +21,6 @@ export default function AboutPage () {
 }
 
 const StyledAboutPage = styled.div`
-    background: white;
-    border-radius: 12px;
     width: 100%;
     min-height: 50vh;
     max-width: 875px;
@@ -42,13 +40,14 @@ const StyledAboutPage = styled.div`
             width: 50%;
             margin: 10px auto;
             font-size: 2.5em;
-            color: #3b3b3b;
-            border-bottom: 2px #3b3b3b solid;
+            color: #ebebeb;
+            border-bottom: 2px #ebebeb solid;
         }
         #bottomHeader {
             margin-top: 50px;
         }
         p {
+            color: #fff;
             font-size: 1.5em;
             #bold {
                 font-weight: 700;

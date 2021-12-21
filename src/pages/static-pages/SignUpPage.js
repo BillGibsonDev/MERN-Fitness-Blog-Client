@@ -59,16 +59,12 @@ export default function SignUpPage() {
 		}
 	}
 
-	console.log(robot)
-
 	return (
 		<StyledSignUpPage>
 			{
 				registered === false ? (
 					<>
-						<h1>Join the</h1>
-						<h1>Real Deal Fitness</h1>
-						<h1>Commmunity!</h1>
+						<h1>Join the Real Deal Fitness Commmunity!</h1>
 						<div className="form-wrapper">
 							<label>Username:</label>
 							<input 
@@ -136,15 +132,13 @@ const StyledSignUpPage = styled.div`
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	background: white;
-    min-height: 80vh;
+    min-height: 60vh;
 	margin: 20px auto;
     width: 95%;
     max-width: 875px;
-	border-radius: 12px;
 		h1 {
 			font-size: 2em;
-			color: #0f4d92;
+			color: #d6d6d6;
 		}
 		.form-wrapper {
 			margin-top: 40px;
@@ -156,7 +150,8 @@ const StyledSignUpPage = styled.div`
 				font-size: 1.2em;
 			}
 			label {
-				font-weight: bold;
+				color: white;
+				letter-spacing: 1px;
 				@media (max-width: 1150px){
 					font-size: 1.2em;
 				}
@@ -165,6 +160,7 @@ const StyledSignUpPage = styled.div`
 				width: 200px;
 				margin-bottom: 20px;
 				border-radius: 4px;
+				background: #adadad;
 				@media (max-width: 1150px){
 					width: 50%;
 				}
@@ -178,22 +174,13 @@ const StyledSignUpPage = styled.div`
 			#checkbox {
 				width: 30px;
 			}
-		}
-		h4 {
-			margin-bottom: 10px;
-			font-size: 2em;
-		}
-		a {
-			font-size: 1.5em;
-			color: #0f4d92;
-			&:hover{
-				border-radius: 6px;
-				padding: 0 3px;
-				color: #ffffff;
-				cursor: pointer;
-				background: #0f4d92;
-				transition: 0.2s;
-				transform: scale(1.01);
+			button {
+				background: white;
+				color: black;
+				&:hover {
+					color: white;
+					background: black;
+				}
 			}
 		}
 `;

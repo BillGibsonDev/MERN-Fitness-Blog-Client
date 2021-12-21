@@ -10,12 +10,10 @@ import Hamburger from '../images/hamburgerWhite2.png';
 
 export default function Nav({role, isLoggedIn, logout}) {
 
- /* Open when someone clicks on the span element */
 function openNav() {
     document.getElementById("myNav").style.width = "100%";
   }
-  
-  /* Close when someone clicks on the "x" symbol inside the overlay */
+
   function closeNav() {
     document.getElementById("myNav").style.width = "0%";
   }
@@ -25,7 +23,7 @@ function openNav() {
         <StyledNav>
             <img className="logo" src={Logo} alt="" />
             {
-                 isLoggedIn === false ? (
+                isLoggedIn === false ? (
                     <nav>
                         <Link to="/">Home</Link>
                         <Link to="/AboutPage">About</Link>
@@ -33,7 +31,7 @@ function openNav() {
                         <Link to="/SignUpPage">Sign Up</Link>
                         <Link to="/LoginPage">Log In</Link>
                     </nav>
-                 ) : (
+                ) : (
                      <nav>
                         <Link to="/">Home</Link>
                         <Link to="/AboutPage">About</Link>
@@ -41,29 +39,29 @@ function openNav() {
                         <Link to="/ProfilePage">Profile</Link>
                         <Link to="/" onClick={logout}>Sign Out</Link>
                     </nav>
-                    )
-                }
+                )
+            }
             <div id="myNav" className="overlay">
                 <button onClick={closeNav}>&times;</button>
                 {
-                        isLoggedIn === false ? (
-                            <div className="overlayContent">
-                                <Link to="/" onClick={closeNav}>Home</Link>
-                                <Link to="/AboutPage" onClick={closeNav}>About</Link>
-                                <a href="https://trdfitshop.com" rel="noreferrer" onClick={closeNav}>Merch</a>
-                                <Link to="/SignUpPage" onClick={closeNav}>Sign Up</Link>
-                                <Link to="/LoginPage" onClick={closeNav}>Log In</Link>
-                            </div>
-                        ) : (
-                            <div className="overlayContent">
-                                <Link to="/" onClick={closeNav}>Home</Link>
-                                <Link to="/AboutPage" onClick={closeNav}>About</Link>
-                                <a href="https://trdfitshop.com" rel="noreferrer" onClick={closeNav}>Merch</a>
-                                <Link to="/ProfilePage" onClick={closeNav}>Profile</Link>
-                                <Link to="/" onClick={()=>{ closeNav(); logout(); }}>Sign Out</Link>
-                            </div>
-                        )
-                    }
+                    isLoggedIn === false ? (
+                        <div className="overlayContent" onClick={closeNav}>
+                            <Link to="/" onClick={closeNav}>Home</Link>
+                            <Link to="/AboutPage" onClick={closeNav}>About</Link>
+                            <a href="https://trdfitshop.com" rel="noreferrer" onClick={closeNav}>Merch</a>
+                            <Link to="/SignUpPage" onClick={closeNav}>Sign Up</Link>
+                            <Link to="/LoginPage" onClick={closeNav}>Log In</Link>
+                        </div>
+                    ) : (
+                        <div className="overlayContent" onClick={closeNav}>
+                            <Link to="/" onClick={closeNav}>Home</Link>
+                            <Link to="/AboutPage" onClick={closeNav}>About</Link>
+                            <a href="https://trdfitshop.com" rel="noreferrer" onClick={closeNav}>Merch</a>
+                            <Link to="/ProfilePage" onClick={closeNav}>Profile</Link>
+                            <Link to="/" onClick={()=>{ closeNav(); logout(); }}>Sign Out</Link>
+                        </div>
+                    )
+                }
             </div>
             <img id='hamburger' src={Hamburger} onClick={openNav} alt="hamburger menu"/>
         </StyledNav>
