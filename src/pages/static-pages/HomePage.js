@@ -31,8 +31,6 @@ export default function HomePage ({ user }) {
       setValue(value + i)
     }
 
-    console.log(number)
-
     return (
         <StyledHomePage>
             <div className="blog">

@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+// components
+import Loader from '../../loaders/Loader';
+
 // styled
 import styled from 'styled-components';
 
@@ -11,7 +14,6 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getPosts } from '../../redux/actions/posts';
 import { useSelector } from 'react-redux';
-
 
 export default function ProfilePage({ user, role }) {
 
@@ -101,10 +103,7 @@ export default function ProfilePage({ user, role }) {
                         <h4>Your Articles</h4>
                         {
                             isLoading === true ? (
-                                <div className="loadingContainer">
-                                    <div className="loader">
-                                    </div>
-                                </div>
+                                <Loader />
                             ) : isLoading === false && articles.filter(articles => articles.authorUsername === `${user}`).length === 0 ? (
                                 <p>No Articles Found</p>
                             ) : (
@@ -187,7 +186,7 @@ const StyledProfilePage = styled.div`
                 font-size: 2em;
                 color: white;
                 &:hover {
-                    color: #5151fd;
+                    color: #000000;
                 }
             }
         }

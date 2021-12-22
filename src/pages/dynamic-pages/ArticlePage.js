@@ -15,10 +15,10 @@ import Loader from '../../loaders/Loader';
 import { Link } from 'react-router-dom';
 
 //images
-import Edit from '../../images/editIconBlack.png';
+import Edit from '../../images/editIconWhite.png';
 import Heart from '../../images/heartTrans.png';
 import HeartBlue from '../../images/heartBlue.png';
-import HeartBlack from "../../images/heartTransBlack.png";
+import HeartBlack from "../../images/heartTrans.png";
 
 export default function BlogArticle({ role, user, isLoggedIn }) {
 
@@ -30,7 +30,8 @@ export default function BlogArticle({ role, user, isLoggedIn }) {
     const [ hasLiked, setHasLiked ] = useState(false);
     const [ article, setArticle ] = useState([]);
     const [ authorUsername, setAuthorUsername ] = useState('');
-     
+    const [ isLoading, setLoading ] = useState(true);
+
     useEffect(() => {
         window.scrollTo(0, 0);
         setPostId(id);
@@ -40,6 +41,7 @@ export default function BlogArticle({ role, user, isLoggedIn }) {
             .then(function(response){
                 setArticle(response.data)
                 setAuthorUsername(response.data.authorUsername)
+                setLoading(false)
             })
         }
 
@@ -115,7 +117,7 @@ export default function BlogArticle({ role, user, isLoggedIn }) {
     return (
         <StyledArticle>
             { 
-                article.length === 0 ? (
+                isLoading === true ? (
                     <Loader />
                 ) : (
                 <>
@@ -230,8 +232,6 @@ const StyledArticle = styled.div`
     width: 95%;
     max-width: 875px;
     border-radius: 14px;
-    box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.219);
-    background: #ffffff;
     position: relative;
     .article-content {
         position: relative;
@@ -264,6 +264,7 @@ const StyledArticle = styled.div`
                 h5, a {
                     font-size: 16px;
                     width: 50%;
+                    color: white;
                 }
                 #tag-link {
                     width: 50%;
@@ -297,7 +298,7 @@ const StyledArticle = styled.div`
             width: 25px;
             align-items: center;
             font-size: 18px;
-            color: black;
+            color: #ffffff;
                 #edit {
                     width: 25px;
                     margin-left: 4px
@@ -311,22 +312,25 @@ const StyledArticle = styled.div`
                 h4 {
                     font-size: 30px;
                     margin-bottom: 10px;
+                    color: #ffffff;
                     @media (max-width: 750px){
                         font-size: 2.5em;
                     }
                 }
                 .author-header {
                     display: flex;
-                    width: 100px;
+                    width: 110px;
                     justify-content: space-between;
                     align-items: center;
                     img {
                         height: 30px;
                         width: 30px;
+                        border-radius: 50%;
+                        object-fit: cover;
                     }
                     a {
                         font-size: 16px;
-                        color: gray;
+                        color: #dbdbdb;
                         &:hover {
                             text-decoration: underline;
                         }
@@ -351,12 +355,17 @@ const StyledArticle = styled.div`
                 margin: 6px 0;
                 letter-spacing: 0.5px;
                 line-height: 1.7;
-                a {
-                    font-size: 1em;
+                color: #dbdbdb;
+            }
+             a {
+                color: #b8b8b8;
+                font-size: 1em;
+                &:hover {
+                    text-decoration: underline;
                 }
             }
             h6 {
-                color: #3b5998;
+                color: #ffffff;
                 font-size: 2em;
                 margin-bottom: 6px;
                 @media (max-width: 750px){
@@ -367,19 +376,21 @@ const StyledArticle = styled.div`
         footer {
             display: flex;
             align-items: center;
-            border-top: 2px solid #3b5998;
-            border-bottom: 2px solid #3b5998;
+            border-top: 2px solid #ffffff;
+            border-bottom: 2px solid #ffffff;
             padding: 10px 0;
             img {
                 width: 50px;
             }
             .author-info-wrapper {
                 margin-left: 6px;
-                h5 {
+                a {
                     font-size: 16px;
+                    color: #b8b8b8;
                 }
                 p {
                     font-size: 12px;
+                    color: #b8b8b8;
                 }
             }
 

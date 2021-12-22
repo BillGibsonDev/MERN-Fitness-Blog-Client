@@ -26,6 +26,7 @@ export default function BlogSnip({
     authorUsername
 }) {
 
+    const [ creator, setCreator ] = useState([])
     const [ hasLiked, setHasLiked ] = useState(false);
     const [ username, setUsername ] = useState(user);
 
@@ -50,6 +51,20 @@ export default function BlogSnip({
         // eslint-disable-next-line
     }, [user])
 
+    useEffect(() => {
+        function handleCreator(){
+            axios.get(`${process.env.REACT_APP_GET_CREATOR_URL}/${authorUsername}`)
+            .then(function(response){
+                setCreator(response.data)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        }
+        handleCreator()
+        // eslint-disable-next-line
+    }, [ authorUsername ]);
+
 
     return (
         <StyledSnip id={id}>
@@ -61,7 +76,16 @@ export default function BlogSnip({
                     <Link id="tag" to={`/posts/${tag}`}>{tag}</Link>
                     <Link id="title" to={`/post/${linkTitle}/${id}`}>{title}</Link>
                     <div className="info-container">
-                        <Link id="author" to={`/creators/${authorUsername}`}>{author}</Link>
+                        <div className="author-header">
+                            {
+                                creator[0] === undefined ? (
+                                    <img src="" alt="" />
+                                ) : (
+                                    <img src={creator[0].avatar}alt="" />
+                                )
+                            }
+                            <Link to={`/creators/${authorUsername}`}>{author}</Link>
+                        </div>
                         <h5>{date}</h5>
                     </div>
                     <div className="interaction-container">
@@ -148,7 +172,26 @@ const StyledSnip = styled.div`
                 margin: 6px auto;
                 @media (max-width: 750px){
                     width: 100%;
-                    margin: 3px auto;
+                    margin: 6px auto;
+                }
+                 .author-header {
+                    display: flex;
+                    width: 110px;
+                    justify-content: space-between;
+                    align-items: center;
+                    img {
+                        height: 30px;
+                        width: 30px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+                    a {
+                        font-size: 16px;
+                        color: #dbdbdb;
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
                 }
                 #author, h5 {
                     font-weight: 400;
@@ -168,13 +211,11 @@ const StyledSnip = styled.div`
                     display: flex;
                     align-items: center;
                     margin-right: 16px;
+                    color: #ffffff;
                     img {
                         width: 20px;
                         margin-right: 6px;
                     }
-                }
-                #blue {
-                    color: #4242fa;
                 }
             }
         }
