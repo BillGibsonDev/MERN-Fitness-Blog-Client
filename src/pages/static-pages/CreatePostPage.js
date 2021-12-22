@@ -7,7 +7,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { StyledButton } from '../../Styled/Styled';
 
-export default function CreatePostPage({user, confirmRole}) {
+export default function CreatePostPage({username, confirmRole}) {
 
 
 useEffect(() => {
@@ -21,7 +21,7 @@ useEffect(() => {
     const [ thumbnail, setThumbnail ] = useState('');
     const [ postIntro, setPostIntro ] = useState('');
     // eslint-disable-next-line
-    const [ author, setAuthor ] = useState(user);
+    const [ author, setAuthor ] = useState(username);
 
     const [inputFields, setInputFields] = useState([
         { 

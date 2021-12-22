@@ -24,7 +24,7 @@ import Globe from '../../images/globe.png';
 import Youtube from '../../images/youtube.png';
 import Dot from "../../images/dot.png";
 
-export default function CreatorPage ({user}) {
+export default function CreatorPage ({username}) {
 
     const { authorUsername } = useParams();
 
@@ -131,7 +131,7 @@ return (
                             return(
                                 <BlogSnip
                                     author={article.author}
-                                    user={user}
+                                    username={username}
                                     id={article._id}
                                     title={article.postTitle}
                                     date={article.postDate}

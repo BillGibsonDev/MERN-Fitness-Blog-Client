@@ -15,7 +15,7 @@ export default function Comment({
     comments,
     author,
     date,
-    user,
+    username,
     commentId,
     postId,
     role
@@ -57,7 +57,7 @@ export default function Comment({
                         <p>{comments}</p>
                     </div>
                     {
-                        author === user || role === process.env.REACT_APP_ADMIN_SECRET ? (
+                        author === username || role === process.env.REACT_APP_ADMIN_SECRET ? (
                             <img src={X} onClick={deleteComment} alt="" />
                         ) : (
                             <img src={X} onClick={unauthorized} alt="" />

@@ -23,15 +23,14 @@ export default function BlogSnip({
     user,
     author,
     tag,
-    authorUsername
+    authorUsername,
+    username
 }) {
 
     const [ creator, setCreator ] = useState([])
     const [ hasLiked, setHasLiked ] = useState(false);
-    const [ username, setUsername ] = useState(user);
 
     useEffect(() => {
-        setUsername(user);
         function handleHasLiked(){
             if ( user === ""){
             } else {
@@ -49,7 +48,7 @@ export default function BlogSnip({
         }}
         handleHasLiked()
         // eslint-disable-next-line
-    }, [user])
+    }, [username])
 
     useEffect(() => {
         function handleCreator(){

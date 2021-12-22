@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 import { getPosts } from '../../redux/actions/posts';
 import { useSelector } from 'react-redux';
 
-export default function HomePage ({ user }) {
+export default function HomePage ({ username }) {
 
     const dispatch = useDispatch();
     const articles = useSelector((state) => state.posts);
@@ -43,7 +43,7 @@ export default function HomePage ({ user }) {
                             return(
                                 <BlogSnip
                                     author={article.author}
-                                    user={user}
+                                    username={username}
                                     id={article._id}
                                     title={article.postTitle}
                                     date={article.postDate}

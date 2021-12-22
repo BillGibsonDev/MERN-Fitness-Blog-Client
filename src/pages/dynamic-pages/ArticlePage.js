@@ -20,11 +20,10 @@ import Heart from '../../images/heartTrans.png';
 import HeartBlue from '../../images/heartBlue.png';
 import HeartBlack from "../../images/heartTrans.png";
 
-export default function BlogArticle({ role, user, isLoggedIn }) {
+export default function BlogArticle({ role, username, isLoggedIn }) {
 
     const { id } = useParams();
     
-    const [ username, setUsername] = useState(user);
     const [ postId, setPostId ] = useState(id);
     const [ creator, setCreator ] = useState([]);
     const [ hasLiked, setHasLiked ] = useState(false);
@@ -35,7 +34,6 @@ export default function BlogArticle({ role, user, isLoggedIn }) {
     useEffect(() => {
         window.scrollTo(0, 0);
         setPostId(id);
-        setUsername(user);
         function getPosts(){
             axios.get(`${process.env.REACT_APP_GET_POST_URL}/${postId}`)
             .then(function(response){
@@ -46,7 +44,7 @@ export default function BlogArticle({ role, user, isLoggedIn }) {
         }
 
         function handleHasLiked(){
-        if ( user === ""){
+        if ( username === ""){
         } else {
         axios.post(`${process.env.REACT_APP_FIND_LIKE_URL}/${postId}`, {
                 username: username,
@@ -63,7 +61,7 @@ export default function BlogArticle({ role, user, isLoggedIn }) {
         getPosts();
         handleHasLiked();
         // eslint-disable-next-line
-    }, [ id, user, username, postId]);
+    }, [ id, username, postId]);
 
 
     useEffect(() => {
@@ -128,7 +126,7 @@ export default function BlogArticle({ role, user, isLoggedIn }) {
                                 <Link id="tag-link" to={`/posts/${article.tag}`}>{article.tag}</Link>
                             </div>
                             {
-                                role === process.env.REACT_APP_ADMIN_SECRET || user === article.authorUsername ? (
+                                role === process.env.REACT_APP_ADMIN_SECRET || username === article.authorUsername ? (
                                     <div className="icon-container">
                                         <Link to={`/EditPostPage/${postId}`}><img id="edit" src={Edit} alt="" /></Link>
                                         {
@@ -209,7 +207,7 @@ export default function BlogArticle({ role, user, isLoggedIn }) {
                         }
                         <CommentSection
                             id="comment-section"
-                            user={user}
+                            username={username}
                             role={role}
                             isLoggedIn={isLoggedIn}
                             postId={id}

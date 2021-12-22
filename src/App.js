@@ -38,7 +38,6 @@ import Footer from "./components/Footer";
 function App() {
 
   	const [ password, setPassword ] = useState('');
-	const [ user, setUser] = useState('');
   	const [ username, setUsername] = useState('');
 	const [ isLoggedIn, setLoggedIn ] = useState(false);
 	const [ role, setRole ] = useState("");
@@ -81,7 +80,6 @@ function login () {
 			lastLogin: lastLogin,
 		})
 		.then(function(response){
-			setUser(username);
 			setLoggedIn(true);
 			setLoading(false);
 			handleTokens();
@@ -91,7 +89,7 @@ function login () {
 					password: password,
 				})
 				.then((response) => {
-					setRole(response.data.role);
+					setRole(response.data);
 				})
 			} else {
 				alert("Wrong Username or Password")
@@ -108,7 +106,7 @@ function login () {
 		sessionStorage.clear();
 		window.location.reload();
 		setLoggedIn(false);
-		setUser("");
+		setUsername("");
 		setPassword('');
 		setUsername("");
 		history.push("/");
@@ -160,7 +158,7 @@ function login () {
 		.then(function(response){
 			let tokenPW = sessionStorage.getItem("tokenPW");
 			let tokenUser = sessionStorage.getItem("tokenUser");
-			setUser(tokenUser)
+			setUsername(tokenUser)
 			if (response.data === "LOGGED IN"){
 				axios.post(`${process.env.REACT_APP_SET_ROLE_URL}`, {
 					username: tokenUser, 
@@ -184,7 +182,7 @@ function login () {
         <Nav
 			logout={logout}
 			isLoggedIn={isLoggedIn}
-			user={user}
+			username={username}
 			role={role}
 			confirmAdmin={confirmAdmin}
         />
@@ -192,7 +190,7 @@ function login () {
         <Switch>
           <Route path={'/'} exact>
             <HomePage
-				user={user}
+				username={username}
 			/>
           </Route> 
           
@@ -218,7 +216,7 @@ function login () {
 
           <Route path="/CreatePostPage" exact>
             <CreatePostPage
-				user={user}
+				username={username}
 				role={role}
 				confirmRole={confirmRole}
 			/>
@@ -226,7 +224,7 @@ function login () {
 
           <Route path="/EditPostPage/:postId" exact>
             <EditPostPage
-				user={user}
+				username={username}
 				role={role}
 				confirmRole={confirmRole}
 			/>
@@ -266,14 +264,14 @@ function login () {
 
           <Route path="/ProfilePage" exact>
             <ProfilePage
-				user={user}
+				username={username}
 				role={role}
 			/>
           </Route>
 
 			<Route path={["/post/:linkTitle/:id"]} exact>
 				<ArticlePage
-					user={user}
+					username={username}
 					role={role}
 					isLoggedIn={isLoggedIn}
 				/>
@@ -281,7 +279,7 @@ function login () {
 
 		<Route path={"/posts/:tag"} exact>
             <FilteredSearchPage
-				user={user}
+				username={username}
 				role={role}
 				isLoggedIn={isLoggedIn}
 			/>

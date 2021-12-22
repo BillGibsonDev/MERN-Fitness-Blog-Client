@@ -19,7 +19,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 
-export default function FilteredSearchPage ({ user }) {
+export default function FilteredSearchPage ({ username }) {
 
     const { tag } = useParams();
 
@@ -56,7 +56,7 @@ export default function FilteredSearchPage ({ user }) {
                             return(
                                 <BlogSnip
                                     author={article.author}
-                                    user={user}
+                                    username={username}
                                     id={article._id}
                                     title={article.postTitle}
                                     date={article.postDate}

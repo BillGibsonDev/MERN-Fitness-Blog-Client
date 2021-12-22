@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import  { useParams } from 'react-router-dom';
 import { StyledButton } from '../../Styled/Styled';
 
-export default function EditPostPage({user, role, confirmRole}) {
+export default function EditPostPage({username, role, confirmRole}) {
 
     const { postId } = useParams();
 
@@ -34,7 +34,7 @@ export default function EditPostPage({user, role, confirmRole}) {
 
 useEffect(() => {
     handlePost(postId);
-    setAuthor(user)
+    setAuthor(username)
     confirmRole();
     // eslint-disable-next-line
 }, [ confirmRole(), postId])

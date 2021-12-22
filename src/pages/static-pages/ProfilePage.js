@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux';
 import { getPosts } from '../../redux/actions/posts';
 import { useSelector } from 'react-redux';
 
-export default function ProfilePage({ user, role }) {
+export default function ProfilePage({ username, role }) {
 
     const [ isLoading, setLoading ] = useState(true);
     const [ joinDate, setJoinDate ] = useState("");
@@ -51,7 +51,7 @@ export default function ProfilePage({ user, role }) {
         }
         handleJoinDate();
         setLoading(false)
-    }, [dispatch, role, user, tokenPW, tokenUser])
+    }, [dispatch, role, username, tokenPW, tokenUser])
 
     const articles = useSelector((state) => state.posts);
 
@@ -59,25 +59,12 @@ export default function ProfilePage({ user, role }) {
         <StyledProfilePage>
             <h1>Profile</h1>
             {
-                user === "" ? (
+                username === "" ? (
                     <h1>You are signed out</h1>
                 ) : (
                     <>
                         <div className="user-container">
-                            <h2><span>Username: </span>{user}</h2>
-                            {
-                                activeRole === process.env.REACT_APP_ADMIN_SECRET ? (
-                                    <h2><span>Role: </span>Admin</h2>
-								) : activeRole === process.env.REACT_APP_CREATOR_SECRET ? (
-                                    <h2><span>Role: </span>Creator</h2>
-                                ) : activeRole === process.env.REACT_APP_USER_SECRET ? (
-                                    <h2><span>Role: </span>User</h2>
-                                ) : activeRole === process.env.REACT_APP_GUEST_SECRET ? (
-                                    <h2><span>Role: </span>Guest</h2>
-                                ) : (
-                                    <span>{activeRole}</span>
-                                )
-                            }
+                            <h2><span>Username: </span>{username}</h2>
                             <h2><span>Joined: </span>{joinDate}</h2>
                         </div>
                     </>
@@ -104,12 +91,12 @@ export default function ProfilePage({ user, role }) {
                         {
                             isLoading === true ? (
                                 <Loader />
-                            ) : isLoading === false && articles.filter(articles => articles.authorUsername === `${user}`).length === 0 ? (
+                            ) : isLoading === false && articles.filter(articles => articles.authorUsername === `${username}`).length === 0 ? (
                                 <p>No Articles Found</p>
                             ) : (
                                 <div className="article-wrapper" > 
                                     {
-                                        articles.filter(articles => articles.authorUsername === `${user}`).map((article, key) => {
+                                        articles.filter(articles => articles.authorUsername === `${username}`).map((article, key) => {
                                             return (
                                                     <div className="article-container" key={key}>
                                                         <h5>{article.postDate}</h5>
