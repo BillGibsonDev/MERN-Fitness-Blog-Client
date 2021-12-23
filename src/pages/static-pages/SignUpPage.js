@@ -136,51 +136,40 @@ const StyledSignUpPage = styled.div`
 	margin: 20px auto;
     width: 95%;
     max-width: 875px;
-		h1 {
-			font-size: 2em;
-			color: #d6d6d6;
+	h1 {
+		font-size: 2em;
+		color: #d6d6d6;
+		@media (max-width: 750px){
+			font-size: 1.5em;
 		}
-		.form-wrapper {
-			margin-top: 40px;
-			display: flex;
-			width: 90%;
-			flex-direction: column;
-			align-items: center;
+	}
+	.form-wrapper {
+		margin-top: 40px;
+		display: flex;
+		width: 90%;
+		flex-direction: column;
+		align-items: center;
+		@media (max-width: 1150px){
+			font-size: 1.2em;
+		}
+		label {
+			color: white;
+			letter-spacing: 1px;
 			@media (max-width: 1150px){
 				font-size: 1.2em;
 			}
-			label {
+		}
+		#checkbox {
+			width: 30px;
+			height: 20px;
+		}
+		button {
+			background: white;
+			color: black;
+			&:hover {
 				color: white;
-				letter-spacing: 1px;
-				@media (max-width: 1150px){
-					font-size: 1.2em;
-				}
-			}
-			input {
-				width: 200px;
-				margin-bottom: 20px;
-				border-radius: 4px;
-				background: #adadad;
-				@media (max-width: 1150px){
-					width: 50%;
-				}
-				@media (max-width: 750px){
-					width: 70%;
-				}
-				@media (max-width: 550px){
-					width: 90%;
-				}
-			}
-			#checkbox {
-				width: 30px;
-			}
-			button {
-				background: white;
-				color: black;
-				&:hover {
-					color: white;
-					background: black;
-				}
+				background: black;
 			}
 		}
+	}
 `;

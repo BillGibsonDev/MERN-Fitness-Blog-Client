@@ -8,26 +8,26 @@ import Loader from '../../loaders/Loader';
 import styled from 'styled-components';
 
 // router
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 // redux
 import { useDispatch } from 'react-redux';
 import { getPosts } from '../../redux/actions/posts';
 import { useSelector } from 'react-redux';
+import { StyledButton } from '../../Styled/Styled';
 
 export default function ProfilePage({ username, role }) {
 
     const [ isLoading, setLoading ] = useState(true);
     const [ joinDate, setJoinDate ] = useState("");
-    const [ activeRole, setActiveRole ] = useState(role);
 
+    const history = useHistory();
     const dispatch = useDispatch();
     
     let tokenPW = sessionStorage.getItem("tokenPW");
 	let tokenUser = sessionStorage.getItem("tokenUser");
 
    useEffect(() => {
-       setActiveRole(role);
         dispatch(getPosts());
         function handleJoinDate() {
             axios.post(`${process.env.REACT_APP_LOGIN_URL}`, {
@@ -55,6 +55,29 @@ export default function ProfilePage({ username, role }) {
 
     const articles = useSelector((state) => state.posts);
 
+    function handleDelete(){
+        const result = window.confirm("Are you sure you want to delete?");
+        if(result === true){
+            setLoading(true);
+            axios.delete(`${process.env.REACT_APP_DELETE_ACCOUNT_URL}`, {
+                username: tokenUser,
+                password: tokenPW,
+            })
+            .then(function(response){
+                if(response.data !== "Account Deleted"){
+                    setLoading(false);
+                    alert("Server Error - Post not updated")
+                } else {
+                    setLoading(false);
+                    history.push("/");
+                    alert('Account Deleted');
+                }
+            })
+        }
+    }
+
+
+
     return (
         <StyledProfilePage>
             <h1>Profile</h1>
@@ -63,21 +86,24 @@ export default function ProfilePage({ username, role }) {
                     <h1>You are signed out</h1>
                 ) : (
                     <>
-                        <div className="user-container">
-                            <h2><span>Username: </span>{username}</h2>
-                            <h2><span>Joined: </span>{joinDate}</h2>
-                        </div>
+                        <header>
+                            <div className="user-container">
+                                <h2><span>Username: </span>{username}</h2>
+                                <h2><span>Joined: </span>{joinDate}</h2>
+                            </div>
+                            <StyledButton id="delete" onClick={handleDelete}>Delete Account</StyledButton>
+                        </header>
                     </>
                 )
             }
             {
-                activeRole === process.env.REACT_APP_ADMIN_SECRET || activeRole === process.env.REACT_APP_CREATOR_SECRET ? (
+                role === process.env.REACT_APP_ADMIN_SECRET || role === process.env.REACT_APP_CREATOR_SECRET ? (
                     <div className="creator-dashboard">
                         <h3>Creator Dashboard</h3>
                         <div className="link-container">
                             <Link to="/CreatePostPage">Create Post</Link>
                             {
-                                activeRole === process.env.REACT_APP_ADMIN_SECRET ? (
+                                role === process.env.REACT_APP_ADMIN_SECRET ? (
                                     <>
                                         <Link to="/CreateUser">Create User</Link>
                                         <Link to="/CreateCreator">Create Creator</Link>
@@ -135,23 +161,37 @@ const StyledProfilePage = styled.div`
         width: 50%;
         border-bottom: 2px #ffffff solid;
     }
-    .user-container {
+    header {
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
         align-items: center;
-        width: 80%;
-        @media (max-width: 1150px){
-            flex-direction: column;
-        }
-        h2 {
-            margin: 20px 0;
-            color: white;
+        flex-direction: column;
+        width: 100%;
+        .user-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
             @media (max-width: 1150px){
-                margin: 10px 0;
-                font-size: 2em;
+                flex-direction: column;
             }
-            span {
-                color: #c0c0c0;
+            h2 {
+                margin: 20px 0;
+                color: white;
+                @media (max-width: 1150px){
+                    margin: 10px 0;
+                    font-size: 2em;
+                }
+                span {
+                    color: #c0c0c0;
+                }
+            }
+        }
+        #delete {
+            margin-top: 50px;
+            background: #fc5252;
+            &:hover {
+                background: red;
             }
         }
     }

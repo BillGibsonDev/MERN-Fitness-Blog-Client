@@ -32,6 +32,22 @@ ul {
 a {
     text-decoration: none;
 }
+input {
+    height: 30px;
+    width: 200px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    background: #adadad;
+    @media (max-width: 1150px){
+        width: 50%;
+    }
+    @media (max-width: 750px){
+        width: 70%;
+    }
+    @media (max-width: 550px){
+        width: 90%;
+    }
+}
 `;
 
 export default GlobalStyles;

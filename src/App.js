@@ -232,6 +232,7 @@ function login () {
 
           <Route path="/CreateUser" exact>
             <CreateUser
+				role={role}
               confirmRole={confirmRole}
             />
           </Route>

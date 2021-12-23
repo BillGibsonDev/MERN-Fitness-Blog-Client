@@ -69,8 +69,6 @@ const StyledLoginPage = styled.div`
 			color: white;
 		}
 		input {
-			width: 200px;
-			background: #bdbdbd;
 			margin-bottom: 20px;
 		}
 	button {
