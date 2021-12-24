@@ -10,11 +10,11 @@ import Comment from '../components/Comment';
 // router
 import Loader from '../loaders/Loader';
 
-export default function PostPage({ user, role, isLoggedIn, postId }) {
+export default function PostPage({ username, role, isLoggedIn, postId }) {
 
     const [ comments, setComments ] = useState([]);
     const [ addComment, setAddComment] = useState('');
-    const [ addAuthor, setAuthor] = useState(user);
+    const [ addAuthor, setAuthor] = useState(username);
     const [ addDate, setAddDate] = useState('');
     const [ isLoading, setLoading ] = useState(false);
 
@@ -37,9 +37,9 @@ export default function PostPage({ user, role, isLoggedIn, postId }) {
     useEffect(() => {
         getPosts();
         handleDate();
-        setAuthor(user);
+        setAuthor(username);
         // eslint-disable-next-line
-    }, [ postId, user ]);
+    }, [ postId, username, isLoading ]);
 
     function sendComment() {
         setLoading(true);
@@ -66,7 +66,34 @@ export default function PostPage({ user, role, isLoggedIn, postId }) {
     return (
         <StyledCommentSection>
             <h1>Comments</h1>
-            {
+            { 
+                comments === undefined ? (
+                    <>
+                    </>
+                ) : (
+                    <>
+                        {
+                            comments.slice().reverse().map((comment, key) => {
+                                return (
+                                    <Comment
+                                        date={comment.date}
+                                        author={comment.author}
+                                        comments={comment.comment}
+                                        commentId={comment._id}
+                                        username={username}
+                                        postId={postId}
+                                        key={key}
+                                        role={role}
+                                        setLoading={setLoading}
+                                        isLoading={isLoading}
+                                    />
+                                )
+                            })
+                        }
+                    </>
+                )
+            }
+             {
                 isLoading === true ? (
                     <Loader />
                 ) : (
@@ -89,59 +116,35 @@ export default function PostPage({ user, role, isLoggedIn, postId }) {
                     </div>
                 )
             }
-            { 
-                comments === undefined ? (
-                    <>
-                    </>
-                ) : (
-                    <>
-                        {
-                            comments.slice().reverse().map((comment, key) => {
-                                return (
-                                    <Comment
-                                        date={comment.date}
-                                        author={comment.author}
-                                        comments={comment.comment}
-                                        commentId={comment._id}
-                                        user={user}
-                                        postId={postId}
-                                        key={key}
-                                        role={role}
-                                    />
-                                )
-                            })
-                        }
-                    </>
-                )
-            }
 
         </StyledCommentSection>
     )
 }
 
 const StyledCommentSection = styled.div`
-width: 98%;
-margin: 2% auto;
-max-height: 60vh;
-border-radius: 12px;
-background: #64a5f0;
-position: relative;
-overflow-y: scroll;
+    width: 98%;
+    margin: 20px auto;
+    min-height: 20vh;
+    position: relative;
+    border: 1px #ffffff4b solid;
     .undefined {
         width: 98%;
     }
     h1 {
         width: 95%;
         margin: auto;
-        color: black;
+        color: #ffffff;
     }
     .comment-maker {
-        width: 98%;
-        margin: auto;
+        width: 60%;
+        margin: 10px auto;
         display: flex;
         flex-direction: column;
+        @media (max-width: 750px){
+            width: 90%;
+        }
         textarea {
-            border-radius: 6px;
+            border-radius: 4px;
             background: #d6d6d6;
             padding: 2px;
             min-height: 10vh;
@@ -150,10 +153,10 @@ overflow-y: scroll;
             margin: 1% auto;
             width: 150px;
             cursor: pointer;
-            color: white;
-            background: #0f4d92;
+            color: #0f4d92;
+            background: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 4px;
             font-size: 1.2em;
             font-weight: 700;
             @media (max-width: 750px){
@@ -166,6 +169,9 @@ overflow-y: scroll;
                 color: black;
             }
         }
-    
-}
+    }
+    .comment-container {
+        max-height: 40vh;
+        overflow-y: scroll;
+    }
 `;
