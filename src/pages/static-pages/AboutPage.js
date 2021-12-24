@@ -1,9 +1,9 @@
 // styled
 import styled from 'styled-components';
 
-export default function AboutPage () {
+export default function About () {
     return (
-        <StyledAboutPage >
+        <StyledAbout >
             <div className="about-wrapper">
                 <h1>About Us</h1>
                 <p><span id="bold">The Real Deal Fitness</span> was created in 2021. Our goal is to bring real health and fitness tips, 
@@ -16,11 +16,11 @@ export default function AboutPage () {
                 </p>
                 <p id="thanks"><span>Thanks,</span>The Real Deal Fitness</p>
             </div>
-        </StyledAboutPage >
+        </StyledAbout >
     )
 }
 
-const StyledAboutPage = styled.div`
+const StyledAbout = styled.div`
     width: 100%;
     min-height: 50vh;
     max-width: 875px;

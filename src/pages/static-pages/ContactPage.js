@@ -3,19 +3,19 @@ import styled from 'styled-components';
 
 // form
 import ContactForm from '../../components/ContactForm';
-export default function ContactPage () {
+export default function Contact () {
     return (
-        <StyledContactPage>
+        <StyledContact>
             <div className="contact-wrapper">
                 <h1>Contact us</h1>
                 <h2>Directly contact the Real Deal Fitness with any questions or concerns.</h2>
                 <ContactForm />
             </div>
-        </StyledContactPage >
+        </StyledContact >
     )
 }
 
-const StyledContactPage = styled.div`
+const StyledContact = styled.div`
     background: white;
     border-radius: 12px;
     margin: 20px auto;

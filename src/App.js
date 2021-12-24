@@ -25,7 +25,6 @@ import EditPostPage from "./pages/dynamic-pages/EditPostPage";
 import FilteredSearchPage from './pages/dynamic-pages/FilteredSearchPage';
 
 // legal pages
-import ConductPage from './pages/legal-pages/ConductPage.js';
 import PolicyPage from './pages/legal-pages/PolicyPage.js';
 import TermsPage from './pages/legal-pages/TermsPage.js';
 
@@ -194,16 +193,12 @@ function login () {
 			/>
           </Route> 
           
-          <Route path="/AboutPage" exact>
+          <Route path="/About" exact>
             <AboutPage />
           </Route>
           
-          <Route path="/ContactPage" exact>
+          <Route path="/Contact" exact>
             <ContactPage />
-          </Route>
-
-		<Route path="/Codeofconduct" exact>
-            <ConductPage />
           </Route>
 
 		  <Route path="/Policies" exact>

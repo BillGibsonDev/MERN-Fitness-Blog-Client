@@ -29,12 +29,11 @@ export default function Footer() {
                 </a>
             </div>
             <div className="link-container">
-                <Link to="/AboutPage">About</Link>
-                <Link to="/ContactPage">Contact</Link>
+                <Link to="/About">About</Link>
+                <Link to="/Contact">Contact</Link>
                 <a href="https://www.trdfitshop.com" target="_blank" rel="noreferrer">Merch</a>
                 <Link to="/Termsofservice">Terms of Service</Link>
                 <Link to="/Policies">Policies</Link>
-                <Link to="/Codeofconduct">Code of Conduct</Link>
             </div>
         </StyledFooter>
     )
