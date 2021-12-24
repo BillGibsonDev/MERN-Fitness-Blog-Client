@@ -188,13 +188,12 @@ const StyledAbout = styled.div`
     margin: 20px auto;
     width: 95%;
     max-width: 875px;
-    h1 {
-        color: #ffffff;
+    h1, h2 {
         font-size: 2em;
         text-decoration: underline;
         margin-top: 20px;
     }
-    h2, h3, p, li {
+    h1, h2, h3, p, li {
         color: white;
     }
     a { 
