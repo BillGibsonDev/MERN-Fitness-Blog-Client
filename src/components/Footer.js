@@ -79,12 +79,11 @@ const StyledFooter = styled.div`
     }
     .link-container {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         width: 80%;
         @media (max-width: 1050px){
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-row-gap: 20px;
             width: 100%;
+            margin-top: 40px;
         }
         a {
             display: flex;
@@ -92,6 +91,9 @@ const StyledFooter = styled.div`
             width: 100%;
             font-size: 12px;
             color: white;
+            @media (max-width: 450px){
+                font-size: 10px
+            }
             &:hover {
                 text-decoration: underline;
             }
