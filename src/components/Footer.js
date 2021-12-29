@@ -18,13 +18,13 @@ export default function Footer() {
                 <a href="https://facebook.com/therealdealfitness" target="_blank" rel="noreferrer">
                     <img src={FB} alt="" />
                 </a>
-                <a href="https://instagram.com/the_real_deal_fitness" target="_blank" rel="noreferrer">
+                <a href="https://instagram.com/Veritable_Fitness" target="_blank" rel="noreferrer">
                     <img src={Insta} alt="" />
                 </a>
-                <a href="https://pinterest.com/therealdealfitness" target="_blank" rel="noreferrer">
+                <a href="https://pinterest.com/Veritable_Fitness" target="_blank" rel="noreferrer">
                     <img src={Pin} alt="" />
                 </a>
-                <a href="https://twitter.com/realdealfit21" target="_blank" rel="noreferrer">
+                <a href="https://twitter.com/VeritableFit" target="_blank" rel="noreferrer">
                     <img src={Twitter} alt="" />
                 </a>
             </div>
