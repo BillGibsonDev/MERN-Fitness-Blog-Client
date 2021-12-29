@@ -64,7 +64,7 @@ export default function SignUpPage() {
 			{
 				registered === false ? (
 					<>
-						<h1>Join the Real Deal Fitness Commmunity!</h1>
+						<h1>Join the Veritable Fitness Commmunity!</h1>
 						<div className="form-wrapper">
 							<label>Username:</label>
 							<input 

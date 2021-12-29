@@ -8,7 +8,7 @@ export default function Contact () {
         <StyledContact>
             <div className="contact-wrapper">
                 <h1>Contact us</h1>
-                <h2>Directly contact the Real Deal Fitness with any questions or concerns.</h2>
+                <h2>Directly contact Veritable Fitness with any questions or concerns.</h2>
                 <ContactForm />
             </div>
         </StyledContact >
