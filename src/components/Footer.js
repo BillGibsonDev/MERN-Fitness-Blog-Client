@@ -31,7 +31,7 @@ export default function Footer() {
             <div className="link-container">
                 <Link to="/About">About</Link>
                 <Link to="/Contact">Contact</Link>
-                <a href="https://www.trdfitshop.com" target="_blank" rel="noreferrer">Merch</a>
+                <a href="https://www.veritableFitness.shop" target="_blank" rel="noreferrer">Merch</a>
                 <Link to="/Termsofservice">Terms of Service</Link>
                 <Link to="/Policies">Policies</Link>
             </div>

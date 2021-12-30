@@ -27,7 +27,7 @@ function openNav() {
                     <nav>
                         <Link to="/">Home</Link>
                         <Link to="/About">About</Link>
-                        <a href="https://www.trdfitshop.com" target="_blank" rel="noreferrer">Merch</a>
+                        <a href="https://www.veritablefitness.shop" target="_blank" rel="noreferrer">Merch</a>
                         <Link to="/SignUpPage">Sign Up</Link>
                         <Link to="/LoginPage">Log In</Link>
                     </nav>
@@ -35,7 +35,7 @@ function openNav() {
                      <nav>
                         <Link to="/">Home</Link>
                         <Link to="/About">About</Link>
-                        <a href="https://www.trdfitshop.com" target="_blank" rel="noreferrer">Merch</a>
+                        <a href="https://www.veritablefitness.shop" target="_blank" rel="noreferrer">Merch</a>
                         <Link to="/ProfilePage">Profile</Link>
                         <Link to="/" onClick={logout}>Sign Out</Link>
                     </nav>
@@ -48,7 +48,7 @@ function openNav() {
                         <div className="overlayContent" onClick={closeNav}>
                             <Link to="/" onClick={closeNav}>Home</Link>
                             <Link to="/About" onClick={closeNav}>About</Link>
-                            <a href="https://trdfitshop.com" rel="noreferrer" onClick={closeNav}>Merch</a>
+                            <a href="https://www.veritablefitness.shop" rel="noreferrer" onClick={closeNav}>Merch</a>
                             <Link to="/SignUpPage" onClick={closeNav}>Sign Up</Link>
                             <Link to="/LoginPage" onClick={closeNav}>Log In</Link>
                         </div>
@@ -56,7 +56,7 @@ function openNav() {
                         <div className="overlayContent" onClick={closeNav}>
                             <Link to="/" onClick={closeNav}>Home</Link>
                             <Link to="/About" onClick={closeNav}>About</Link>
-                            <a href="https://trdfitshop.com" rel="noreferrer" onClick={closeNav}>Merch</a>
+                            <a href="https://www.veritablefitness.shop" rel="noreferrer" onClick={closeNav}>Merch</a>
                             <Link to="/ProfilePage" onClick={closeNav}>Profile</Link>
                             <Link to="/" onClick={()=>{ closeNav(); logout(); }}>Sign Out</Link>
                         </div>
