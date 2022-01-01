@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 // images
-import Logo from '../images/rdfLogoWhite.png';
+import Logo from '../images/WebsiteLogoLettering.png';
 import Hamburger from '../images/hamburgerWhite2.png';
 
 export default function Nav({role, isLoggedIn, logout}) {
@@ -82,7 +82,8 @@ const StyledNav = styled.div`
         width: 95%;
     }
     .logo {
-        width: 100px;
+        width: 200px;
+        height: 35px;
     }
     nav {
         display: flex;
