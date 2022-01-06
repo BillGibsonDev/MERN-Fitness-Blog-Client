@@ -236,7 +236,7 @@ const StyledArticle = styled.div`
         width: 90%;
         display: flex;
         flex-direction: column;
-        margin:  2em auto;
+        margin:  auto;
         border-radius: 20px;
         header {
             display: flex;
