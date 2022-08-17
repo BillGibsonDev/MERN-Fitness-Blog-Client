@@ -236,7 +236,7 @@ useEffect(() => {
                                         inputFields.length === 1 ? (
                                             <StyledButton  id="delete">Remove</StyledButton >
                                         ):(
-                                            <StyledButton  id="delete" onClick={handleRemoveFields}>Remove</StyledButton >
+                                            <StyledButton  id="delete" onClick={() => { handleRemoveFields(index) }}>Remove</StyledButton >
                                         )
                                     }
                                 </div>
